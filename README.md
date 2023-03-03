@@ -1,6 +1,11 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Pokemon catalogue app, build with React, Redux-Toolkit, Material-UI and PokeAPI. 
+
+It's a learning project following [pokedex](https://github.com/s1varam/pokedex). In this project, I practised following skills:
+* Use React to create View for FE
+* Use redux, react-redux, redux-toolkit (RTK) for state management
+* Use storybook to design component
 
 ## Available Scripts
 
