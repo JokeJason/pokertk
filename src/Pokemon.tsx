@@ -22,7 +22,7 @@ export function Pokemon() {
         </div>
       </div>
       <div className="image__container">
-        <img src={testimage} alt="test image" height={150} />
+        <img src={testimage} alt="test" height={150} />
       </div>
       <div className="poke__name">
         <h3>Charizard</h3>

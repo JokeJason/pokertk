@@ -19,6 +19,18 @@
     --water: #539DDF;
 }
 
+html {
+    --pokename: #000;
+    --cardborder: #fff;
+    --pokenumber: hsl(228, 28%, 20%);
+    --info: #fff
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url("assets/PressStart2P-Regular.ttf") format("truetype");
+}
+
 .thumbnail__container {
     display: flex;
     flex-direction: column;
@@ -46,6 +58,10 @@
 
 .thumbnail__container:hover {
     transform: scale(1.2);
+}
+
+.thumbnail__container .poke__number {
+    font-size: 1.75em;
 }
 
 .info__icon:hover {
