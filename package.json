@@ -19,6 +19,7 @@
     "prettier": "prettier \"src/**/*.{js,jsx,ts,tsx,css,scss,md}\" --write",
     "format:check": "npm run prettier -- --check",
     "format:write": "npm run prettier -- --write",
+    "types:check": "tsc --noEmit --pretty",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --no-error-on-unmatched-pattern",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix --no-error-on-unmatched-pattern",
     "fix": "npm run format:write && npm run lint:fix"
@@ -54,6 +55,7 @@
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
