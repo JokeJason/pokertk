@@ -1,6 +1,6 @@
 import React from 'react';
 import './Pokemon.css';
-import testimage from './assets/cardimg.svg';
+import charizard from './assets/charizard.svg';
 
 export function Pokemon() {
   return (
@@ -22,7 +22,7 @@ export function Pokemon() {
         </div>
       </div>
       <div className="image__container">
-        <img src={testimage} alt="test" height={150} />
+        <img src={charizard} alt="test" height={150} />
       </div>
       <div className="poke__name">
         <h3>Charizard</h3>
