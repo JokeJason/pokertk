@@ -1,6 +1,6 @@
 import React from 'react';
 import './Pokemon.css';
-import charizard from './assets/charizard.svg';
+import charizard from '../../../assets/charizard.svg';
 
 export function Pokemon() {
   return (

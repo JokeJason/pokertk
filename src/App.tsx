@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Header } from './Header';
 import { Filters } from './Filters';
-import { Pokemon } from './Pokemon';
+import { Pokemon } from './features/Pokedex/Pokemon';
 
 function App() {
   return (
