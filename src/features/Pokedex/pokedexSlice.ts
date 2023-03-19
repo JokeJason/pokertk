@@ -5,23 +5,34 @@ import type { RootState } from 'app/store';
 import { PokemonProps as Pokemon } from './Pokemon';
 
 interface PokedexState {
-  pokemonList: Pokemon[];
+  selectedRegion: string;
+  selectedType: string;
+  selectedSort: string;
 }
 
 const initialState: PokedexState = {
-  pokemonList: [],
+  selectedRegion: '',
+  selectedType: '',
+  selectedSort: '',
 };
 
 export const pokedexSlice = createSlice({
   name: 'pokedex',
   initialState,
   reducers: {
-    setPokemonList: (state, action: PayloadAction<Pokemon[]>) => {
-      state.pokemonList = action.payload;
+    setSelectedRegion: (state, action: PayloadAction<string>) => {
+      state.selectedRegion = action.payload;
+    },
+    setSelectedType: (state, action: PayloadAction<string>) => {
+      state.selectedType = action.payload;
+    },
+    setSelectedSort: (state, action: PayloadAction<string>) => {
+      state.selectedSort = action.payload;
     },
   },
 });
 
-export const { setPokemonList } = pokedexSlice.actions;
+export const { setSelectedRegion, setSelectedType, setSelectedSort } =
+  pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
