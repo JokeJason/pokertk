@@ -1,12 +1,17 @@
 import React from 'react';
 import './Pokemon.css';
-import charizard from '../../../assets/charizard.svg';
 
-export function Pokemon() {
+interface PokemonProps {
+  name: string;
+  number: string;
+  image: string;
+}
+
+export function Pokemon({ name, number, image }: PokemonProps) {
   return (
     <div className="thumbnail__container">
       <div className="card__header">
-        <div className="poke__number">#006</div>
+        <div className="poke__number">{number}</div>
         <div className="info__icon">
           <svg
             stroke="currentColor"
@@ -22,10 +27,10 @@ export function Pokemon() {
         </div>
       </div>
       <div className="image__container">
-        <img src={charizard} alt="test" height={150} />
+        <img src={image} alt="test" height={150} />
       </div>
       <div className="poke__name">
-        <h3>Charizard</h3>
+        <h3>{name}</h3>
       </div>
     </div>
   );
