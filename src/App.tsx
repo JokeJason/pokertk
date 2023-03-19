@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from 'components/Header';
-import Filters from 'components/Filters';
+import Filters from './features/Pokedex/Filters/Filters';
 import { Pokedex } from './features/Pokedex/Pokedex';
 
 function App() {
