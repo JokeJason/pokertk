@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Filters() {
+const Filters = () => {
   return (
     <>
       <div className="filter__container">
@@ -31,6 +31,6 @@ export function Filters() {
       </div>
     </>
   );
-}
+};
 
-export {};
+export default Filters;
