@@ -7,7 +7,7 @@ export interface PokemonProps {
   image: string;
 }
 
-export function Pokemon({ name, number, image }: PokemonProps) {
+export default function Pokemon({ name, number, image }: PokemonProps) {
   return (
     <div className="thumbnail__container">
       <div className="card__header">

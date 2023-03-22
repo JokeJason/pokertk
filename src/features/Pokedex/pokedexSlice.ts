@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
 
-import { PokemonProps as Pokemon } from './Pokemon';
-
 interface PokedexState {
   selectedRegion: string;
   selectedType: string;

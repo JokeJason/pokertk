@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from 'components/Header';
-import Filters from './features/Pokedex/Filters/Filters';
-import { Pokedex } from './features/Pokedex/Pokedex';
+import Pokedex from './features/Pokedex';
 import { useGetPokemonListQuery } from './features/Pokedex/pokedexApi';
 import Loading from './components/Loading';
 
@@ -18,7 +17,6 @@ function App() {
   return (
     <div className="App app_container">
       <Header />
-      <Filters />
       <Pokedex />
     </div>
   );
