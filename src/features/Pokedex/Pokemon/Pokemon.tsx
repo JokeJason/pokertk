@@ -3,15 +3,16 @@ import './Pokemon.css';
 
 export interface PokemonProps {
   name: string;
-  number: string;
+  number: number;
   image: string;
+  types: string[];
 }
 
 export default function Pokemon({ name, number, image }: PokemonProps) {
   return (
     <div className="thumbnail__container">
       <div className="card__header">
-        <div className="poke__number">{number}</div>
+        <div className="poke__number">{formatNumber(number)}</div>
         <div className="info__icon">
           <svg
             stroke="currentColor"
@@ -27,11 +28,15 @@ export default function Pokemon({ name, number, image }: PokemonProps) {
         </div>
       </div>
       <div className="image__container">
-        <img src={image} alt="test" height={150} />
+        <img src={image} alt={name} height={150} />
       </div>
       <div className="poke__name">
         <h3>{name}</h3>
       </div>
     </div>
   );
+}
+
+function formatNumber(num: number) {
+  return '#' + num.toString().padStart(3, '0');
 }

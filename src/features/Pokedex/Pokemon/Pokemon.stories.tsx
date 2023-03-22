@@ -3,7 +3,9 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Pokemon, { PokemonProps } from './Pokemon';
-import charizard from 'assets/charizard.svg';
+
+import charizard_svg from './assets/stories/charizard.svg';
+import charizard_info from './assets/stories/charizard.json';
 
 export default {
   title: 'Pokedex/PokemonCard',
@@ -17,14 +19,14 @@ const Template: ComponentStory<typeof Pokemon> = (args: PokemonProps) => (
 export const Primary = Template.bind({});
 
 Primary.args = {
-  name: 'Charizard',
-  number: '#006',
-  image: charizard,
+  name: charizard_info.name,
+  number: 6,
+  image: charizard_svg,
 };
 
 export const Charizard = Template.bind({});
 Charizard.args = {
-  name: 'Charizard',
-  number: '#006',
-  image: charizard,
+  name: charizard_info.name,
+  number: 6,
+  image: charizard_svg,
 };
