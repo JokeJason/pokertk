@@ -67,6 +67,7 @@ html {
   margin-right: 15px;
   margin-top: -4px;
   font-size: 25px;
+  color: var(--info);
   opacity: 0.5;
 }
 
@@ -99,7 +100,7 @@ h3 {
 }
 
 .poke__name h3 {
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .poke__type {

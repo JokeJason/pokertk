@@ -1,7 +1,9 @@
 import React from 'react';
-import './Pokemon.css';
 import { Tooltip, Zoom } from '@mui/material';
+
+import './Pokemon.css';
 import * as pokeTypeAsset from './assets';
+import { colorTypeGradients } from './utils';
 
 export interface PokemonProps {
   name: string;
@@ -58,8 +60,21 @@ function findPokeTypeAsset(pokeType: string) {
 }
 
 export default function Pokemon({ name, number, image, types }: PokemonProps) {
+  let finalColor;
+
+  if (types.length === 2) {
+    finalColor = colorTypeGradients(types[0], types[1], types.length);
+  } else {
+    finalColor = colorTypeGradients(types[0], types[0], types.length);
+  }
+
   return (
-    <div className="thumbnail__container">
+    <div
+      className="thumbnail__container"
+      style={{
+        background: `linear-gradient(${finalColor[0]}, ${finalColor[1]})`,
+      }}
+    >
       <div className="card__header">
         <div className="poke__number">{formatNumber(number)}</div>
         <div className="info__icon">
