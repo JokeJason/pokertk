@@ -10,7 +10,7 @@ export interface PokemonProps {
   types: string[];
 }
 
-function formatNumber(num: number) {
+export function formatNumber(num: number) {
   return '#' + num.toString().padStart(3, '0');
 }
 
