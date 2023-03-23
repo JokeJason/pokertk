@@ -52,15 +52,7 @@ html {
 }
 
 .thumbnail__container:hover {
-  transform: scale(1.2);
-}
-
-.thumbnail__container .poke__number {
-  font-size: 1.75em;
-}
-
-.info__icon:hover {
-  opacity: 1;
+  transform: scale(1.1);
 }
 
 .info__icon {
@@ -71,9 +63,14 @@ html {
   opacity: 0.5;
 }
 
+.info__icon:hover {
+  opacity: 1;
+}
+
 h3 {
   font-family: 'Press Start 2P', cursive;
   margin-bottom: 0.2rem;
+  color: var(--pokename);
 }
 
 .thumbnail__container .poke__number {
@@ -97,10 +94,6 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.poke__name h3 {
-  margin-top: 0;
 }
 
 .poke__type {
@@ -215,4 +208,44 @@ h3 {
 .fire {
   background: var(--fire);
   box-shadow: 0 0 20px var(--fire);
+}
+
+.image__container {
+  height: 150px;
+  width: 150px;
+}
+
+.poke__name h3 {
+  margin-top: 0;
+}
+
+.MuiTooltip-tooltip{
+  font-size: 15px;
+}
+
+@media screen and (max-width: 767px) {
+  .thumbnail__container .img__thumbnail {
+    width: 90px;
+    height: 90px;
+  }
+  .thumbnail__container {
+    min-width: 175px;
+    height: 225px;
+    margin: 1.25rem 0.75rem;
+    padding: 1.25rem 0;
+  }
+  .image__container {
+    height: 90px;
+    width: 90px;
+  }
+  .thumbnail__container .poke__number {
+    font-size: 1.75em;
+  }
+  .poke__name h3 {
+    margin-top: 20px;
+    font-size: 1em;
+  }
+  .poke__type {
+    margin-top: 20px;
+  }
 }

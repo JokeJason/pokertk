@@ -70,7 +70,7 @@ export default function Pokemon({ name, number, image, types }: PokemonProps) {
 
   return (
     <div
-      className="thumbnail__container"
+      className="thumbnail__container noselect"
       style={{
         background: `linear-gradient(${finalColor[0]}, ${finalColor[1]})`,
       }}
@@ -92,7 +92,7 @@ export default function Pokemon({ name, number, image, types }: PokemonProps) {
         </div>
       </div>
       <div className="image__container">
-        <img src={image} alt={name} height={150} />
+        <img src={image} alt={name} />
       </div>
       <div className="poke__name">
         <h3>{name}</h3>
