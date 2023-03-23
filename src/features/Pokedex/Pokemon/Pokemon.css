@@ -101,3 +101,27 @@ h3 {
 .poke__name h3 {
   margin-top: 0px;
 }
+
+.poke__type {
+  display: flex;
+  grid-gap: 0 10px;
+  gap: 0 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.poke__type__bg > img {
+  width: 20px;
+  height: 20px;
+}
+
+.poke__type__bg {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}

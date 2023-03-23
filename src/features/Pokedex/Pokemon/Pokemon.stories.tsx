@@ -22,6 +22,7 @@ Primary.args = {
   name: charizard_info.name,
   number: 6,
   image: charizard_svg,
+  types: ['fire', 'flying'],
 };
 
 export const Charizard = Template.bind({});
@@ -29,4 +30,5 @@ Charizard.args = {
   name: charizard_info.name,
   number: 6,
   image: charizard_svg,
+  types: ['fire', 'flying'],
 };
