@@ -18,10 +18,6 @@ describe('pokedexApi', () => {
     });
   });
 
-  afterEach(() => {
-    store.dispatch(pokedexApi.util.resetApiState());
-  });
-
   describe('JEST test against real API', () => {
     test('visit https://pokeapi.co/api/v2/region/1 should return correct data', async () => {
       await store.dispatch(pokedexApi.endpoints.getRegion.initiate(1));
