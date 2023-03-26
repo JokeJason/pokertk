@@ -44,6 +44,12 @@ export const pokedexApi = createApi({
         };
       },
     }),
+    getPokemon: builder.query<Pokemon, number | string>({
+      query: IdOrName => `pokemon/${IdOrName}`,
+    }),
+    getRegion: builder.query<Region, number | string>({
+      query: IdOrName => `region/${IdOrName}`,
+    }),
   }),
 });
 
