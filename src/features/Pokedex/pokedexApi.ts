@@ -1,5 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 import type { PokemonProps as Pokemon } from './Pokemon';
+import {
+  paginationCustomBaseQuery,
+  pokeApiFullListFetchArgs,
+} from './paginationBaseQuery';
 
 export interface Region {
   name: string;
@@ -11,33 +19,48 @@ export interface Type {
   url: string;
 }
 
-interface RegionResponse {
+export interface PokemonListResponse {
   count: number;
-  next: string | null;
-  previous: string | null;
+  results: Pokemon[];
+}
+
+export interface RegionListResponse {
+  count: number;
   results: Region[];
 }
 
-interface TypeResponse {
+export interface TypeListResponse {
   count: number;
-  next: string | null;
-  previous: string | null;
   results: Type[];
 }
 
+const pokeApiBaseQuery = async (
+  args: pokeApiFullListFetchArgs,
+  api: any,
+  extra: any,
+) => {
+  const baseUrl = 'https://pokeapi.co/api/v2/';
+
+  if (args.fetchAllPages) {
+    return paginationCustomBaseQuery(args, api, extra, baseUrl);
+  } else {
+    return fetchBaseQuery({ baseUrl })(args, api, extra);
+  }
+};
+
 export const pokedexApi = createApi({
   reducerPath: 'pokedexApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
+  baseQuery: pokeApiBaseQuery,
   endpoints: builder => ({
-    getPokemonList: builder.query<Pokemon[], number>({
-      query: limit => `pokemon?limit=${limit}`,
+    getPokemonList: builder.query<PokemonListResponse, void>({
+      query: () => ({ url: `pokemon`, fetchAllPages: true }),
     }),
-    getRegionList: builder.query<RegionResponse, void>({
-      query: () => 'region',
+    getRegionList: builder.query<RegionListResponse, void>({
+      query: () => ({ url: 'region', fetchAllPages: true }),
     }),
-    getTypeList: builder.query<TypeResponse, void>({
-      query: () => 'type',
-      transformResponse: (response: RegionResponse) => {
+    getTypeList: builder.query<TypeListResponse, void>({
+      query: () => ({ url: 'type', fetchAllPages: true }),
+      transformResponse: (response: RegionListResponse) => {
         return {
           ...response,
           results: [{ name: 'All Types', url: '' }, ...response.results],
@@ -45,10 +68,13 @@ export const pokedexApi = createApi({
       },
     }),
     getPokemon: builder.query<Pokemon, number | string>({
-      query: IdOrName => `pokemon/${IdOrName}`,
+      query: IdOrName => ({ url: `pokemon/${IdOrName}` }),
     }),
     getRegion: builder.query<Region, number | string>({
-      query: IdOrName => `region/${IdOrName}`,
+      query: IdOrName => ({ url: `region/${IdOrName}` }),
+    }),
+    getType: builder.query<Type, number | string>({
+      query: IdOrName => ({ url: `type/${IdOrName}` }),
     }),
   }),
 });
@@ -57,4 +83,7 @@ export const {
   useGetPokemonListQuery,
   useGetRegionListQuery,
   useGetTypeListQuery,
+  useGetPokemonQuery,
+  useGetRegionQuery,
+  useGetTypeQuery,
 } = pokedexApi;

@@ -7,7 +7,7 @@ import Loading from 'components/Loading';
 import charizard from 'features/Pokedex/Pokemon/assets/stories/charizard.svg';
 
 const Pokedex = () => {
-  const { data, error, isLoading } = useGetPokemonListQuery(100);
+  const { data, error, isLoading } = useGetPokemonListQuery();
 
   return (
     <>
