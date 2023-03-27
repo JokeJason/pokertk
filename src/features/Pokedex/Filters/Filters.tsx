@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useGetRegionListQuery,
   useGetTypeListQuery,
@@ -42,6 +42,20 @@ const Filters = () => {
     isLoading: typesLoading,
   } = useGetTypeListQuery();
   const { data: sortOptions } = useGetSortOptions();
+
+  // Send the first region as the default selected region
+  useEffect(() => {
+    if (regionsData && regionsData.results.length > 0) {
+      dispatch(setSelectedRegion(regionsData.results[0].name));
+    }
+  }, [regionsData, dispatch]);
+
+  // Send the first type as the default selected type
+  useEffect(() => {
+    if (typesData && typesData.results.length > 0) {
+      dispatch(setSelectedType(typesData.results[0].name));
+    }
+  }, [typesData, dispatch]);
 
   return (
     <>
