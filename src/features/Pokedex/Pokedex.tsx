@@ -1,18 +1,19 @@
 import React from 'react';
 import Pokemon from './Pokemon';
 import Filters from './Filters';
-import { useGetPokemonListQuery } from './pokedexApi';
+import { useGetRegionListQuery, useGetTypeListQuery } from './pokedexApi';
 import Loading from 'components/Loading';
 
 import charizard from 'features/Pokedex/Pokemon/assets/stories/charizard.svg';
 
 const Pokedex = () => {
-  const { data, error, isLoading } = useGetPokemonListQuery();
+  const { isLoading: isLoadingRegionList } = useGetRegionListQuery();
+  const { isLoading: isLoadingTypeList } = useGetTypeListQuery();
 
   return (
     <>
       <Filters />
-      {isLoading ? (
+      {isLoadingRegionList && isLoadingTypeList ? (
         <Loading />
       ) : (
         <Pokemon
