@@ -1,14 +1,10 @@
-import {
-  pokedexApi,
-  PokemonListResponse,
-  RegionListResponse,
-  TypeListResponse,
-} from 'features/Pokedex/pokedexApi';
+import { pokedexApi } from 'features/Pokedex/pokedexApi';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import region1 from 'features/Pokedex/__test__/responses/region1.json';
 import pokemon1 from 'features/Pokedex/__test__/responses/pokemon1.json';
 import { AppStore } from 'app/store';
+import { RegionListResponseData, TypeListResponseData } from '../types/api';
 
 let store: AppStore;
 describe('pokedexApi', () => {
@@ -89,7 +85,7 @@ describe('pokedexApi', () => {
 
       const regionListData = pokedexApi.endpoints.getRegionList.select()(
         store.getState(),
-      ).data as RegionListResponse;
+      ).data as RegionListResponseData;
       expect(regionListData?.results).toHaveLength(regionListData.count);
     });
 
@@ -98,7 +94,7 @@ describe('pokedexApi', () => {
 
       const typeListData = pokedexApi.endpoints.getTypeList.select()(
         store.getState(),
-      ).data as TypeListResponse;
+      ).data as TypeListResponseData;
       expect(typeListData?.results).toHaveLength(typeListData.count + 1);
     });
 

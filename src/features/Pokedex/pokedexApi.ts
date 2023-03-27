@@ -1,38 +1,16 @@
-import {
-  createApi,
-  FetchArgs,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import type { PokemonProps as Pokemon } from './Pokemon';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   pokeApiAllPagesCustomBaseQuery,
   pokeApiFullListFetchArgs,
 } from './paginationBaseQuery';
-
-export interface Region {
-  name: string;
-  url: string;
-}
-
-export interface Type {
-  name: string;
-  url: string;
-}
-
-export interface PokemonListResponse {
-  count: number;
-  results: Pokemon[];
-}
-
-export interface RegionListResponse {
-  count: number;
-  results: Region[];
-}
-
-export interface TypeListResponse {
-  count: number;
-  results: Type[];
-}
+import {
+  PokemonListResponseData,
+  PokemonResponseData,
+  RegionListResponseData,
+  RegionResponseData,
+  TypeListResponseData,
+  TypeResponseData,
+} from './types/api';
 
 const pokeApiBaseQuery = async (
   args: pokeApiFullListFetchArgs,
@@ -52,28 +30,28 @@ export const pokedexApi = createApi({
   reducerPath: 'pokedexApi',
   baseQuery: pokeApiBaseQuery,
   endpoints: builder => ({
-    getPokemonList: builder.query<PokemonListResponse, void>({
+    getPokemonList: builder.query<PokemonListResponseData, void>({
       query: () => ({ url: `pokemon`, fetchAllPages: true }),
     }),
-    getRegionList: builder.query<RegionListResponse, void>({
+    getRegionList: builder.query<RegionListResponseData, void>({
       query: () => ({ url: 'region', fetchAllPages: true }),
     }),
-    getTypeList: builder.query<TypeListResponse, void>({
+    getTypeList: builder.query<TypeListResponseData, void>({
       query: () => ({ url: 'type', fetchAllPages: true }),
-      transformResponse: (response: RegionListResponse) => {
+      transformResponse: (response: RegionListResponseData) => {
         return {
           ...response,
           results: [{ name: 'All Types', url: '' }, ...response.results],
         };
       },
     }),
-    getPokemon: builder.query<Pokemon, number | string>({
+    getPokemon: builder.query<PokemonResponseData, number | string>({
       query: IdOrName => ({ url: `pokemon/${IdOrName}` }),
     }),
-    getRegion: builder.query<Region, number | string>({
+    getRegion: builder.query<RegionResponseData, number | string>({
       query: IdOrName => ({ url: `region/${IdOrName}` }),
     }),
-    getType: builder.query<Type, number | string>({
+    getType: builder.query<TypeResponseData, number | string>({
       query: IdOrName => ({ url: `type/${IdOrName}` }),
     }),
   }),
