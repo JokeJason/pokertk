@@ -101,5 +101,22 @@ describe('pokedexApi', () => {
       ).data as TypeListResponse;
       expect(typeListData?.results).toHaveLength(typeListData.count + 1);
     });
+
+    test('visit https://pokeapi.co/api/v2/pokemon should return correct data in list', async () => {
+      await store.dispatch(pokedexApi.endpoints.getPokemonList.initiate());
+
+      const pokemonListData = pokedexApi.endpoints.getPokemonList.select()(
+        store.getState(),
+      ).data;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(pokemonListData?.results).toHaveLength(pokemonListData.count);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(pokemonListData?.next).toBeUndefined();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(pokemonListData?.previous).toBeUndefined();
+    });
   });
 });

@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import type { PokemonProps as Pokemon } from './Pokemon';
 import {
-  paginationCustomBaseQuery,
+  pokeApiAllPagesCustomBaseQuery,
   pokeApiFullListFetchArgs,
 } from './paginationBaseQuery';
 
@@ -42,7 +42,7 @@ const pokeApiBaseQuery = async (
   const baseUrl = 'https://pokeapi.co/api/v2/';
 
   if (args.fetchAllPages) {
-    return paginationCustomBaseQuery(args, api, extra, baseUrl);
+    return pokeApiAllPagesCustomBaseQuery(args, api, extra, baseUrl);
   } else {
     return fetchBaseQuery({ baseUrl })(args, api, extra);
   }
