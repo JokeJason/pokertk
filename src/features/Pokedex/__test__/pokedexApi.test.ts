@@ -114,5 +114,16 @@ describe('pokedexApi', () => {
       // @ts-ignore
       expect(pokemonListData?.previous).toBeUndefined();
     });
+
+    test('query getRegionPokemonList for kanto should return correct data in list', async () => {
+      await store.dispatch(
+        pokedexApi.endpoints.getRegionPokemonList.initiate('johto'),
+      );
+
+      const pokemonListData = pokedexApi.endpoints.getRegionPokemonList.select(
+        'johto',
+      )(store.getState()).data;
+      expect(pokemonListData).toHaveLength(19);
+    }, 100000000000);
   });
 });

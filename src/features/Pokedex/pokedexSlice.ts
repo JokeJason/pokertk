@@ -1,17 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { PokemonProps } from './Pokemon';
 import type { RootState } from 'app/store';
 
 interface PokedexState {
   selectedRegion: string;
   selectedType: string;
   selectedSort: string;
+  pokemonList: PokemonProps[];
 }
 
 const initialState: PokedexState = {
   selectedRegion: '',
   selectedType: '',
   selectedSort: '',
+  pokemonList: [],
 };
 
 export const pokedexSlice = createSlice({

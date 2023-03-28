@@ -4,12 +4,17 @@ import {
   pokeApiFullListFetchArgs,
 } from './paginationBaseQuery';
 import {
+  AreaResponseData,
+  LocationResponseData,
   PokemonListResponseData,
   PokemonResponseData,
   RegionListResponseData,
   RegionResponseData,
   TypeListResponseData,
   TypeResponseData,
+  PokemonListItem,
+  nameUrlPair,
+  PokemonList,
 } from './types/api';
 
 const pokeApiBaseQuery = async (
@@ -54,6 +59,69 @@ export const pokedexApi = createApi({
     getType: builder.query<TypeResponseData, number | string>({
       query: IdOrName => ({ url: `type/${IdOrName}` }),
     }),
+    getLocation: builder.query<LocationResponseData, number | string>({
+      query: IdOrName => ({ url: `location/${IdOrName}` }),
+    }),
+    getArea: builder.query<AreaResponseData, number | string>({
+      query: IdOrName => ({ url: `location-area/${IdOrName}` }),
+    }),
+    getRegionPokemonList: builder.query<PokemonListItem[], number | string>({
+      async queryFn(regionIdOrName, api) {
+        // Get region data
+        const regionData: RegionResponseData = await api
+          .dispatch(pokedexApi.endpoints.getRegion.initiate(regionIdOrName))
+          .unwrap();
+
+        // Get location data
+        const locationDataList: LocationResponseData[] = await Promise.all(
+          regionData.locations.map(location =>
+            api
+              .dispatch(
+                pokedexApi.endpoints.getLocation.initiate(location.name),
+              )
+              .unwrap(),
+          ),
+        );
+
+        // Get area datas
+        const areaDataList: AreaResponseData[] = await Promise.all(
+          locationDataList
+            .flatMap(locationData => locationData.areas)
+            .map(area =>
+              api
+                .dispatch(pokedexApi.endpoints.getArea.initiate(area.name))
+                .unwrap(),
+            ),
+        );
+
+        // Collect unique Pokemon
+        const uniquePokemonList = new Set<nameUrlPair>();
+        areaDataList.forEach(areaData => {
+          areaData.pokemon_encounters.forEach(pokemon => {
+            uniquePokemonList.add(pokemon.pokemon);
+          });
+        });
+
+        // Get Pokemon data
+        const pokemonDataList: PokemonListItem[] = await Promise.all(
+          Array.from(uniquePokemonList).map(pokemon =>
+            api
+              .dispatch(pokedexApi.endpoints.getPokemon.initiate(pokemon.name))
+              .unwrap()
+              .then(pokemonData => {
+                return {
+                  name: pokemonData.name,
+                  id: pokemonData.id,
+                  type: pokemonData.types.map(type => type.type.name),
+                  image: pokemonData.sprites.other.dream_world.front_default,
+                };
+              }),
+          ),
+        );
+
+        return { data: Array.from(pokemonDataList) };
+      },
+    }),
   }),
 });
 
@@ -64,4 +132,6 @@ export const {
   useGetPokemonQuery,
   useGetRegionQuery,
   useGetTypeQuery,
+  useGetAreaQuery,
+  useGetLocationQuery,
 } = pokedexApi;
