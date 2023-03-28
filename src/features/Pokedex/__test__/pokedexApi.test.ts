@@ -115,7 +115,7 @@ describe('pokedexApi', () => {
       expect(pokemonListData?.previous).toBeUndefined();
     });
 
-    test('query getRegionPokemonList for kanto should return correct data in list', async () => {
+    test('query getRegionPokemonList for johto should return correct data in list', async () => {
       await store.dispatch(
         pokedexApi.endpoints.getRegionPokemonList.initiate('johto'),
       );
