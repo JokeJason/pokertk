@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 import {
   useGetRegionListQuery,
   useGetTypeListQuery,
+  useGetRegionPokemonListQuery,
 } from 'features/Pokedex/pokedexApi';
 import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
+  setFetchingRegionPokemonList,
 } from 'features/Pokedex/pokedexSlice';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 const useGetSortOptions = () => {
   const sortOptions = [
@@ -31,16 +33,9 @@ const Filters = () => {
     dispatch(setSelectedSort(event.target.value));
   };
 
-  const {
-    data: regionsData,
-    error: regionsError,
-    isLoading: regionsLoading,
-  } = useGetRegionListQuery();
-  const {
-    data: typesData,
-    error: typesError,
-    isLoading: typesLoading,
-  } = useGetTypeListQuery();
+  const { data: regionsData, isLoading: regionsLoading } =
+    useGetRegionListQuery();
+  const { data: typesData, isLoading: typesLoading } = useGetTypeListQuery();
   const { data: sortOptions } = useGetSortOptions();
 
   // Send the first region as the default selected region
@@ -56,6 +51,21 @@ const Filters = () => {
       dispatch(setSelectedType(typesData.results[0].name));
     }
   }, [typesData, dispatch]);
+
+  const selectedRegion = useAppSelector(state => state.pokedex.selectedRegion);
+
+  const { refetch: refetchRegionPokemonList } = useGetRegionPokemonListQuery(
+    selectedRegion,
+    { skip: !selectedRegion },
+  );
+
+  useEffect(() => {
+    if (selectedRegion) {
+      dispatch(setFetchingRegionPokemonList(true));
+      refetchRegionPokemonList();
+      dispatch(setFetchingRegionPokemonList(false));
+    }
+  }, [selectedRegion, refetchRegionPokemonList]);
 
   return (
     <>

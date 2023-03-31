@@ -2,12 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { PokemonProps } from './Pokemon';
 import type { RootState } from 'app/store';
+import { nameUrlPair } from './types/api';
 
 interface PokedexState {
   selectedRegion: string;
   selectedType: string;
   selectedSort: string;
   pokemonList: PokemonProps[];
+  regionPokemonList: nameUrlPair[];
+  fetchingRegionPokemonList: boolean;
 }
 
 const initialState: PokedexState = {
@@ -15,6 +18,8 @@ const initialState: PokedexState = {
   selectedType: '',
   selectedSort: '',
   pokemonList: [],
+  regionPokemonList: [],
+  fetchingRegionPokemonList: false,
 };
 
 export const pokedexSlice = createSlice({
@@ -30,10 +35,21 @@ export const pokedexSlice = createSlice({
     setSelectedSort: (state, action: PayloadAction<string>) => {
       state.selectedSort = action.payload;
     },
+    setFetchingRegionPokemonList: (state, action: PayloadAction<boolean>) => {
+      state.fetchingRegionPokemonList = action.payload;
+    },
+    setRegionPokemonList: (state, action: PayloadAction<nameUrlPair[]>) => {
+      state.regionPokemonList = action.payload;
+    },
   },
 });
 
-export const { setSelectedRegion, setSelectedType, setSelectedSort } =
-  pokedexSlice.actions;
+export const {
+  setSelectedRegion,
+  setSelectedType,
+  setSelectedSort,
+  setFetchingRegionPokemonList,
+  setRegionPokemonList,
+} = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;

@@ -3,6 +3,7 @@ import {
   pokeApiAllPagesCustomBaseQuery,
   pokeApiFullListFetchArgs,
 } from './paginationBaseQuery';
+import { setFetchingRegionPokemonList } from './pokedexSlice';
 import {
   AreaResponseData,
   LocationResponseData,
@@ -67,6 +68,8 @@ export const pokedexApi = createApi({
     }),
     getRegionPokemonList: builder.query<PokemonListItem[], number | string>({
       async queryFn(regionIdOrName, api) {
+        api.dispatch(setFetchingRegionPokemonList(true));
+
         // Get region data
         const regionData: RegionResponseData = await api
           .dispatch(pokedexApi.endpoints.getRegion.initiate(regionIdOrName))
@@ -119,6 +122,8 @@ export const pokedexApi = createApi({
           ),
         );
 
+        api.dispatch(setFetchingRegionPokemonList(false));
+
         return { data: Array.from(pokemonDataList) };
       },
     }),
@@ -134,4 +139,5 @@ export const {
   useGetTypeQuery,
   useGetAreaQuery,
   useGetLocationQuery,
+  useGetRegionPokemonListQuery,
 } = pokedexApi;

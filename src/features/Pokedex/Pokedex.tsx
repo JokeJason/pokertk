@@ -1,19 +1,19 @@
 import React from 'react';
 import Pokemon from './Pokemon';
 import Filters from './Filters';
-import { useGetRegionListQuery, useGetTypeListQuery } from './pokedexApi';
 import Loading from 'components/Loading';
 
 import charizard from 'features/Pokedex/Pokemon/assets/stories/charizard.svg';
+import { useAppSelector } from 'app/hooks';
 
 const Pokedex = () => {
-  const { isLoading: isLoadingRegionList } = useGetRegionListQuery();
-  const { isLoading: isLoadingTypeList } = useGetTypeListQuery();
-
+  const isFetchingRegionPokemonList = useAppSelector(
+    state => state.pokedex.fetchingRegionPokemonList,
+  );
   return (
     <>
       <Filters />
-      {isLoadingRegionList && isLoadingTypeList ? (
+      {isFetchingRegionPokemonList ? (
         <Loading />
       ) : (
         <Pokemon

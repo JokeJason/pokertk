@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Pokemon, { PokemonProps } from './Pokemon';
+import Pokemon, { PokemonCardProps } from './Pokemon';
 
 import charizard_svg from './assets/stories/charizard.svg';
 import charizard_info from './assets/stories/charizard.json';
@@ -12,7 +12,7 @@ export default {
   component: Pokemon,
 } as ComponentMeta<typeof Pokemon>;
 
-const Template: ComponentStory<typeof Pokemon> = (args: PokemonProps) => (
+const Template: ComponentStory<typeof Pokemon> = (args: PokemonCardProps) => (
   <Pokemon {...args} />
 );
 
