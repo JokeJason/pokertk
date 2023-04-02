@@ -114,17 +114,5 @@ describe('pokedexApi', () => {
       // @ts-ignore
       expect(pokemonListData?.previous).toBeUndefined();
     });
-
-    // TODO: decide whether remove these test handlers, as logic of getting Pokemon List for a Region is no longer correct
-    test('query getRegionPokemonList for johto should return correct data in list', async () => {
-      await store.dispatch(
-        pokedexApi.endpoints.getRegionPokemonList.initiate('johto'),
-      );
-
-      const pokemonListData = pokedexApi.endpoints.getRegionPokemonList.select(
-        'johto',
-      )(store.getState()).data;
-      expect(pokemonListData).toHaveLength(19);
-    }, 100000000000);
   });
 });

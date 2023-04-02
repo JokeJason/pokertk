@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  useGetTypeListQuery,
-  useGetRegionPokemonListQuery,
-} from 'features/Pokedex/pokedexApi';
+import { useGetTypeListQuery } from 'features/Pokedex/pokedexApi';
 import {
   setSelectedRegion,
   setSelectedType,
@@ -10,7 +7,6 @@ import {
   setFetchingRegionPokemonList,
 } from 'features/Pokedex/pokedexSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import RegionPokemonList from 'features/Pokedex/RegionPokemonsList.json';
 
 const useGetSortOptions = () => {
   const sortOptions = [
@@ -20,20 +16,31 @@ const useGetSortOptions = () => {
   return { data: sortOptions };
 };
 
-interface RegionPokemonIdRange {
+export const useGetRegionPokemons = () => {
+  return {
+    data: [
+      { region: 'kanto', startid: 1, endid: 151 },
+      { region: 'johto', startid: 152, endid: 251 },
+      { region: 'hoenn', startid: 252, endid: 386 },
+      { region: 'sinnoh', startid: 387, endid: 493 },
+      { region: 'unova', startid: 494, endid: 649 },
+      { region: 'kalos', startid: 650, endid: 721 },
+      { region: 'alola', startid: 722, endid: 809 },
+      { region: 'galar', startid: 810, endid: 898 },
+    ],
+  };
+};
+
+export type RegionPokemonRange = {
+  region: string;
   startid: number;
   endid: number;
-}
+};
 
-interface RegionPokemonListData {
-  [key: string]: RegionPokemonIdRange;
-}
-
-const regionPokemonListData: RegionPokemonListData = RegionPokemonList;
-
-export const createOptionElements = () => {
-  const data = regionPokemonListData;
-  return Object.entries(data).map(([region, { startid, endid }]) => {
+export const createRegionPokemonListOptionElements = (
+  data: RegionPokemonRange[],
+) => {
+  return data.map(({ region, startid, endid }) => {
     const value = `${region}`;
     const label = `${
       region.charAt(0).toUpperCase() + region.slice(1)
@@ -61,8 +68,9 @@ const Filters = () => {
 
   const { data: typesData, isLoading: typesLoading } = useGetTypeListQuery();
   const { data: sortOptions } = useGetSortOptions();
+  const { data: regionPokemonListData } = useGetRegionPokemons();
 
-  // Send the first region as the default selected region
+  // Action when loading the component
   useEffect(() => {
     const initailRegion = Object.keys(regionPokemonListData)[0];
     if (initailRegion) {
@@ -90,22 +98,9 @@ const Filters = () => {
     }
   }, [typesData]);
 
-  const selectedRegion = useAppSelector(state => state.pokedex.selectedRegion);
-
-  const { refetch: refetchRegionPokemonList } = useGetRegionPokemonListQuery(
-    selectedRegion,
-    { skip: !selectedRegion },
+  const optionElements = createRegionPokemonListOptionElements(
+    regionPokemonListData,
   );
-
-  useEffect(() => {
-    if (selectedRegion) {
-      dispatch(setFetchingRegionPokemonList(true));
-      refetchRegionPokemonList();
-      dispatch(setFetchingRegionPokemonList(false));
-    }
-  }, [selectedRegion, refetchRegionPokemonList]);
-
-  const optionElements = createOptionElements();
   return (
     <>
       <div className="filter__container">
