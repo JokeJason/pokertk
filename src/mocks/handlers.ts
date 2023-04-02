@@ -42,6 +42,7 @@ export const handlers = [
   }),
 
   // getRegionPokemonList
+  // TODO: decide whether remove these test handlers, as logic of getting Pokemon List for a Region is no longer correct
   rest.get('https://pokeapi.co/api/v2/region/johto', (req, res, ctx) => {
     return res(ctx.json(region_johto));
   }),

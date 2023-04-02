@@ -66,6 +66,7 @@ export const pokedexApi = createApi({
     getArea: builder.query<AreaResponseData, number | string>({
       query: IdOrName => ({ url: `location-area/${IdOrName}` }),
     }),
+    // TODO: decide whether remove this endpoint, as logic of getting PokemonList for a region is no longer correct
     getRegionPokemonList: builder.query<PokemonListItem[], number | string>({
       async queryFn(regionIdOrName, api) {
         api.dispatch(setFetchingRegionPokemonList(true));
