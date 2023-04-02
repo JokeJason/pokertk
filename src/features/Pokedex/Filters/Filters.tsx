@@ -4,8 +4,8 @@ import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
-  setFetchingRegionPokemonList,
 } from 'features/Pokedex/pokedexSlice';
+import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 const useGetSortOptions = () => {
@@ -17,34 +17,27 @@ const useGetSortOptions = () => {
 };
 
 export const useGetRegionPokemons = () => {
-  return {
-    data: [
-      { region: 'kanto', startid: 1, endid: 151 },
-      { region: 'johto', startid: 152, endid: 251 },
-      { region: 'hoenn', startid: 252, endid: 386 },
-      { region: 'sinnoh', startid: 387, endid: 493 },
-      { region: 'unova', startid: 494, endid: 649 },
-      { region: 'kalos', startid: 650, endid: 721 },
-      { region: 'alola', startid: 722, endid: 809 },
-      { region: 'galar', startid: 810, endid: 898 },
-    ],
-  };
-};
-
-export type RegionPokemonRange = {
-  region: string;
-  startid: number;
-  endid: number;
+  const data: RegionPokemonRange[] = [
+    { region: 'kanto', startId: 1, endId: 151 },
+    { region: 'johto', startId: 152, endId: 251 },
+    { region: 'hoenn', startId: 252, endId: 386 },
+    { region: 'sinnoh', startId: 387, endId: 493 },
+    { region: 'unova', startId: 494, endId: 649 },
+    { region: 'kalos', startId: 650, endId: 721 },
+    { region: 'alola', startId: 722, endId: 809 },
+    { region: 'galar', startId: 810, endId: 898 },
+  ];
+  return { data: data };
 };
 
 export const createRegionPokemonListOptionElements = (
   data: RegionPokemonRange[],
 ) => {
-  return data.map(({ region, startid, endid }) => {
+  return data.map(({ region, startId, endId }) => {
     const value = `${region}`;
     const label = `${
       region.charAt(0).toUpperCase() + region.slice(1)
-    } (${startid}-${endid})`;
+    } (${startId}-${endId})`;
     return (
       <option key={region} value={value}>
         {label}
