@@ -1,0 +1,34 @@
+{
+  "Kanto": {
+    "startid": 1,
+    "endid": 151
+  },
+  "Johto": {
+    "startid": 152,
+    "endid": 251
+  },
+  "Hoenn": {
+    "startid": 252,
+    "endid": 386
+  },
+  "Sinnoh": {
+    "startid": 387,
+    "endid": 494
+  },
+  "Unova": {
+    "startid": 495,
+    "endid": 649
+  },
+  "Kalos": {
+    "startid": 650,
+    "endid": 721
+  },
+  "Alola": {
+    "startid": 722,
+    "endid": 809
+  },
+  "Galar": {
+    "startid": 810,
+    "endid": 898
+  }
+}

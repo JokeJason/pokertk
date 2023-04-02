@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-  useGetRegionListQuery,
   useGetTypeListQuery,
   useGetRegionPokemonListQuery,
 } from 'features/Pokedex/pokedexApi';
@@ -11,6 +10,7 @@ import {
   setFetchingRegionPokemonList,
 } from 'features/Pokedex/pokedexSlice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import RegionPokemonList from 'features/Pokedex/RegionPokemonsList.json';
 
 const useGetSortOptions = () => {
   const sortOptions = [
@@ -18,6 +18,32 @@ const useGetSortOptions = () => {
     { name: 'Name', value: 'name' },
   ];
   return { data: sortOptions };
+};
+
+interface RegionPokemonIdRange {
+  startid: number;
+  endid: number;
+}
+
+interface RegionPokemonListData {
+  [key: string]: RegionPokemonIdRange;
+}
+
+const regionPokemonListData: RegionPokemonListData = RegionPokemonList;
+
+export const createOptionElements = () => {
+  const data = regionPokemonListData;
+  return Object.entries(data).map(([region, { startid, endid }]) => {
+    const value = `${region}`;
+    const label = `${
+      region.charAt(0).toUpperCase() + region.slice(1)
+    } (${startid}-${endid})`;
+    return (
+      <option key={region} value={value}>
+        {label}
+      </option>
+    );
+  });
 };
 
 const Filters = () => {
@@ -33,24 +59,36 @@ const Filters = () => {
     dispatch(setSelectedSort(event.target.value));
   };
 
-  const { data: regionsData, isLoading: regionsLoading } =
-    useGetRegionListQuery();
   const { data: typesData, isLoading: typesLoading } = useGetTypeListQuery();
   const { data: sortOptions } = useGetSortOptions();
 
   // Send the first region as the default selected region
   useEffect(() => {
-    if (regionsData && regionsData.results.length > 0) {
-      dispatch(setSelectedRegion(regionsData.results[0].name));
+    const initailRegion = Object.keys(regionPokemonListData)[0];
+    if (initailRegion) {
+      const initialEvent = {
+        target: { value: initailRegion },
+      } as React.ChangeEvent<HTMLSelectElement>;
+      handleRegionChange(initialEvent);
     }
-  }, [regionsData, dispatch]);
+
+    if (sortOptions && sortOptions.length > 0) {
+      const initialSortEvent = {
+        target: { value: sortOptions[0].value },
+      } as React.ChangeEvent<HTMLSelectElement>;
+      handleSortChange(initialSortEvent);
+    }
+  }, []);
 
   // Send the first type as the default selected type
   useEffect(() => {
     if (typesData && typesData.results.length > 0) {
-      dispatch(setSelectedType(typesData.results[0].name));
+      const initialTypeEvent = {
+        target: { value: typesData.results[0].name },
+      } as React.ChangeEvent<HTMLSelectElement>;
+      handleTypeChange(initialTypeEvent);
     }
-  }, [typesData, dispatch]);
+  }, [typesData]);
 
   const selectedRegion = useAppSelector(state => state.pokedex.selectedRegion);
 
@@ -67,6 +105,7 @@ const Filters = () => {
     }
   }, [selectedRegion, refetchRegionPokemonList]);
 
+  const optionElements = createOptionElements();
   return (
     <>
       <div className="filter__container">
@@ -75,29 +114,17 @@ const Filters = () => {
             <div>REGION</div>
             <select
               name="regionSelect"
-              disabled={regionsLoading}
               onChange={handleRegionChange}
+              value={Object.keys(regionPokemonListData)[0]}
             >
-              {regionsLoading ? (
-                <option>Loading...</option>
-              ) : (
-                regionsData?.results.map(region => (
-                  <option key={region.name} value={region.name}>
-                    {region.name}
-                  </option>
-                ))
-              )}
+              {optionElements}
             </select>
           </div>
         </div>
         <div className="filter__items">
           <div>
             <div>TYPE</div>
-            <select
-              name="regionSelect"
-              disabled={regionsLoading}
-              onChange={handleTypeChange}
-            >
+            <select name="regionSelect" onChange={handleTypeChange}>
               {typesLoading ? (
                 <option>Loading...</option>
               ) : (
