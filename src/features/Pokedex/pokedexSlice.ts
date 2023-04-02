@@ -38,9 +38,6 @@ export const pokedexSlice = createSlice({
     setFetchingRegionPokemonList: (state, action: PayloadAction<boolean>) => {
       state.fetchingRegionPokemonList = action.payload;
     },
-    setRegionPokemonList: (state, action: PayloadAction<nameUrlPair[]>) => {
-      state.regionPokemonList = action.payload;
-    },
   },
 });
 
@@ -49,7 +46,6 @@ export const {
   setSelectedType,
   setSelectedSort,
   setFetchingRegionPokemonList,
-  setRegionPokemonList,
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
