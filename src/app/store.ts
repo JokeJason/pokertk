@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { listenerMiddleware } from './listenerMiddleware';
 import { pokedexApi } from 'features/Pokedex/pokedexApi';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 
@@ -11,7 +12,10 @@ export const store = configureStore({
     [pokedexApi.reducerPath]: pokedexApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(pokedexApi.middleware),
+    getDefaultMiddleware().concat(
+      pokedexApi.middleware,
+      listenerMiddleware.middleware,
+    ),
   devTools: true,
 });
 
