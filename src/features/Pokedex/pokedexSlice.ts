@@ -1,5 +1,5 @@
-import { createSlice, Slice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
 import { startAppListening } from 'app/listenerMiddleware';
 import { PokedexState, RegionPokemonRange } from 'features/Pokedex/types/slice';
