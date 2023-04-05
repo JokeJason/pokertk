@@ -1,18 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, Slice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { PokedexState } from 'features/Pokedex/types/slice';
-import type { RootState } from 'app/store';
-import { nameUrlPair } from './types/api';
+
+import { startAppListening } from 'app/listenerMiddleware';
+import { PokedexState, RegionPokemonRange } from 'features/Pokedex/types/slice';
+
+import { getStartAndEndIdsForRegion } from './utils';
+import { PokemonResponseData } from './types/api';
 
 const initialState: PokedexState = {
   selectedRegion: '',
+  regionPokemonIdsList: [],
   selectedType: '',
   selectedSort: '',
+  isLoadingPokemons: true,
   pokemonList: [],
-  fetchingRegionPokemonList: false,
 };
 
-export const pokedexSlice = createSlice({
+export const pokedexSlice: Slice<PokedexState> = createSlice({
   name: 'pokedex',
   initialState,
   reducers: {
@@ -25,8 +29,17 @@ export const pokedexSlice = createSlice({
     setSelectedSort: (state, action: PayloadAction<string>) => {
       state.selectedSort = action.payload;
     },
-    setFetchingRegionPokemonList: (state, action: PayloadAction<boolean>) => {
-      state.fetchingRegionPokemonList = action.payload;
+    setRegionPokemonIdsList: (
+      state,
+      action: PayloadAction<RegionPokemonRange[]>,
+    ) => {
+      state.regionPokemonIdsList = action.payload;
+    },
+    setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
+      state.isLoadingPokemons = action.payload;
+    },
+    setPokemonList: (state, action: PayloadAction<PokemonResponseData[]>) => {
+      state.pokemonList = action.payload;
     },
   },
 });
@@ -35,7 +48,9 @@ export const {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
-  setFetchingRegionPokemonList,
+  setRegionPokemonIdsList,
+  setIsLoadingPokemons,
+  setPokemonList,
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;

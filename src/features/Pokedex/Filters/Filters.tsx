@@ -4,6 +4,7 @@ import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
+  setRegionPokemonIdsList,
 } from 'features/Pokedex/pokedexSlice';
 import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -65,6 +66,8 @@ const Filters = () => {
 
   // Action when loading the component
   useEffect(() => {
+    dispatch(setRegionPokemonIdsList(regionPokemonListData));
+
     const initailRegion = Object.keys(regionPokemonListData)[0];
     if (initailRegion) {
       const initialEvent = {

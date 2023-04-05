@@ -1,11 +1,12 @@
-import { PokemonProps } from 'features/Pokedex/Pokemon';
+import { PokemonResponseData } from './api';
 
 export type PokedexState = {
   selectedRegion: string;
+  regionPokemonIdsList: RegionPokemonRange[];
   selectedType: string;
   selectedSort: string;
-  pokemonList: PokemonProps[];
-  fetchingRegionPokemonList: boolean;
+  isLoadingPokemons: boolean;
+  pokemonList: PokemonResponseData[];
 };
 
 export type RegionPokemonRange = {
