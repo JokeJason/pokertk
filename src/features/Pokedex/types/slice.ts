@@ -4,7 +4,9 @@ export type PokedexState = {
   selectedRegion: string;
   regionPokemonIdsList: RegionPokemonRange[];
   selectedType: string;
+  typeList: string[];
   selectedSort: string;
+  sortList: { name: string; value: string }[];
   isLoadingPokemons: boolean;
   pokemonList: PokemonResponseData[];
 };

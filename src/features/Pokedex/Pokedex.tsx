@@ -3,25 +3,29 @@ import Pokemon from './Pokemon';
 import Filters from './Filters';
 import Loading from 'components/Loading';
 
-import charizard from 'features/Pokedex/Pokemon/assets/stories/charizard.svg';
 import { useAppSelector } from 'app/hooks';
 
 const Pokedex = () => {
-  const isFetchingRegionPokemonList = useAppSelector(
-    state => state.pokedex.fetchingRegionPokemonList,
+  const isLoadingPokemons = useAppSelector(
+    state => state.pokedex.isLoadingPokemons,
   );
+  const pokemonList = useAppSelector(state => state.pokedex.pokemonList);
+
   return (
     <>
       <Filters />
-      {isFetchingRegionPokemonList ? (
+      {isLoadingPokemons ? (
         <Loading />
       ) : (
-        <Pokemon
-          name={'Charizard'}
-          number={6}
-          image={charizard}
-          types={['fire', 'flying']}
-        />
+        pokemonList.map(pokemon => (
+          <Pokemon
+            key={pokemon.id}
+            name={pokemon.name}
+            number={pokemon.id}
+            image={pokemon.sprites.other.dream_world.front_default}
+            types={pokemon.types.map(type => type.type.name)}
+          />
+        ))
       )}
     </>
   );
