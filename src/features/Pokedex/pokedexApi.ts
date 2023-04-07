@@ -3,7 +3,6 @@ import {
   pokeApiAllPagesCustomBaseQuery,
   pokeApiFullListFetchArgs,
 } from './paginationBaseQuery';
-import { setFetchingRegionPokemonList } from './pokedexSlice';
 import {
   AreaResponseData,
   LocationResponseData,

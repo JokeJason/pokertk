@@ -22,7 +22,8 @@ const sortOptions = [
   { name: 'ID', value: 'id' },
   { name: 'Name', value: 'name' },
 ];
-pokedexApi.endpoints.getTypeList.initiate();
+pokedexApi.endpoints.getTypeList.initiate(); // initialize type list fetching
+// typesData will be used in Filters.tsx
 
 const initialState: PokedexState = {
   selectedRegion: '',
@@ -88,3 +89,26 @@ export const {
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
+
+// Use second option of organizing listeners method in RTK doc
+startAppListening({
+  actionCreator: setSelectedRegion,
+  effect: async (action, { dispatch, getState }) => {
+    const selectedRegion = getState().pokedex.selectedRegion;
+    const regionPokemonList = getState().pokedex.regionPokemonIdsList;
+    console.log('regionPokemonList', regionPokemonList);
+    const { startId, endId } = getStartAndEndIdsForRegion(
+      selectedRegion,
+      regionPokemonList,
+    );
+    console.log('startId', startId);
+    console.log('endId', endId);
+    const pokemonIdsToFetch = Array.from(
+      { length: endId - startId + 1 },
+      (_, i) => i + startId,
+    );
+    console.log('pokemonIdsToFetch', pokemonIdsToFetch);
+
+    dispatch(setIsLoadingPokemons(true));
+  },
+});
