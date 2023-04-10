@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
 import { startAppListening } from 'app/listenerMiddleware';
@@ -8,7 +8,7 @@ import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from './types/api';
 import { pokedexApi } from './pokedexApi';
 
-const data: RegionPokemonRange[] = [
+const regionPokemonRange: RegionPokemonRange[] = [
   { region: 'kanto', startId: 1, endId: 151 },
   { region: 'johto', startId: 152, endId: 251 },
   { region: 'hoenn', startId: 252, endId: 386 },
@@ -25,9 +25,37 @@ const sortOptions = [
 pokedexApi.endpoints.getTypeList.initiate(); // initialize type list fetching
 // typesData will be used in Filters.tsx
 
+export const fetchPokemonsInTheRegion = createAsyncThunk(
+  'pokedex/setSelectedRegion',
+  async (region: string, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    const { startId, endId } = getStartAndEndIdsForRegion(
+      region,
+      regionPokemonRange,
+    );
+    const pokemonIds = Array.from(
+      { length: endId - startId + 1 },
+      (_, i) => i + startId,
+    );
+    // use pokemonIds to fetch pokemon data using getPokemonQuery and store in state
+    const pokemonList = await Promise.all(
+      pokemonIds.map(
+        id =>
+          dispatch(pokedexApi.endpoints.getPokemon.initiate(id)) as Promise<{
+            data: PokemonResponseData;
+          }>,
+      ),
+    );
+    const pokemonListData = pokemonList.map(
+      (pokemon: { data: PokemonResponseData }) => pokemon.data,
+    );
+    return pokemonListData;
+  },
+);
+
 const initialState: PokedexState = {
   selectedRegion: '',
-  regionPokemonIdsList: data,
+  regionPokemonIdsList: regionPokemonRange,
   selectedType: '',
   typeList: [],
   selectedSort: '',
@@ -42,6 +70,8 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
   reducers: {
     setSelectedRegion: (state, action: PayloadAction<string>) => {
       state.selectedRegion = action.payload;
+      // call fetchPokemonsInTheRegion
+      fetchPokemonsInTheRegion(action.payload);
     },
     setSelectedType: (state, action: PayloadAction<string>) => {
       state.selectedType = action.payload;
@@ -66,6 +96,11 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
     },
   },
   extraReducers: builder => {
+    // add fetchPokemonsInTheRegion
+    builder.addCase(fetchPokemonsInTheRegion.fulfilled, (state, action) => {
+      state.isLoadingPokemons = false;
+      state.pokemonList = action.payload;
+    });
     builder.addMatcher(
       pokedexApi.endpoints.getTypeList.matchFulfilled,
       (state, action) => {

@@ -4,6 +4,7 @@ import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
+  fetchPokemonsInTheRegion,
 } from 'features/Pokedex/pokedexSlice';
 import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -48,7 +49,10 @@ const Filters = () => {
             <div>REGION</div>
             <select
               name="regionSelect"
-              onChange={e => dispatch(setSelectedRegion(e.target.value))}
+              onChange={e => {
+                dispatch(setSelectedRegion(e.target.value));
+                dispatch(fetchPokemonsInTheRegion(e.target.value));
+              }}
               value={selectedRegion}
             >
               {optionElements}
