@@ -32,11 +32,19 @@ const Filters = () => {
   const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
 
   const regionPokemonList = useAppSelector(
-    state => state.pokedex.regionPokemonIdsList,
+    state => state.pokedex.regionOptions,
   );
-  const sortOptions = useAppSelector(state => state.pokedex.sortList);
+  const sortOptions = useAppSelector(state => state.pokedex.sortOptions);
 
   const { data: typesData, isLoading: typesLoading } = useGetTypeListQuery();
+
+  useEffect(() => {
+    console.log('Filters.tsx useEffect');
+  }, []);
+
+  useEffect(() => {
+    console.log('REGION changed');
+  }, [selectedRegion]);
 
   const optionElements =
     createRegionPokemonListOptionElements(regionPokemonList);

@@ -54,12 +54,12 @@ export const fetchPokemonsInTheRegion = createAsyncThunk(
 );
 
 const initialState: PokedexState = {
+  regionOptions: regionPokemonRange,
+  typeOptions: [],
+  sortOptions: sortOptions,
   selectedRegion: '',
-  regionPokemonIdsList: regionPokemonRange,
   selectedType: '',
-  typeList: [],
   selectedSort: '',
-  sortList: sortOptions,
   isLoadingPokemons: true,
   pokemonList: [],
 };
@@ -83,7 +83,7 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
       state,
       action: PayloadAction<RegionPokemonRange[]>,
     ) => {
-      state.regionPokemonIdsList = action.payload;
+      state.regionOptions = action.payload;
     },
     setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
       state.isLoadingPokemons = action.payload;
@@ -92,7 +92,7 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
       state.pokemonList = action.payload;
     },
     setTypeList: (state, action: PayloadAction<string[]>) => {
-      state.typeList = action.payload;
+      state.typeOptions = action.payload;
     },
   },
   extraReducers: builder => {
@@ -106,7 +106,7 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
       (state, action) => {
         if (action.payload && action.payload.results.length > 0) {
           const regionListResults = action.payload.results;
-          state.typeList = regionListResults.map(region => region.name);
+          state.typeOptions = regionListResults.map(region => region.name);
 
           state.selectedType = action.payload.results[0].name;
         }
@@ -124,26 +124,3 @@ export const {
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
-
-// Use second option of organizing listeners method in RTK doc
-startAppListening({
-  actionCreator: setSelectedRegion,
-  effect: async (action, { dispatch, getState }) => {
-    const selectedRegion = getState().pokedex.selectedRegion;
-    const regionPokemonList = getState().pokedex.regionPokemonIdsList;
-    console.log('regionPokemonList', regionPokemonList);
-    const { startId, endId } = getStartAndEndIdsForRegion(
-      selectedRegion,
-      regionPokemonList,
-    );
-    console.log('startId', startId);
-    console.log('endId', endId);
-    const pokemonIdsToFetch = Array.from(
-      { length: endId - startId + 1 },
-      (_, i) => i + startId,
-    );
-    console.log('pokemonIdsToFetch', pokemonIdsToFetch);
-
-    dispatch(setIsLoadingPokemons(true));
-  },
-});

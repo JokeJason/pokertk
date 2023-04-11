@@ -2,11 +2,11 @@ import { PokemonResponseData } from './api';
 
 export type PokedexState = {
   selectedRegion: string;
-  regionPokemonIdsList: RegionPokemonRange[];
+  regionOptions: RegionPokemonRange[];
   selectedType: string;
-  typeList: string[];
+  typeOptions: string[];
   selectedSort: string;
-  sortList: { name: string; value: string }[];
+  sortOptions: { name: string; value: string }[];
   isLoadingPokemons: boolean;
   pokemonList: PokemonResponseData[];
 };
