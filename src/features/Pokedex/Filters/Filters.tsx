@@ -39,12 +39,9 @@ const Filters = () => {
   const { data: typesData, isLoading: typesLoading } = useGetTypeListQuery();
 
   useEffect(() => {
-    console.log('Filters.tsx useEffect');
+    dispatch(setSelectedRegion('kanto'));
+    dispatch(fetchPokemonsInTheRegion('kanto'));
   }, []);
-
-  useEffect(() => {
-    console.log('REGION changed');
-  }, [selectedRegion]);
 
   const optionElements =
     createRegionPokemonListOptionElements(regionPokemonList);

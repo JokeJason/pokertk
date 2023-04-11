@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, Dispatch } from '@reduxjs/toolkit';
 import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
 import { PokedexState, RegionPokemonRange } from 'features/Pokedex/types/slice';
@@ -6,6 +6,7 @@ import { PokedexState, RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from './types/api';
 import { pokedexApi } from './pokedexApi';
+import { RootState } from '../../app/store';
 
 const regionPokemonRange: RegionPokemonRange[] = [
   { region: 'kanto', startId: 1, endId: 151 },
@@ -24,33 +25,33 @@ const sortOptions = [
 pokedexApi.endpoints.getTypeList.initiate(); // initialize type list fetching
 // typesData will be used in Filters.tsx
 
-export const fetchPokemonsInTheRegion = createAsyncThunk(
-  'pokedex/setSelectedRegion',
-  async (region: string, thunkAPI) => {
-    const { dispatch } = thunkAPI;
-    const { startId, endId } = getStartAndEndIdsForRegion(
-      region,
-      regionPokemonRange,
-    );
-    const pokemonIds = Array.from(
-      { length: endId - startId + 1 },
-      (_, i) => i + startId,
-    );
-    // use pokemonIds to fetch pokemon data using getPokemonQuery and store in state
-    const pokemonList = await Promise.all(
-      pokemonIds.map(
-        id =>
-          dispatch(pokedexApi.endpoints.getPokemon.initiate(id)) as Promise<{
-            data: PokemonResponseData;
-          }>,
-      ),
-    );
-    const pokemonListData = pokemonList.map(
-      (pokemon: { data: PokemonResponseData }) => pokemon.data,
-    );
-    return pokemonListData;
-  },
-);
+export const fetchPokemonsInTheRegion = createAsyncThunk<
+  PokemonResponseData[],
+  string,
+  { state: RootState }
+>('pokedex/setSelectedRegion', async (region: string, thunkAPI) => {
+  const { dispatch, getState } = thunkAPI;
+  const regionOptions = getState().pokedex.regionOptions;
+
+  const { startId, endId } = getStartAndEndIdsForRegion(region, regionOptions);
+  const pokemonIds = Array.from(
+    { length: endId - startId + 1 },
+    (_, i) => i + startId,
+  );
+  // use pokemonIds to fetch pokemon data using getPokemonQuery and store in state
+  const pokemonList = await Promise.all(
+    pokemonIds.map(
+      id =>
+        dispatch(pokedexApi.endpoints.getPokemon.initiate(id)) as Promise<{
+          data: PokemonResponseData;
+        }>,
+    ),
+  );
+  const pokemonListData = pokemonList.map(
+    (pokemon: { data: PokemonResponseData }) => pokemon.data,
+  );
+  return pokemonListData;
+});
 
 const initialState: PokedexState = {
   regionOptions: regionPokemonRange,
