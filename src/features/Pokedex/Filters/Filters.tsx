@@ -7,6 +7,7 @@ import {
   fetchPokemonsInTheRegion,
   setRegionOptions,
   setSortOptions,
+  setTypeOptions,
 } from 'features/Pokedex/pokedexSlice';
 import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -68,6 +69,10 @@ const Filters = () => {
   useEffect(() => {
     dispatch(setRegionOptions(fetchedRegionOptions));
     dispatch(setSortOptions(fetchedSortOptions));
+
+    if (!isFetchingTypeOptions && fetchedTypeOptions) {
+      dispatch(setTypeOptions(fetchedTypeOptions.results));
+    }
 
     dispatch(setSelectedRegion(fetchedRegionOptions[0].region));
     dispatch(fetchPokemonsInTheRegion(fetchedRegionOptions[0].region));
