@@ -8,20 +8,6 @@ import { PokemonResponseData } from './types/api';
 import { pokedexApi } from './pokedexApi';
 import { RootState } from '../../app/store';
 
-const regionPokemonRange: RegionPokemonRange[] = [
-  { region: 'kanto', startId: 1, endId: 151 },
-  { region: 'johto', startId: 152, endId: 251 },
-  { region: 'hoenn', startId: 252, endId: 386 },
-  { region: 'sinnoh', startId: 387, endId: 493 },
-  { region: 'unova', startId: 494, endId: 649 },
-  { region: 'kalos', startId: 650, endId: 721 },
-  { region: 'alola', startId: 722, endId: 809 },
-  { region: 'galar', startId: 810, endId: 898 },
-];
-const sortOptions = [
-  { name: 'ID', value: 'id' },
-  { name: 'Name', value: 'name' },
-];
 pokedexApi.endpoints.getTypeList.initiate(); // initialize type list fetching
 // typesData will be used in Filters.tsx
 
@@ -54,9 +40,9 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
 });
 
 const initialState: PokedexState = {
-  regionOptions: regionPokemonRange,
+  regionOptions: [],
   typeOptions: [],
-  sortOptions: sortOptions,
+  sortOptions: [],
   selectedRegion: '',
   selectedType: '',
   selectedSort: '',
@@ -79,20 +65,23 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
     setSelectedSort: (state, action: PayloadAction<string>) => {
       state.selectedSort = action.payload;
     },
-    setRegionPokemonIdsList: (
-      state,
-      action: PayloadAction<RegionPokemonRange[]>,
-    ) => {
+    setRegionOptions: (state, action: PayloadAction<RegionPokemonRange[]>) => {
       state.regionOptions = action.payload;
+    },
+    setTypeOptions: (state, action: PayloadAction<string[]>) => {
+      state.typeOptions = action.payload;
+    },
+    setSortOptions: (
+      state,
+      action: PayloadAction<{ name: string; value: string }[]>,
+    ) => {
+      state.sortOptions = action.payload;
     },
     setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
       state.isLoadingPokemons = action.payload;
     },
     setPokemonList: (state, action: PayloadAction<PokemonResponseData[]>) => {
       state.pokemonList = action.payload;
-    },
-    setTypeList: (state, action: PayloadAction<string[]>) => {
-      state.typeOptions = action.payload;
     },
   },
   extraReducers: builder => {
@@ -119,7 +108,9 @@ export const {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
-  setIsLoadingPokemons,
+  setRegionOptions,
+  setTypeOptions,
+  setSortOptions,
   setPokemonList,
 } = pokedexSlice.actions;
 
