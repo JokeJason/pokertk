@@ -9,7 +9,15 @@ const Pokedex = () => {
   const isLoadingPokemons = useAppSelector(
     state => state.pokedex.isLoadingPokemons,
   );
+  const selectedType = useAppSelector(state => state.pokedex.selectedType);
+  const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
+
   const pokemonList = useAppSelector(state => state.pokedex.pokemonList);
+
+  const filteredPokemonList = pokemonList.filter(pokemon => {
+    selectedType === 'All Types' ||
+      pokemon.types.some(type => type.type.name === selectedType);
+  });
 
   return (
     <>
@@ -17,7 +25,7 @@ const Pokedex = () => {
       {isLoadingPokemons ? (
         <Loading />
       ) : (
-        pokemonList.map(pokemon => (
+        filteredPokemonList.map(pokemon => (
           <Pokemon
             key={pokemon.id}
             name={pokemon.name}
