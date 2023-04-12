@@ -4,6 +4,18 @@ import Filters from './Filters';
 import Loading from 'components/Loading';
 
 import { useAppSelector } from 'app/hooks';
+import { PokemonResponseData } from './types/api';
+
+export const filterPokemonByType = (
+  pokemonList: PokemonResponseData[],
+  selectedType: string,
+) => {
+  return pokemonList.filter(
+    pokemon =>
+      selectedType === 'All Types' ||
+      pokemon.types.some(type => type.type.name === selectedType),
+  );
+};
 
 const Pokedex = () => {
   const isLoadingPokemons = useAppSelector(
@@ -14,10 +26,7 @@ const Pokedex = () => {
 
   const pokemonList = useAppSelector(state => state.pokedex.pokemonList);
 
-  const filteredPokemonList = pokemonList.filter(pokemon => {
-    selectedType === 'All Types' ||
-      pokemon.types.some(type => type.type.name === selectedType);
-  });
+  const filteredPokemonList = filterPokemonByType(pokemonList, selectedType);
 
   return (
     <>
