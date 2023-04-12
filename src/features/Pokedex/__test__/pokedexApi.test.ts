@@ -5,7 +5,7 @@ import region1 from 'features/Pokedex/__test__/responses/region1.json';
 import pokemon1 from 'features/Pokedex/__test__/responses/pokemon1.json';
 import { RegionListResponseData, TypeListResponseData } from '../types/api';
 import { AppStore } from 'app/store';
-import { listenerMiddleware } from '../../../app/listenerMiddleware';
+import { listenerMiddleware } from 'app/listenerMiddleware';
 
 let store: AppStore;
 describe('pokedexApi', () => {
