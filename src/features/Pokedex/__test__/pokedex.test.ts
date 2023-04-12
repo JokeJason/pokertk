@@ -1,7 +1,10 @@
-import { filterPokemonByType } from 'features/Pokedex/Pokedex';
+import {
+  filterPokemonByType,
+  sortPokemonsByIdOrName,
+} from 'features/Pokedex/Pokedex';
 import { PokemonResponseData } from 'features/Pokedex/types/api';
-import pokemon1 from 'features/Pokedex/__test__/pokemon1.json';
-import pokemon2 from 'features/Pokedex/__test__/pokemon2.json';
+import pokemon3_Venusaur from 'features/Pokedex/__test__/pokemon3_Venusaur.json';
+import pokemon4_Charmander from 'features/Pokedex/__test__/pokemon4_charmander.json';
 import { AppDispatch, AppStore } from 'app/store';
 import { configureStore, Store } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
@@ -25,7 +28,10 @@ describe('filterPokemonByType works correctly', () => {
     });
   });
 
-  const pokemonList: PokemonResponseData[] = [pokemon1, pokemon2];
+  const pokemonList: PokemonResponseData[] = [
+    pokemon3_Venusaur,
+    pokemon4_Charmander,
+  ];
 
   it('should return all Pokemon if the selected type is "All Types"', () => {
     const selectedType = 'All Types';
@@ -40,5 +46,37 @@ describe('filterPokemonByType works correctly', () => {
       pokemon.types.some(type => type.type.name === selectedType),
     );
     expect(allPokemonAreOfTypeFire).toBe(true);
+  });
+});
+
+describe('sortPokemonsByIdOrName works correctly', () => {
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        pokedex: pokedexSlice.reducer,
+        [pokedexApi.reducerPath]: pokedexApi.reducer,
+      },
+      middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(
+          pokedexApi.middleware,
+          listenerMiddleware.middleware,
+        ),
+    });
+  });
+
+  const pokemonList: PokemonResponseData[] = [
+    pokemon3_Venusaur,
+    pokemon4_Charmander,
+  ];
+  it('should sort by id if the selected sort is "id"', () => {
+    const selectedSort = 'id';
+    const sortedList = sortPokemonsByIdOrName(pokemonList, selectedSort);
+    expect(sortedList).toEqual([pokemon3_Venusaur, pokemon4_Charmander]);
+  });
+
+  it('should sort by name if the selected sort is "name"', () => {
+    const selectedSort = 'name';
+    const sortedList = sortPokemonsByIdOrName(pokemonList, selectedSort);
+    expect(sortedList).toEqual([pokemon4_Charmander, pokemon3_Venusaur]);
   });
 });

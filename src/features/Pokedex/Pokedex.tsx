@@ -17,6 +17,21 @@ export const filterPokemonByType = (
   );
 };
 
+export const sortPokemonsByIdOrName = (
+  pokemonList: PokemonResponseData[],
+  selectedSort: string,
+) => {
+  return pokemonList.sort((a, b) => {
+    if (selectedSort === 'id') {
+      return a.id - b.id;
+    } else if (selectedSort === 'name') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return 0;
+    }
+  });
+};
+
 const Pokedex = () => {
   const isLoadingPokemons = useAppSelector(
     state => state.pokedex.isLoadingPokemons,
@@ -27,6 +42,10 @@ const Pokedex = () => {
   const pokemonList = useAppSelector(state => state.pokedex.pokemonList);
 
   const filteredPokemonList = filterPokemonByType(pokemonList, selectedType);
+  const sortedFilteredPokemonList = sortPokemonsByIdOrName(
+    filteredPokemonList,
+    selectedSort,
+  );
 
   return (
     <>
@@ -34,7 +53,7 @@ const Pokedex = () => {
       {isLoadingPokemons ? (
         <Loading />
       ) : (
-        filteredPokemonList.map(pokemon => (
+        sortedFilteredPokemonList.map(pokemon => (
           <Pokemon
             key={pokemon.id}
             name={pokemon.name}
