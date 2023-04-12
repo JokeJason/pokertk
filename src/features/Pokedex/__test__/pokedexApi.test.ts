@@ -3,8 +3,9 @@ import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import region1 from 'features/Pokedex/__test__/responses/region1.json';
 import pokemon1 from 'features/Pokedex/__test__/responses/pokemon1.json';
-import { AppStore } from 'app/store';
 import { RegionListResponseData, TypeListResponseData } from '../types/api';
+import { AppStore } from 'app/store';
+import { listenerMiddleware } from '../../../app/listenerMiddleware';
 
 let store: AppStore;
 describe('pokedexApi', () => {
@@ -15,7 +16,10 @@ describe('pokedexApi', () => {
         [pokedexApi.reducerPath]: pokedexApi.reducer,
       },
       middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(pokedexApi.middleware),
+        getDefaultMiddleware().concat(
+          pokedexApi.middleware,
+          listenerMiddleware.middleware,
+        ),
     });
   });
 
