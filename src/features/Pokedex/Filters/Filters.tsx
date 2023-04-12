@@ -70,13 +70,18 @@ const Filters = () => {
     dispatch(setRegionOptions(fetchedRegionOptions));
     dispatch(setSortOptions(fetchedSortOptions));
 
-    if (!isFetchingTypeOptions && fetchedTypeOptions) {
-      dispatch(setTypeOptions(fetchedTypeOptions.results));
-    }
-
     dispatch(setSelectedRegion(fetchedRegionOptions[0].region));
     dispatch(fetchPokemonsInTheRegion(fetchedRegionOptions[0].region));
+
+    dispatch(setSelectedSort(fetchedSortOptions[0].value));
   }, []);
+
+  useEffect(() => {
+    if (!isFetchingTypeOptions && fetchedTypeOptions) {
+      dispatch(setTypeOptions(fetchedTypeOptions.results));
+      dispatch(setSelectedType(fetchedTypeOptions.results[0].name));
+    }
+  }, [isFetchingTypeOptions]);
 
   const optionElements =
     createRegionPokemonListOptionElements(regionPokemonList);
