@@ -34,13 +34,13 @@ describe('pokedex Component', () => {
       pokemon4_Charmander,
     ];
 
-    it('should return all Pokemon if the selected type is "All Types"', () => {
+    it('should return all PokemonCard if the selected type is "All Types"', () => {
       const selectedType = 'All Types';
       const filteredList = filterPokemonByType(pokemonList, selectedType);
       expect(filteredList).toEqual(pokemonList);
     });
 
-    it('should return only Pokemon of the selected type', () => {
+    it('should return only PokemonCard of the selected type', () => {
       const selectedType = 'fire';
       const filteredList = filterPokemonByType(pokemonList, selectedType);
       const allPokemonAreOfTypeFire = filteredList.every(pokemon =>

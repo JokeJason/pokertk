@@ -1,11 +1,11 @@
 import React from 'react';
 import { Tooltip, Zoom } from '@mui/material';
 
-import './Pokemon.css';
+import './PokemonCard.css';
 import * as pokeTypeAsset from './assets';
 import { colorTypeGradients } from './utils';
 
-export interface PokemonProps {
+export interface PokemonCardProps {
   name: string;
   number: number;
   image: string;
@@ -59,7 +59,12 @@ function findPokeTypeAsset(pokeType: string) {
   }
 }
 
-export default function Pokemon({ name, number, image, types }: PokemonProps) {
+export default function PokemonCard({
+  name,
+  number,
+  image,
+  types,
+}: PokemonCardProps) {
   let finalColor;
 
   if (types.length === 2) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Pokemon from './Pokemon';
+import PokemonCard from './PokemonCard';
 import Filters from './Filters';
 import Loading from 'components/Loading';
 
@@ -54,7 +54,7 @@ const Pokedex = () => {
         <Loading />
       ) : (
         sortedFilteredPokemonList.map(pokemon => (
-          <Pokemon
+          <PokemonCard
             key={pokemon.id}
             name={pokemon.name}
             number={pokemon.id}

@@ -1,4 +1,4 @@
-import { formatNumber } from './Pokemon';
+import { formatNumber } from './PokemonCard';
 
 describe('Test Functions', () => {
   describe('formatNumber', () => {

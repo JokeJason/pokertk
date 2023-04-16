@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-A simple Pokemon catalogue app, build with React, Redux-Toolkit, Material-UI and PokeAPI. 
+A simple PokemonCard catalogue app, build with React, Redux-Toolkit, Material-UI and PokeAPI. 
 
 It's a learning project following [pokedex](https://github.com/s1varam/pokedex). In this project, I practised following skills:
 * Use React to create View for FE
