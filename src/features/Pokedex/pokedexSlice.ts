@@ -24,18 +24,26 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
     { length: endId - startId + 1 },
     (_, i) => i + startId,
   );
-  // use pokemonIds to fetch pokemon data using getPokemonQuery and store in state
-  const pokemonList = await Promise.all(
+  // use pokemonIds to fetch pokemon data using fetch, remember to clear all fetched cache after saving data into store
+  const pokemonList: PokemonResponseData[] = await Promise.all(
     pokemonIds.map(
       id =>
-        dispatch(pokedexApi.endpoints.getPokemon.initiate(id)) as Promise<{
-          data: PokemonResponseData;
-        }>,
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(res =>
+          res.json(),
+        ) as Promise<PokemonResponseData>,
     ),
   );
-  const pokemonListData = pokemonList.map(
-    (pokemon: { data: PokemonResponseData }) => pokemon.data,
+
+  const pokemonListData: PokemonResponseData[] = pokemonList.map(
+    (pokemon: PokemonResponseData) => pokemon,
   );
+
+  // clear all fetched data cache
+  // pokemonIds.forEach(id => {
+  //   const cacheKey = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  //   delete (window as any).fetch.cache[cacheKey];
+  // });
+
   return pokemonListData;
 });
 
@@ -56,8 +64,6 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
   reducers: {
     setSelectedRegion: (state, action: PayloadAction<string>) => {
       state.selectedRegion = action.payload;
-      // call fetchPokemonsInTheRegion
-      fetchPokemonsInTheRegion(action.payload);
     },
     setSelectedType: (state, action: PayloadAction<string>) => {
       state.selectedType = action.payload;
@@ -79,9 +85,6 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
     },
     setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
       state.isLoadingPokemons = action.payload;
-    },
-    setPokemonList: (state, action: PayloadAction<PokemonResponseData[]>) => {
-      state.pokemonList = action.payload;
     },
   },
   extraReducers: builder => {
@@ -111,7 +114,6 @@ export const {
   setRegionOptions,
   setTypeOptions,
   setSortOptions,
-  setPokemonList,
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
