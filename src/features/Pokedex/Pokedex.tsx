@@ -56,8 +56,8 @@ const Pokedex = () => {
         sortedFilteredPokemonList.map(pokemon => (
           <PokemonCard
             key={pokemon.id}
+            id={pokemon.id}
             name={pokemon.name}
-            number={pokemon.id}
             image={pokemon.sprites.other.dream_world.front_default}
             types={pokemon.types.map(type => type.type.name)}
           />

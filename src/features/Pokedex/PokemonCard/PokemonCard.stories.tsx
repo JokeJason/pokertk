@@ -19,16 +19,16 @@ const Template: ComponentStory<typeof PokemonCard> = (
 export const Primary = Template.bind({});
 
 Primary.args = {
+  id: 6,
   name: charizard_info.name,
-  number: 6,
   image: charizard_svg,
   types: ['fire', 'flying'],
 };
 
 export const Charizard = Template.bind({});
 Charizard.args = {
+  id: 6,
   name: charizard_info.name,
-  number: 6,
   image: charizard_svg,
   types: ['fire', 'flying'],
 };

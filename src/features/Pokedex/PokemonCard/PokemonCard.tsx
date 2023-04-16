@@ -6,8 +6,8 @@ import * as pokeTypeAsset from './assets';
 import { colorTypeGradients } from './utils';
 
 export interface PokemonCardProps {
+  id: number;
   name: string;
-  number: number;
   image: string;
   types: string[];
 }
@@ -60,8 +60,8 @@ function findPokeTypeAsset(pokeType: string) {
 }
 
 export default function PokemonCard({
+  id,
   name,
-  number,
   image,
   types,
 }: PokemonCardProps) {
@@ -81,7 +81,7 @@ export default function PokemonCard({
       }}
     >
       <div className="card__header">
-        <div className="poke__number">{formatNumber(number)}</div>
+        <div className="poke__number">{formatNumber(id)}</div>
         <div className="info__icon">
           <svg
             stroke="currentColor"
