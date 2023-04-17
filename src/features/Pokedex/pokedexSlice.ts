@@ -19,6 +19,8 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
   const { dispatch, getState } = thunkAPI;
   const regionOptions = getState().pokedex.regionOptions;
 
+  dispatch(setIsLoadingPokemons(true));
+
   const { startId, endId } = getStartAndEndIdsForRegion(region, regionOptions);
   const pokemonIds = Array.from(
     { length: endId - startId + 1 },
@@ -114,6 +116,7 @@ export const {
   setRegionOptions,
   setTypeOptions,
   setSortOptions,
+  setIsLoadingPokemons,
 } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
