@@ -1,4 +1,6 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Tooltip, Zoom } from '@mui/material';
 
 import './PokemonCard.css';
@@ -97,7 +99,15 @@ export default function PokemonCard({
         </div>
       </div>
       <div className="image__container">
-        <img src={image} alt={name} />
+        <LazyLoadImage
+          alt={name}
+          height={150}
+          src={image}
+          visibleByDefault={false}
+          delayMethod={'debounce'}
+          effect="blur"
+          className="img_thumbnail"
+        />
       </div>
       <div className="poke__name">
         <h3>{name}</h3>

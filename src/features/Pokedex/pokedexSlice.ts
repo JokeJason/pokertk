@@ -91,7 +91,9 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
       state.pokemonCardList = action.payload.map(pokemon => ({
         id: pokemon.id,
         name: pokemon.name,
-        image: pokemon.sprites.other.dream_world.front_default,
+        image: pokemon.sprites.other.dream_world.front_default
+          ? pokemon.sprites.other.dream_world.front_default
+          : pokemon.sprites.other['official-artwork'].front_default,
         types: pokemon.types.map(type => type.type.name),
       }));
     });
