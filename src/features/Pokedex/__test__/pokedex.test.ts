@@ -1,6 +1,7 @@
 import {
   filterPokemonCardsByType,
   sortPokemonCardsByIdOrName,
+  searchPokemonCardsByName,
 } from 'features/Pokedex/Pokedex';
 import { PokemonResponseData } from 'features/Pokedex/types/api';
 import pokemon3_Venusaur from 'features/Pokedex/__test__/pokemon3_Venusaur.json';
@@ -79,6 +80,34 @@ describe('pokedex Component', () => {
       const selectedSort = 'name';
       const sortedList = sortPokemonCardsByIdOrName(pokemonList, selectedSort);
       expect(sortedList).toEqual([pokemon4_Charmander, pokemon3_Venusaur]);
+    });
+  });
+
+  describe('searchPokemonByName works correctly', () => {
+    beforeEach(() => {
+      store = configureStore({
+        reducer: {
+          pokedex: pokedexSlice.reducer,
+          [pokedexApi.reducerPath]: pokedexApi.reducer,
+        },
+        middleware: getDefaultMiddleware =>
+          getDefaultMiddleware().concat(
+            pokedexApi.middleware,
+            listenerMiddleware.middleware,
+          ),
+      });
+    });
+
+    const pokemonList: PokemonResponseData[] = [
+      pokemon3_Venusaur,
+      pokemon4_Charmander,
+    ];
+
+    it('should search by name correctly', () => {
+      const searchName = 'char';
+      const searchedList = searchPokemonCardsByName(pokemonList, searchName);
+      expect(searchedList).toHaveLength(1);
+      expect(searchedList[0]).toEqual(pokemon4_Charmander);
     });
   });
 });

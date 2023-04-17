@@ -2,12 +2,13 @@ import { PokemonResponseData } from './api';
 import { PokemonCardProps } from '../PokemonCard';
 
 export type PokedexState = {
-  selectedRegion: string;
   regionOptions: RegionPokemonRange[];
-  selectedType: string;
   typeOptions: string[];
-  selectedSort: string;
   sortOptions: { name: string; value: string }[];
+  selectedRegion: string;
+  selectedType: string;
+  selectedSort: string;
+  searchInput: string;
   isLoadingPokemons: boolean;
   pokemonCardList: PokemonCardProps[];
 };

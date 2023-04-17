@@ -31,12 +31,22 @@ export const sortPokemonCardsByIdOrName = (
   });
 };
 
+export const searchPokemonCardsByName = (
+  pokemonList: PokemonCardProps[],
+  searchInput: string,
+) => {
+  return pokemonList.filter(pokemon =>
+    pokemon.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
+};
+
 const Pokedex = () => {
   const isLoadingPokemons = useAppSelector(
     state => state.pokedex.isLoadingPokemons,
   );
   const selectedType = useAppSelector(state => state.pokedex.selectedType);
   const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
+  const searchInput = useAppSelector(state => state.pokedex.searchInput);
 
   const pokemonList = useAppSelector(state => state.pokedex.pokemonCardList);
 
@@ -48,6 +58,10 @@ const Pokedex = () => {
     filteredPokemonList,
     selectedSort,
   );
+  const searchedPokemonCardList = searchPokemonCardsByName(
+    sortedFilteredPokemonCardList,
+    searchInput,
+  );
 
   return (
     <>
@@ -56,7 +70,7 @@ const Pokedex = () => {
         <Loading />
       ) : (
         <div className="all__pokemons">
-          {sortedFilteredPokemonCardList.map(pokemonCard => (
+          {searchedPokemonCardList.map(pokemonCard => (
             <PokemonCard
               key={pokemonCard.id}
               id={pokemonCard.id}

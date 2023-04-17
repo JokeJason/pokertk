@@ -50,6 +50,7 @@ const initialState: PokedexState = {
   selectedRegion: '',
   selectedType: '',
   selectedSort: '',
+  searchInput: '',
   isLoadingPokemons: true,
   pokemonCardList: [],
 };
@@ -78,6 +79,9 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
       action: PayloadAction<{ name: string; value: string }[]>,
     ) => {
       state.sortOptions = action.payload;
+    },
+    setSearchInput: (state, action: PayloadAction<string>) => {
+      state.searchInput = action.payload;
     },
     setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
       state.isLoadingPokemons = action.payload;
@@ -118,6 +122,7 @@ export const {
   setRegionOptions,
   setTypeOptions,
   setSortOptions,
+  setSearchInput,
   setIsLoadingPokemons,
 } = pokedexSlice.actions;
 

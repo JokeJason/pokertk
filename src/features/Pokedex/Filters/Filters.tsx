@@ -8,6 +8,7 @@ import {
   setRegionOptions,
   setSortOptions,
   setTypeOptions,
+  setSearchInput,
 } from 'features/Pokedex/pokedexSlice';
 import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -139,6 +140,15 @@ const Filters = () => {
                 </option>
               ))}
             </select>
+          </div>
+        </div>
+        <div className="filter__items">
+          <div>
+            <div>SEARCH</div>
+            <input
+              type="text"
+              onChange={e => dispatch(setSearchInput(e.target.value))}
+            />
           </div>
         </div>
       </div>
