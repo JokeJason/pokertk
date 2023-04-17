@@ -24,7 +24,7 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
     { length: endId - startId + 1 },
     (_, i) => i + startId,
   );
-  // use pokemonIds to fetch pokemon data using fetch, remember to clear all fetched cache after saving data into store
+  // use pokemonIds to fetch pokemon data using fetch, which won't save the data in the cache
   const pokemonList = await Promise.all(
     pokemonIds.map(
       id =>
@@ -37,13 +37,6 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
   const pokemonListData = pokemonList.map(
     (pokemon: PokemonResponseData) => pokemon,
   );
-
-  // TODO: Fix this cache clearing, as running it cause proble in browser console
-  // clear all fetched data cache
-  // pokemonIds.forEach(id => {
-  //   const cacheKey = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  //   delete (window as any).fetch.cache[cacheKey];
-  // });
 
   return pokemonListData;
 });
