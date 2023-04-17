@@ -25,7 +25,7 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
     (_, i) => i + startId,
   );
   // use pokemonIds to fetch pokemon data using fetch, remember to clear all fetched cache after saving data into store
-  const pokemonList: PokemonResponseData[] = await Promise.all(
+  const pokemonList = await Promise.all(
     pokemonIds.map(
       id =>
         fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(res =>
@@ -34,10 +34,11 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
     ),
   );
 
-  const pokemonListData: PokemonResponseData[] = pokemonList.map(
+  const pokemonListData = pokemonList.map(
     (pokemon: PokemonResponseData) => pokemon,
   );
 
+  // TODO: Fix this cache clearing, as running it cause proble in browser console
   // clear all fetched data cache
   // pokemonIds.forEach(id => {
   //   const cacheKey = `https://pokeapi.co/api/v2/pokemon/${id}`;
@@ -55,7 +56,7 @@ const initialState: PokedexState = {
   selectedType: '',
   selectedSort: '',
   isLoadingPokemons: true,
-  pokemonList: [],
+  pokemonCardList: [],
 };
 
 export const pokedexSlice: Slice<PokedexState> = createSlice({
@@ -91,7 +92,13 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
     // add fetchPokemonsInTheRegion
     builder.addCase(fetchPokemonsInTheRegion.fulfilled, (state, action) => {
       state.isLoadingPokemons = false;
-      state.pokemonList = action.payload;
+      // set action payload to pokemonCardList by transforming payload
+      state.pokemonCardList = action.payload.map(pokemon => ({
+        id: pokemon.id,
+        name: pokemon.name,
+        image: pokemon.sprites.other.dream_world.front_default,
+        types: pokemon.types.map(type => type.type.name),
+      }));
     });
     builder.addMatcher(
       pokedexApi.endpoints.getTypeList.matchFulfilled,

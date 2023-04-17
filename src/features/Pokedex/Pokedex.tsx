@@ -1,24 +1,23 @@
 import React from 'react';
-import PokemonCard from './PokemonCard';
+import PokemonCard, { PokemonCardProps } from './PokemonCard';
 import Filters from './Filters';
 import Loading from 'components/Loading';
 
 import { useAppSelector } from 'app/hooks';
-import { PokemonResponseData } from './types/api';
 
-export const filterPokemonByType = (
-  pokemonList: PokemonResponseData[],
+export const filterPokemonCardsByType = (
+  pokemonList: PokemonCardProps[],
   selectedType: string,
 ) => {
   return pokemonList.filter(
     pokemon =>
       selectedType === 'All Types' ||
-      pokemon.types.some(type => type.type.name === selectedType),
+      pokemon.types.some(type => type === selectedType),
   );
 };
 
-export const sortPokemonsByIdOrName = (
-  pokemonList: PokemonResponseData[],
+export const sortPokemonCardsByIdOrName = (
+  pokemonList: PokemonCardProps[],
   selectedSort: string,
 ) => {
   return pokemonList.sort((a, b) => {
@@ -39,10 +38,13 @@ const Pokedex = () => {
   const selectedType = useAppSelector(state => state.pokedex.selectedType);
   const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
 
-  const pokemonList = useAppSelector(state => state.pokedex.pokemonList);
+  const pokemonList = useAppSelector(state => state.pokedex.pokemonCardList);
 
-  const filteredPokemonList = filterPokemonByType(pokemonList, selectedType);
-  const sortedFilteredPokemonList = sortPokemonsByIdOrName(
+  const filteredPokemonList = filterPokemonCardsByType(
+    pokemonList,
+    selectedType,
+  );
+  const sortedFilteredPokemonCardList = sortPokemonCardsByIdOrName(
     filteredPokemonList,
     selectedSort,
   );
@@ -53,13 +55,13 @@ const Pokedex = () => {
       {isLoadingPokemons ? (
         <Loading />
       ) : (
-        sortedFilteredPokemonList.map(pokemon => (
+        sortedFilteredPokemonCardList.map(pokemonCard => (
           <PokemonCard
-            key={pokemon.id}
-            id={pokemon.id}
-            name={pokemon.name}
-            image={pokemon.sprites.other.dream_world.front_default}
-            types={pokemon.types.map(type => type.type.name)}
+            key={pokemonCard.id}
+            id={pokemonCard.id}
+            name={pokemonCard.name}
+            image={pokemonCard.image}
+            types={pokemonCard.types}
           />
         ))
       )}

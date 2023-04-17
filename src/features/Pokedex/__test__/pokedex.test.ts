@@ -1,6 +1,6 @@
 import {
-  filterPokemonByType,
-  sortPokemonsByIdOrName,
+  filterPokemonCardsByType,
+  sortPokemonCardsByIdOrName,
 } from 'features/Pokedex/Pokedex';
 import { PokemonResponseData } from 'features/Pokedex/types/api';
 import pokemon3_Venusaur from 'features/Pokedex/__test__/pokemon3_Venusaur.json';
@@ -36,13 +36,13 @@ describe('pokedex Component', () => {
 
     it('should return all PokemonCard if the selected type is "All Types"', () => {
       const selectedType = 'All Types';
-      const filteredList = filterPokemonByType(pokemonList, selectedType);
+      const filteredList = filterPokemonCardsByType(pokemonList, selectedType);
       expect(filteredList).toEqual(pokemonList);
     });
 
     it('should return only PokemonCard of the selected type', () => {
       const selectedType = 'fire';
-      const filteredList = filterPokemonByType(pokemonList, selectedType);
+      const filteredList = filterPokemonCardsByType(pokemonList, selectedType);
       const allPokemonAreOfTypeFire = filteredList.every(pokemon =>
         pokemon.types.some(type => type.type.name === selectedType),
       );
@@ -71,13 +71,13 @@ describe('pokedex Component', () => {
     ];
     it('should sort by id if the selected sort is "id"', () => {
       const selectedSort = 'id';
-      const sortedList = sortPokemonsByIdOrName(pokemonList, selectedSort);
+      const sortedList = sortPokemonCardsByIdOrName(pokemonList, selectedSort);
       expect(sortedList).toEqual([pokemon3_Venusaur, pokemon4_Charmander]);
     });
 
     it('should sort by name if the selected sort is "name"', () => {
       const selectedSort = 'name';
-      const sortedList = sortPokemonsByIdOrName(pokemonList, selectedSort);
+      const sortedList = sortPokemonCardsByIdOrName(pokemonList, selectedSort);
       expect(sortedList).toEqual([pokemon4_Charmander, pokemon3_Venusaur]);
     });
   });

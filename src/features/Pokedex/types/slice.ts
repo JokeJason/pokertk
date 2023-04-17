@@ -1,4 +1,5 @@
 import { PokemonResponseData } from './api';
+import { PokemonCardProps } from '../PokemonCard';
 
 export type PokedexState = {
   selectedRegion: string;
@@ -8,7 +9,7 @@ export type PokedexState = {
   selectedSort: string;
   sortOptions: { name: string; value: string }[];
   isLoadingPokemons: boolean;
-  pokemonList: PokemonResponseData[];
+  pokemonCardList: PokemonCardProps[];
 };
 
 export type RegionPokemonRange = {
