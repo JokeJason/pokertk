@@ -55,15 +55,17 @@ const Pokedex = () => {
       {isLoadingPokemons ? (
         <Loading />
       ) : (
-        sortedFilteredPokemonCardList.map(pokemonCard => (
-          <PokemonCard
-            key={pokemonCard.id}
-            id={pokemonCard.id}
-            name={pokemonCard.name}
-            image={pokemonCard.image}
-            types={pokemonCard.types}
-          />
-        ))
+        <div className="all__pokemons">
+          {sortedFilteredPokemonCardList.map(pokemonCard => (
+            <PokemonCard
+              key={pokemonCard.id}
+              id={pokemonCard.id}
+              name={pokemonCard.name}
+              image={pokemonCard.image}
+              types={pokemonCard.types}
+            />
+          ))}
+        </div>
       )}
     </>
   );
