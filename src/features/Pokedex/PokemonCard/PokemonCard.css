@@ -96,6 +96,31 @@ h3 {
   justify-content: space-between;
 }
 
+.poke__type {
+  display: flex;
+  grid-gap: 0 10px;
+  gap: 0 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.poke__type__bg > img {
+  width: 20px;
+  height: 20px;
+}
+
+.poke__type__bg {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+
 .grass {
   background: var(--grass);
   box-shadow: 0 0 20px var(--grass);
