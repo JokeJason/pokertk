@@ -27,6 +27,7 @@ html {
   font-size: 12px;
 }
 
+/* TODO: Fix incorrect render of input */
 .filter__items > input {
   width: 10vw;
   margin-top: 5px;

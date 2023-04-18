@@ -58,6 +58,7 @@ const Filters = () => {
   const selectedRegion = useAppSelector(state => state.pokedex.selectedRegion);
   const selectedType = useAppSelector(state => state.pokedex.selectedType);
   const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
+  const searchInput = useAppSelector(state => state.pokedex.searchInput);
 
   const regionPokemonList = useAppSelector(
     state => state.pokedex.regionOptions,
@@ -149,6 +150,7 @@ const Filters = () => {
             <input
               type="text"
               onChange={e => dispatch(setSearchInput(e.target.value))}
+              value={searchInput}
             />
           </div>
         </div>
