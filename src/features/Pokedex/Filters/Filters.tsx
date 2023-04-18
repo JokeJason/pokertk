@@ -12,6 +12,7 @@ import {
 } from 'features/Pokedex/pokedexSlice';
 import { RegionPokemonRange } from 'features/Pokedex/types/slice';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import './Filters.css';
 
 export const createRegionPokemonListOptionElements = (
   data: RegionPokemonRange[],
@@ -89,7 +90,7 @@ const Filters = () => {
 
   return (
     <>
-      <div className="filter__container">
+      <div className="filter__container noselect">
         <div className="filter__items">
           <div>
             <div>REGION</div>

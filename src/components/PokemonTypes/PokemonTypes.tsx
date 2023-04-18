@@ -54,6 +54,7 @@ export interface PokemonTypesProps {
 
 const PokemonTypes = ({ types }: PokemonTypesProps) => {
   return (
+    // TODO: fix static typed poke__type css
     <div className="poke__type">
       {types.map(type => (
         <Tooltip title={type} key={type} TransitionComponent={Zoom} arrow>
