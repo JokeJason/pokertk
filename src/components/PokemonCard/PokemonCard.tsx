@@ -17,12 +17,7 @@ export function formatNumber(num: number) {
   return '#' + num.toString().padStart(3, '0');
 }
 
-export default function PokemonCard({
-  id,
-  name,
-  image,
-  types,
-}: PokemonCardProps) {
+const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
   let finalColor;
 
   if (types.length === 2) {
@@ -73,4 +68,6 @@ export default function PokemonCard({
       </div>
     </div>
   );
-}
+};
+
+export default PokemonCard;
