@@ -73,7 +73,6 @@ const Filters = () => {
     dispatch(setSortOptions(fetchedSortOptions));
 
     dispatch(setSelectedRegion(fetchedRegionOptions[0].region));
-    dispatch(fetchPokemonsInTheRegion(fetchedRegionOptions[0].region));
 
     dispatch(setSelectedSort(fetchedSortOptions[0].value));
   }, []);

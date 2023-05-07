@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PokemonCard, { PokemonCardProps } from 'components/PokemonCard';
 import Loading from 'components/Loading';
 
-import { useAppSelector } from 'app/hooks';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { fetchPokemonsInTheRegion } from './pokedexSlice';
 
 export const filterPokemonCardsByType = (
   pokemonList: PokemonCardProps[],
@@ -39,10 +40,20 @@ export const searchPokemonCardsByName = (
   );
 };
 
-const Pokedex = () => {
-  const selectedType = useAppSelector(state => state.filter.selectedType);
-  const selectedSort = useAppSelector(state => state.filter.selectedSort);
-  const searchInput = useAppSelector(state => state.filter.searchInput);
+export interface PokedexProps {
+  selectedRegion: string;
+  selectedType: string;
+  selectedSort: string;
+  searchInput: string;
+}
+
+const Pokedex = ({
+  selectedRegion,
+  selectedType,
+  selectedSort,
+  searchInput,
+}: PokedexProps) => {
+  const dispatch = useAppDispatch();
 
   const isLoadingPokemons = useAppSelector(
     state => state.pokedex.isLoadingPokemons,
@@ -61,6 +72,10 @@ const Pokedex = () => {
     sortedFilteredPokemonCardList,
     searchInput,
   );
+
+  useEffect(() => {
+    dispatch(fetchPokemonsInTheRegion(selectedRegion));
+  }, [selectedRegion]);
 
   return (
     <>
