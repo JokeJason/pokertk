@@ -5,7 +5,7 @@ import { Tooltip, Zoom } from '@mui/material';
 import * as pokeTypeAsset from 'assets/types';
 import './PokemonTypes.css';
 
-function findPokeTypeAsset(pokeType: string) {
+export const findPokeTypeAsset = (pokeType: string) => {
   switch (pokeType) {
     case 'normal':
       return pokeTypeAsset.pokeType_normal;
@@ -46,7 +46,7 @@ function findPokeTypeAsset(pokeType: string) {
     default:
       return pokeTypeAsset.pokeType_normal;
   }
-}
+};
 
 export interface PokemonTypesProps {
   types: string[];
