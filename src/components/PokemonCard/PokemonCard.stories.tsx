@@ -8,7 +8,7 @@ import charizard_svg from './assets/stories/charizard.svg';
 import charizard_info from './assets/stories/charizard.json';
 
 export default {
-  title: 'Pokedex/PokemonCard',
+  title: 'Component/PokemonCard',
   component: PokemonCard,
 } as ComponentMeta<typeof PokemonCard>;
 
