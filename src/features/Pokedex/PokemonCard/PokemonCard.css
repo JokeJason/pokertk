@@ -40,7 +40,7 @@ html {
   margin: 2rem;
   /* border: 15px solid var(--cardborder); */
   border-radius: 1rem;
-  min-width: 220px;
+  width: 220px;
   height: 285px;
   text-align: center;
   /* box-shadow: 0 5px 25px 1px rgb(0 0 0 / 50%); */
