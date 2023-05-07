@@ -15,3 +15,8 @@ export const Primary = Template.bind({});
 Primary.args = {
   genderRatio: 0,
 };
+
+export const Option1 = Template.bind({});
+Option1.args = {
+  genderRatio: 1,
+};

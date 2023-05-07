@@ -1,3 +1,5 @@
+import './GenderRate.css';
+
 export interface GenderRateProps {
   genderRatio: number;
 }
@@ -8,11 +10,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span className="gender-male">
-            100% <i className="fa fa-mars"></i>
+            100% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            0% <i className="fa fa-venus"></i>
+            0% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -20,11 +22,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            87.5% <i className="fa fa-mars"></i>
+            87.5% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            12.5% <i className="fa fa-venus"></i>
+            12.5% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -32,11 +34,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            75% <i className="fa fa-mars"></i>
+            75% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            25% <i className="fa fa-venus"></i>
+            25% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -44,11 +46,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            62.5% <i className="fa fa-mars"></i>
+            62.5% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            37.5% <i className="fa fa-venus"></i>
+            37.5% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -56,11 +58,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            50% <i className="fa fa-mars"></i>
+            50% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            50% <i className="fa fa-venus"></i>
+            50% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -68,11 +70,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            37.5% <i className="fa fa-mars"></i>
+            37.5% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            62.5% <i className="fa fa-venus"></i>
+            62.5% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -80,11 +82,11 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            25% <i className="fa fa-mars"></i>
+            25% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
-            75% <i className="fa fa-venus"></i>
+            75% <i className="fa fa-venus">♀</i>
           </span>
         </div>
       );
@@ -92,7 +94,7 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            12.5% <i className="fa fa-mars"></i>
+            12.5% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
@@ -104,7 +106,7 @@ const GenderRate = ({ genderRatio }: GenderRateProps) => {
       return (
         <div>
           <span>
-            0% <i className="fa fa-mars"></i>
+            0% <i className="fa fa-mars">♂</i>
           </span>
           <span>
             {' '}
