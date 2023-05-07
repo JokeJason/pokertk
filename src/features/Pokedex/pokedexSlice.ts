@@ -1,15 +1,11 @@
-import { createAsyncThunk, createSlice, Dispatch } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PokedexState, RegionPokemonRange } from 'features/Pokedex/types/slice';
+import { PokedexState } from 'features/Pokedex/types/slice';
 
 import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from './types/api';
-import { pokedexApi } from './pokedexApi';
-import { RootState } from '../../app/store';
-
-pokedexApi.endpoints.getTypeList.initiate(); // initialize type list fetching
-// typesData will be used in Filters.tsx
+import { RootState } from 'app/store';
 
 export const fetchPokemonsInTheRegion = createAsyncThunk<
   PokemonResponseData[],
@@ -17,7 +13,7 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
   { state: RootState }
 >('pokedex/setSelectedRegion', async (region: string, thunkAPI) => {
   const { dispatch, getState } = thunkAPI;
-  const regionOptions = getState().pokedex.regionOptions;
+  const regionOptions = getState().filter.regionOptions;
 
   dispatch(setIsLoadingPokemons(true));
 
@@ -44,13 +40,6 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
 });
 
 const initialState: PokedexState = {
-  regionOptions: [],
-  typeOptions: [],
-  sortOptions: [],
-  selectedRegion: '',
-  selectedType: '',
-  selectedSort: '',
-  searchInput: '',
   isLoadingPokemons: true,
   pokemonCardList: [],
 };
@@ -59,30 +48,6 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
   name: 'pokedex',
   initialState,
   reducers: {
-    setSelectedRegion: (state, action: PayloadAction<string>) => {
-      state.selectedRegion = action.payload;
-    },
-    setSelectedType: (state, action: PayloadAction<string>) => {
-      state.selectedType = action.payload;
-    },
-    setSelectedSort: (state, action: PayloadAction<string>) => {
-      state.selectedSort = action.payload;
-    },
-    setRegionOptions: (state, action: PayloadAction<RegionPokemonRange[]>) => {
-      state.regionOptions = action.payload;
-    },
-    setTypeOptions: (state, action: PayloadAction<string[]>) => {
-      state.typeOptions = action.payload;
-    },
-    setSortOptions: (
-      state,
-      action: PayloadAction<{ name: string; value: string }[]>,
-    ) => {
-      state.sortOptions = action.payload;
-    },
-    setSearchInput: (state, action: PayloadAction<string>) => {
-      state.searchInput = action.payload;
-    },
     setIsLoadingPokemons: (state, action: PayloadAction<boolean>) => {
       state.isLoadingPokemons = action.payload;
     },
@@ -101,29 +66,9 @@ export const pokedexSlice: Slice<PokedexState> = createSlice({
         types: pokemon.types.map(type => type.type.name),
       }));
     });
-    builder.addMatcher(
-      pokedexApi.endpoints.getTypeList.matchFulfilled,
-      (state, action) => {
-        if (action.payload && action.payload.results.length > 0) {
-          const regionListResults = action.payload.results;
-          state.typeOptions = regionListResults.map(region => region.name);
-
-          state.selectedType = action.payload.results[0].name;
-        }
-      },
-    );
   },
 });
 
-export const {
-  setSelectedRegion,
-  setSelectedType,
-  setSelectedSort,
-  setRegionOptions,
-  setTypeOptions,
-  setSortOptions,
-  setSearchInput,
-  setIsLoadingPokemons,
-} = pokedexSlice.actions;
+export const { setIsLoadingPokemons } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;

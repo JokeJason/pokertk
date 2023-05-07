@@ -1,6 +1,6 @@
 import React from 'react';
 import PokemonCard, { PokemonCardProps } from 'components/PokemonCard';
-import Filters from './Filters';
+import Filters from 'features/Filters';
 import Loading from 'components/Loading';
 
 import { useAppSelector } from 'app/hooks';
@@ -41,13 +41,13 @@ export const searchPokemonCardsByName = (
 };
 
 const Pokedex = () => {
+  const selectedType = useAppSelector(state => state.filter.selectedType);
+  const selectedSort = useAppSelector(state => state.filter.selectedSort);
+  const searchInput = useAppSelector(state => state.filter.searchInput);
+
   const isLoadingPokemons = useAppSelector(
     state => state.pokedex.isLoadingPokemons,
   );
-  const selectedType = useAppSelector(state => state.pokedex.selectedType);
-  const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
-  const searchInput = useAppSelector(state => state.pokedex.searchInput);
-
   const pokemonList = useAppSelector(state => state.pokedex.pokemonCardList);
 
   const filteredPokemonList = filterPokemonCardsByType(
@@ -65,7 +65,6 @@ const Pokedex = () => {
 
   return (
     <>
-      <Filters />
       {isLoadingPokemons ? (
         <Loading />
       ) : (

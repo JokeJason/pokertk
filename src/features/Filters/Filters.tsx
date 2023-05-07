@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import { useGetTypeListQuery } from 'features/Pokedex/pokedexApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
+
 import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
-  fetchPokemonsInTheRegion,
   setRegionOptions,
-  setSortOptions,
   setTypeOptions,
+  setSortOptions,
   setSearchInput,
-} from 'features/Pokedex/pokedexSlice';
-import { RegionPokemonRange } from 'features/Pokedex/types/slice';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+} from './filterSlice';
+import { useGetTypeListQuery } from './filterApi';
+import { RegionPokemonRange } from './types/slice';
 import './Filters.css';
 
 export const createRegionPokemonListOptionElements = (
@@ -55,14 +56,12 @@ const useGetSortOptions = () => {
 
 const Filters = () => {
   const dispatch = useAppDispatch();
-  const selectedRegion = useAppSelector(state => state.pokedex.selectedRegion);
-  const selectedType = useAppSelector(state => state.pokedex.selectedType);
-  const selectedSort = useAppSelector(state => state.pokedex.selectedSort);
-  const searchInput = useAppSelector(state => state.pokedex.searchInput);
+  const selectedRegion = useAppSelector(state => state.filter.selectedRegion);
+  const selectedType = useAppSelector(state => state.filter.selectedType);
+  const selectedSort = useAppSelector(state => state.filter.selectedSort);
+  const searchInput = useAppSelector(state => state.filter.searchInput);
 
-  const regionPokemonList = useAppSelector(
-    state => state.pokedex.regionOptions,
-  );
+  const regionPokemonList = useAppSelector(state => state.filter.regionOptions);
 
   const { data: fetchedRegionOptions } = useGetRegionOptions();
   const { data: fetchedTypeOptions, isLoading: isFetchingTypeOptions } =

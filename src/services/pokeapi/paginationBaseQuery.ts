@@ -55,3 +55,17 @@ export const pokeApiAllPagesCustomBaseQuery = async (
   }
   return result;
 };
+
+export const pokeApiBaseQuery = async (
+  args: pokeApiFullListFetchArgs,
+  api: any,
+  extra: any,
+) => {
+  const baseUrl = 'https://pokeapi.co/api/v2/';
+
+  if (args.fetchAllPages) {
+    return pokeApiAllPagesCustomBaseQuery(args, api, extra, baseUrl);
+  } else {
+    return fetchBaseQuery({ baseUrl })(args, api, extra);
+  }
+};

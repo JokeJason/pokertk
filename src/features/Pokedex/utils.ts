@@ -1,4 +1,4 @@
-import { RegionPokemonRange } from './types/slice';
+import { RegionPokemonRange } from 'features/Filters/types/slice';
 
 export const getStartAndEndIdsForRegion = (
   region: string,

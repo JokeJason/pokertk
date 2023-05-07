@@ -1,19 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { listenerMiddleware } from './listenerMiddleware';
-import { pokedexApi } from 'features/Pokedex/pokedexApi';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
+import { filterSlice } from 'features/Filters/filterSlice';
+import { filterApi } from 'features/Filters/filterApi';
 
 export const store = configureStore({
   reducer: {
     // component slices
     pokedex: pokedexSlice.reducer,
+    filter: filterSlice.reducer,
 
-    // api
-    [pokedexApi.reducerPath]: pokedexApi.reducer,
+    // api slices
+    [filterApi.reducerPath]: filterApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
-      pokedexApi.middleware,
+      filterApi.middleware,
       listenerMiddleware.middleware,
     ),
   devTools: true,
