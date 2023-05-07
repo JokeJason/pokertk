@@ -1,6 +1,5 @@
 import React from 'react';
 import PokemonCard, { PokemonCardProps } from 'components/PokemonCard';
-import Filters from 'features/Filters';
 import Loading from 'components/Loading';
 
 import { useAppSelector } from 'app/hooks';
