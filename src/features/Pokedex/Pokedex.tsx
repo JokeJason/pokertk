@@ -1,5 +1,5 @@
 import React from 'react';
-import PokemonCard, { PokemonCardProps } from './PokemonCard';
+import PokemonCard, { PokemonCardProps } from 'components/PokemonCard';
 import Filters from './Filters';
 import Loading from 'components/Loading';
 

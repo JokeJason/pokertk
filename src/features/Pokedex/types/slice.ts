@@ -1,5 +1,5 @@
 import { PokemonResponseData } from './api';
-import { PokemonCardProps } from '../PokemonCard';
+import { PokemonCardProps } from 'components/PokemonCard';
 
 export type PokedexState = {
   regionOptions: RegionPokemonRange[];
