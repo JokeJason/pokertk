@@ -31,7 +31,7 @@ export const createRegionPokemonListOptionElements = (
   });
 };
 
-const useGetRegionOptions = () => {
+export const useGetRegionOptions = () => {
   const data: RegionPokemonRange[] = [
     { region: 'kanto', startId: 1, endId: 151 },
     { region: 'johto', startId: 152, endId: 251 },
