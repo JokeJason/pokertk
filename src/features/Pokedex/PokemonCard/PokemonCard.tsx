@@ -67,7 +67,9 @@ export default function PokemonCard({
       </div>
       <div className="poke__name">
         <h3>{name}</h3>
-        <PokemonTypes types={types} />
+        <div className="poke__type">
+          <PokemonTypes types={types} />
+        </div>
       </div>
     </div>
   );
