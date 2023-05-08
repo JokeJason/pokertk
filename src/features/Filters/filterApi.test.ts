@@ -4,7 +4,7 @@ import { filterSlice } from './filterSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { AppStore } from 'app/store';
-import { TypeListResponseData } from 'features/Pokedex/types/api';
+import { TypeListResponseData } from 'types/api';
 
 let store: AppStore;
 
