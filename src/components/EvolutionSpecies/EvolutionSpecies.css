@@ -1,15 +1,15 @@
 .evolution__sub__box {
-    display: flex;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .evolution__box .evo_img {
-    width: 80px;
-    height: 80px;
-    margin: auto;
-    display: flex;
-    cursor: pointer;
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  display: flex;
+  cursor: pointer;
 }
 
 /* .evolution__img__div:hover {
@@ -17,18 +17,18 @@
 } */
 
 .evolution__img__div {
-    height: 113px;
-    width: 113px;
-    display: flex;
-    border-radius: 50%;
-    box-shadow: 0 5px 15px 4px rgb(0 0 0 / 30%);
-    align-items: center;
-    justify-content: center;
-    transition: all 0.35s;
-    margin-top: 3vh;
+  height: 113px;
+  width: 113px;
+  display: flex;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px 4px rgb(0 0 0 / 30%);
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s;
+  margin-top: 3vh;
 }
 
 .evolution__poke__name {
-    text-transform: capitalize;
-    margin: 10px 0;
+  text-transform: capitalize;
+  margin: 10px 0;
 }
