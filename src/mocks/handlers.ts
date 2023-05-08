@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 import region1 from 'features/Pokedex/__test__/responses/region1.json';
 import regionList from 'features/Pokedex/__test__/responses/regionList.json';
-import typeList from 'features/Pokedex/__test__/responses/typeList.json';
+import typeList from 'features/Filters/__test__/responses/typeList.json';
 import pokemonListPg1 from 'features/Pokedex/__test__/responses/pokemonListPage1.json';
 import pokemonListPg2 from 'features/Pokedex/__test__/responses/pokemonListPage2.json';
 
