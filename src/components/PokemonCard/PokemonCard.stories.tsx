@@ -32,3 +32,12 @@ Charizard.args = {
   image: charizard_svg,
   types: ['fire', 'flying'],
 };
+
+export const Bulbasaur = Template.bind({});
+Bulbasaur.args = {
+  id: 1,
+  name: 'bulbasaur',
+  image:
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
+  types: ['grass', 'poison'],
+};
