@@ -3,7 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import './PokemonCard.css';
-import { colorTypeGradients } from './utils';
+import { colorTypeGradients } from 'components/utils';
 import PokemonTypes from 'components/PokemonTypes/PokemonTypes';
 
 export interface PokemonCardProps {
@@ -18,13 +18,7 @@ export function formatNumber(num: number) {
 }
 
 const PokemonCard = ({ id, name, image, types }: PokemonCardProps) => {
-  let finalColor;
-
-  if (types.length === 2) {
-    finalColor = colorTypeGradients(types[0], types[1], types.length);
-  } else {
-    finalColor = colorTypeGradients(types[0], types[0], types.length);
-  }
+  const finalColor = colorTypeGradients(types);
 
   return (
     <div

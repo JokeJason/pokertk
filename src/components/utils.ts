@@ -63,17 +63,12 @@ const getColor = (type: string) => {
   return returnColor;
 };
 
-export const colorTypeGradients = (
-  type1: string,
-  type2: string,
-  length: number,
-) => {
+export const colorTypeGradients = (types: string[]) => {
   let color2;
+  const color1 = getColor(types[0]);
 
-  const color1 = getColor(type1);
-
-  if (length === 2) {
-    color2 = getColor(type2);
+  if (types.length === 2) {
+    color2 = getColor(types[1]);
   } else if (length === 1) {
     color2 = color1;
   }

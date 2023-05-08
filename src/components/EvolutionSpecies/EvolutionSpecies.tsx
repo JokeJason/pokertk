@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 import './EvolutionSpecies.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { colorTypeGradients } from '../PokemonCard/utils';
+import { colorTypeGradients } from 'components/utils';
 
 export interface EvolutionSpeciesProps {
   types: string[];
@@ -10,12 +10,7 @@ export interface EvolutionSpeciesProps {
 }
 
 const EvolutionSpecies = ({ types, image_url }: EvolutionSpeciesProps) => {
-  let finalColor;
-  if (types.length === 2) {
-    finalColor = colorTypeGradients(types[0], types[1], types.length);
-  } else {
-    finalColor = colorTypeGradients(types[0], types[0], types.length);
-  }
+  const finalColor = colorTypeGradients(types);
 
   return (
     <div className={'evolution__sub__box'}>
