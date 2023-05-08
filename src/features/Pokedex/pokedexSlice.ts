@@ -4,7 +4,7 @@ import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 import { PokedexState } from 'features/Pokedex/types/slice';
 
 import { getStartAndEndIdsForRegion } from './utils';
-import { PokemonResponseData } from './types/api';
+import { PokemonResponseData } from 'types/api';
 import { RootState } from 'app/store';
 
 export const fetchPokemonsInTheRegion = createAsyncThunk<

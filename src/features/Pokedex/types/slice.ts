@@ -1,4 +1,3 @@
-import { PokemonResponseData } from './api';
 import { PokemonCardProps } from 'components/PokemonCard';
 
 export type PokedexState = {
