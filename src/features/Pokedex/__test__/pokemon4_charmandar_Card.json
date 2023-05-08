@@ -1,0 +1,6 @@
+{
+  "id": 4,
+  "name": "charmander",
+  "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+  "types": ["fire"]
+}

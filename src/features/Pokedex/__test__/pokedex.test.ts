@@ -3,36 +3,38 @@ import {
   sortPokemonCardsByIdOrName,
   searchPokemonCardsByName,
 } from 'features/Pokedex/Pokedex';
-import { PokemonResponseData } from 'features/Pokedex/types/api';
-import pokemon3_Venusaur from 'features/Pokedex/__test__/pokemon3_Venusaur.json';
-import pokemon4_Charmander from 'features/Pokedex/__test__/pokemon4_charmander.json';
+import { PokemonCardProps } from 'components/PokemonCard';
+import pokemon3_venusaur_card from 'features/Pokedex/__test__/pokemon3_venusaur_Card.json';
+import pokemon4_charmander_card from 'features/Pokedex/__test__/pokemon4_charmandar_Card.json';
 import { AppStore } from 'app/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
-import { pokedexApi } from 'features/Pokedex/pokedexApi';
+import { filterSlice } from 'features/Filters/filterSlice';
+import { filterApi } from 'features/Filters/filterApi';
 import { listenerMiddleware } from 'app/listenerMiddleware';
 
 let store: AppStore;
 
 describe('pokedex Component', () => {
-  describe('filterPokemonByType works correctly', () => {
-    beforeEach(() => {
-      store = configureStore({
-        reducer: {
-          pokedex: pokedexSlice.reducer,
-          [pokedexApi.reducerPath]: pokedexApi.reducer,
-        },
-        middleware: getDefaultMiddleware =>
-          getDefaultMiddleware().concat(
-            pokedexApi.middleware,
-            listenerMiddleware.middleware,
-          ),
-      });
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        pokedex: pokedexSlice.reducer,
+        filter: filterSlice.reducer,
+        [filterApi.reducerPath]: filterApi.reducer,
+      },
+      middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(
+          filterApi.middleware,
+          listenerMiddleware.middleware,
+        ),
     });
+  });
 
-    const pokemonList: PokemonResponseData[] = [
-      pokemon3_Venusaur,
-      pokemon4_Charmander,
+  describe('filterPokemonByType works correctly', () => {
+    const pokemonList: PokemonCardProps[] = [
+      pokemon3_venusaur_card,
+      pokemon4_charmander_card,
     ];
 
     it('should return all PokemonCard if the selected type is "All Types"', () => {
@@ -45,69 +47,47 @@ describe('pokedex Component', () => {
       const selectedType = 'fire';
       const filteredList = filterPokemonCardsByType(pokemonList, selectedType);
       const allPokemonAreOfTypeFire = filteredList.every(pokemon =>
-        pokemon.types.some(type => type.type.name === selectedType),
+        pokemon.types.some(type => type === selectedType),
       );
       expect(allPokemonAreOfTypeFire).toBe(true);
     });
   });
 
   describe('sortPokemonsByIdOrName works correctly', () => {
-    beforeEach(() => {
-      store = configureStore({
-        reducer: {
-          pokedex: pokedexSlice.reducer,
-          [pokedexApi.reducerPath]: pokedexApi.reducer,
-        },
-        middleware: getDefaultMiddleware =>
-          getDefaultMiddleware().concat(
-            pokedexApi.middleware,
-            listenerMiddleware.middleware,
-          ),
-      });
-    });
-
-    const pokemonList: PokemonResponseData[] = [
-      pokemon3_Venusaur,
-      pokemon4_Charmander,
+    const pokemonList: PokemonCardProps[] = [
+      pokemon3_venusaur_card,
+      pokemon4_charmander_card,
     ];
     it('should sort by id if the selected sort is "id"', () => {
       const selectedSort = 'id';
       const sortedList = sortPokemonCardsByIdOrName(pokemonList, selectedSort);
-      expect(sortedList).toEqual([pokemon3_Venusaur, pokemon4_Charmander]);
+      expect(sortedList).toEqual([
+        pokemon3_venusaur_card,
+        pokemon4_charmander_card,
+      ]);
     });
 
     it('should sort by name if the selected sort is "name"', () => {
       const selectedSort = 'name';
       const sortedList = sortPokemonCardsByIdOrName(pokemonList, selectedSort);
-      expect(sortedList).toEqual([pokemon4_Charmander, pokemon3_Venusaur]);
+      expect(sortedList).toEqual([
+        pokemon4_charmander_card,
+        pokemon3_venusaur_card,
+      ]);
     });
   });
 
   describe('searchPokemonByName works correctly', () => {
-    beforeEach(() => {
-      store = configureStore({
-        reducer: {
-          pokedex: pokedexSlice.reducer,
-          [pokedexApi.reducerPath]: pokedexApi.reducer,
-        },
-        middleware: getDefaultMiddleware =>
-          getDefaultMiddleware().concat(
-            pokedexApi.middleware,
-            listenerMiddleware.middleware,
-          ),
-      });
-    });
-
-    const pokemonList: PokemonResponseData[] = [
-      pokemon3_Venusaur,
-      pokemon4_Charmander,
+    const pokemonList: PokemonCardProps[] = [
+      pokemon3_venusaur_card,
+      pokemon4_charmander_card,
     ];
 
     it('should search by name correctly', () => {
       const searchName = 'char';
       const searchedList = searchPokemonCardsByName(pokemonList, searchName);
       expect(searchedList).toHaveLength(1);
-      expect(searchedList[0]).toEqual(pokemon4_Charmander);
+      expect(searchedList[0]).toEqual(pokemon4_charmander_card);
     });
   });
 });
