@@ -1,16 +1,6 @@
-export interface nameUrlPair {
-  name: string;
-  url: string;
-}
-
-export interface ListResponse {
-  count: number;
-  results: nameUrlPair[];
-}
+import { ListResponse, nameUrlPair } from 'types/api';
 
 export type PokemonListResponseData = ListResponse;
-export type RegionListResponseData = ListResponse;
-export type TypeListResponseData = ListResponse;
 
 export interface PokemonListItem {
   name: string;
