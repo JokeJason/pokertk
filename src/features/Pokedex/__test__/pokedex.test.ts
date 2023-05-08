@@ -11,7 +11,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { filterSlice } from 'features/Filters/filterSlice';
 import { filterApi } from 'features/Filters/filterApi';
-import { listenerMiddleware } from 'app/listenerMiddleware';
 
 let store: AppStore;
 
@@ -24,10 +23,7 @@ describe('pokedex Component', () => {
         [filterApi.reducerPath]: filterApi.reducer,
       },
       middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(
-          filterApi.middleware,
-          listenerMiddleware.middleware,
-        ),
+        getDefaultMiddleware().concat(filterApi.middleware),
     });
   });
 

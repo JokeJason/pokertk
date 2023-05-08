@@ -4,7 +4,6 @@ import { filterSlice } from './filterSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { AppStore } from 'app/store';
-import { listenerMiddleware } from 'app/listenerMiddleware';
 import { TypeListResponseData } from 'features/Pokedex/types/api';
 
 let store: AppStore;
@@ -18,10 +17,7 @@ describe('filterApi', () => {
         [filterApi.reducerPath]: filterApi.reducer,
       },
       middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(
-          filterApi.middleware,
-          listenerMiddleware.middleware,
-        ),
+        getDefaultMiddleware().concat(filterApi.middleware),
     });
   });
 
