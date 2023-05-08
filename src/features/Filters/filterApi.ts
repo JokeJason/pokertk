@@ -1,9 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { pokeApiBaseQuery } from '../../services/pokeapi/paginationBaseQuery';
-import {
-  RegionListResponseData,
-  TypeListResponseData,
-} from '../Pokedex/types/api';
+import { RegionListResponseData, TypeListResponseData } from './types/api';
 
 export const filterApi = createApi({
   reducerPath: 'filterApi',
