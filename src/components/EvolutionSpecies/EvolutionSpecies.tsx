@@ -6,10 +6,15 @@ import { colorTypeGradients } from 'components/utils';
 
 export interface EvolutionSpeciesProps {
   types: string[];
+  name: string;
   image_url: string;
 }
 
-const EvolutionSpecies = ({ types, image_url }: EvolutionSpeciesProps) => {
+const EvolutionSpecies = ({
+  types,
+  name,
+  image_url,
+}: EvolutionSpeciesProps) => {
   const finalColor = colorTypeGradients(types);
 
   return (
@@ -46,6 +51,7 @@ const EvolutionSpecies = ({ types, image_url }: EvolutionSpeciesProps) => {
             </div>
           </div>
         </motion.div>
+        <div className={'evolution__poke__name'}>{name}</div>
       </div>
     </div>
   );
