@@ -1,6 +1,6 @@
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { pokeApi } from 'app/services/pokeApi';
-import { filterSlice } from '../../features/Filters/filterSlice';
+import { filterSlice } from 'features/Filters/filterSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { AppStore } from 'app/store';
