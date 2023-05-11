@@ -11,7 +11,7 @@ import {
   setSortOptions,
   setSearchInput,
 } from './filterSlice';
-import { useGetTypeListQuery } from './filterApi';
+import { useGetTypeListQuery } from 'app/services/pokeApi';
 import { RegionPokemonRange } from './types/slice';
 import './Filters.css';
 

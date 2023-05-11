@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import { FilterState } from './types/slice';
 import { RegionPokemonRange } from './types/slice';
-import { filterApi } from './filterApi';
+import { pokeApi } from 'app/services/pokeApi';
 
-filterApi.endpoints.getTypeList.initiate(); // initialize type list fetching
+pokeApi.endpoints.getTypeList.initiate(); // initialize type list fetching
 
 const initialState: FilterState = {
   regionOptions: [],
@@ -46,7 +46,7 @@ export const filterSlice: Slice<FilterState> = createSlice({
   },
   extraReducers: builder => {
     builder.addMatcher(
-      filterApi.endpoints.getTypeList.matchFulfilled,
+      pokeApi.endpoints.getTypeList.matchFulfilled,
       (state, action) => {
         if (action.payload && action.payload.results.length > 0) {
           const regionListResults = action.payload.results;

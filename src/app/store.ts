@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { filterSlice } from 'features/Filters/filterSlice';
-import { filterApi } from 'features/Filters/filterApi';
+import { pokeApi } from './services/pokeApi';
 
 export const store = configureStore({
   reducer: {
@@ -10,10 +10,10 @@ export const store = configureStore({
     filter: filterSlice.reducer,
 
     // api slices
-    [filterApi.reducerPath]: filterApi.reducer,
+    [pokeApi.reducerPath]: pokeApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(filterApi.middleware),
+    getDefaultMiddleware().concat(pokeApi.middleware),
   devTools: true,
 });
 

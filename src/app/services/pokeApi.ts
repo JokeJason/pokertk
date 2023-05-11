@@ -1,4 +1,9 @@
-import { fetchBaseQuery, FetchArgs } from '@reduxjs/toolkit/query/react';
+import {
+  fetchBaseQuery,
+  FetchArgs,
+  createApi,
+} from '@reduxjs/toolkit/query/react';
+import { RegionListResponseData, TypeListResponseData } from 'types/api';
 
 export interface pokeApiFullListFetchArgs extends FetchArgs {
   fetchAllPages?: boolean;
@@ -69,3 +74,21 @@ export const pokeApiBaseQuery = async (
     return fetchBaseQuery({ baseUrl })(args, api, extra);
   }
 };
+
+export const pokeApi = createApi({
+  reducerPath: 'pokeApi',
+  baseQuery: pokeApiBaseQuery,
+  endpoints: builder => ({
+    getTypeList: builder.query<TypeListResponseData, void>({
+      query: () => ({ url: 'type', fetchAllPages: true }),
+      transformResponse: (response: RegionListResponseData) => {
+        return {
+          ...response,
+          results: [{ name: 'All Types', url: '' }, ...response.results],
+        };
+      },
+    }),
+  }),
+});
+
+export const { useGetTypeListQuery } = pokeApi;
