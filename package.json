@@ -31,7 +31,8 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix --no-error-on-unmatched-pattern",
     "fix": "npm run format:write && npm run lint:fix",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=chpt_df2240e310a4eff"
   },
   "eslintConfig": {
     "extends": [
@@ -99,5 +100,7 @@
     "prop-types": "^15.8.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.76.2"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "pokertk@0.1.0"
 }
