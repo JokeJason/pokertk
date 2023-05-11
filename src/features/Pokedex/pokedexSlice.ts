@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PokedexState } from 'features/Pokedex/types/slice';
+import { PokedexStateProps } from 'features/Pokedex/types/slice';
 
 import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from 'types/api';
@@ -39,12 +39,12 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
   return pokemonListData;
 });
 
-const initialState: PokedexState = {
+export const initialState: PokedexStateProps = {
   isLoadingPokemons: true,
   pokemonCardList: [],
 };
 
-export const pokedexSlice: Slice<PokedexState> = createSlice({
+export const pokedexSlice: Slice<PokedexStateProps> = createSlice({
   name: 'pokedex',
   initialState,
   reducers: {

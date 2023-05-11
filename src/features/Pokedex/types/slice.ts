@@ -1,6 +1,6 @@
 import { PokemonCardProps } from 'components/PokemonCard';
 
-export type PokedexState = {
+export type PokedexStateProps = {
   isLoadingPokemons: boolean;
   pokemonCardList: PokemonCardProps[];
 };
