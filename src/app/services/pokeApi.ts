@@ -3,7 +3,13 @@ import {
   FetchArgs,
   createApi,
 } from '@reduxjs/toolkit/query/react';
-import { RegionListResponseData, TypeListResponseData } from 'types/api';
+import {
+  RegionListResponseData,
+  TypeListResponseData,
+  PokemonResponseData,
+  EvolutionChainResponseData,
+  PokemonSpeciesResponseData,
+} from 'types/api';
 
 export interface pokeApiFullListFetchArgs extends FetchArgs {
   fetchAllPages?: boolean;
@@ -88,7 +94,24 @@ export const pokeApi = createApi({
         };
       },
     }),
+    getPokemon: builder.query<PokemonResponseData, number | string>({
+      query: IdOrName => ({ url: `pokemon/${IdOrName}` }),
+    }),
+    getPokemonSpecies: builder.query<
+      PokemonSpeciesResponseData,
+      number | string
+    >({
+      query: IdOrName => ({ url: `pokemon-species/${IdOrName}` }),
+    }),
+    getEvolutionChain: builder.query<EvolutionChainResponseData, number>({
+      query: Id => ({ url: `evolution-chain/${Id}` }),
+    }),
   }),
 });
 
-export const { useGetTypeListQuery } = pokeApi;
+export const {
+  useGetTypeListQuery,
+  useGetPokemonQuery,
+  useGetPokemonSpeciesQuery,
+  useGetEvolutionChainQuery,
+} = pokeApi;

@@ -60,3 +60,23 @@ export interface PokemonResponseData {
     };
   };
 }
+
+export type PokemonSpeciesResponseData = {
+  // many fields are ignored
+  evolution_chain: {
+    url: string;
+  };
+};
+
+type EvolutionChain = {
+  evolves_to: EvolutionChain[];
+  species: {
+    name: string;
+    url: string;
+  };
+};
+
+export type EvolutionChainResponseData = {
+  // many fields are ignored
+  chain: EvolutionChain;
+};
