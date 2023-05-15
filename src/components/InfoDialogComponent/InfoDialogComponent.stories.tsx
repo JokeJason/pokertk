@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import InfoDialogComponent, {
-  InfoDialogComponentProps,
-} from './InfoDialogComponent';
+import InfoDialogComponent from './InfoDialogComponent';
 
 const meta: Meta<typeof InfoDialogComponent> = {
   title: 'Component/InfoDialogComponent',
