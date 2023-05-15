@@ -30,3 +30,13 @@ export const Bulbasaur: Story = {
     types: ['grass', 'poison'],
   },
 };
+
+export const Pikachu: Story = {
+  args: {
+    id: 25,
+    name: 'pikachu',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg',
+    types: ['electric'],
+  },
+};
