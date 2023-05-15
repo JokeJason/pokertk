@@ -1,35 +1,35 @@
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import PokemonTypes from './PokemonTypes';
 
-import PokemonTypes, { PokemonTypesProps } from './PokemonTypes';
-
-export default {
+const meta: Meta<typeof PokemonTypes> = {
   title: 'Component/PokemonTypes',
   component: PokemonTypes,
-} as ComponentMeta<typeof PokemonTypes>;
-
-const Template: ComponentStory<typeof PokemonTypes> = (
-  args: PokemonTypesProps,
-) => <PokemonTypes {...args} />;
-
-export const Primary = Template.bind({});
-
-Primary.args = {
-  types: ['fire'],
 };
 
-export const bulbasaur = Template.bind({});
-bulbasaur.args = {
-  types: ['grass', 'poison'],
+export default meta;
+type Story = StoryObj<typeof PokemonTypes>;
+
+export const charmander: Story = {
+  args: {
+    types: ['fire'],
+  },
 };
 
-export const charizard = Template.bind({});
-charizard.args = {
-  types: ['fire', 'flying'],
+export const bulbasaur: Story = {
+  args: {
+    types: ['grass', 'poison'],
+  },
 };
 
-export const threetypes = Template.bind({});
-threetypes.args = {
-  types: ['fire', 'flying', 'grass'],
+export const charizard: Story = {
+  args: {
+    types: ['fire', 'flying'],
+  },
+};
+
+export const threetypes: Story = {
+  args: {
+    types: ['fire', 'flying', 'grass'],
+  },
 };
