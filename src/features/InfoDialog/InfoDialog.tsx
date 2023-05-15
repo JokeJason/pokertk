@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, Tooltip, Zoom } from '@mui/material';
 
 import { findPokeTypeAsset } from 'components/PokemonTypes';
-import { colorTypeGradients } from 'components/PokemonCard/utils';
+import { colorTypeGradients } from 'components/utils';
 import GenderRate from 'components/GenderRate';
 
 export interface InfoDialogProps {
