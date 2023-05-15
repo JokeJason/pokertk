@@ -1,16 +1,15 @@
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import type { Meta } from '@storybook/react';
 
-import Pokedex, { PokedexProps } from './Pokedex';
-import * as PokemonCardStories from 'components/PokemonCard/PokemonCard.stories';
+import Pokedex from './Pokedex';
 import { initialState } from './pokedexSlice';
 import { PokedexStateProps } from './types/slice';
-import { ComponentStory } from '@storybook/react';
 
-const Mockstate = {
+const MockedState = {
   // Copied from Redux DevTools from browser
   pokedex: {
-    isLoadingPokemons: true,
+    isLoadingPokemons: false,
     pokemonCardList: [
       {
         id: 1,
@@ -54,6 +53,13 @@ const Mockstate = {
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg',
         types: ['fire', 'flying'],
       },
+      {
+        id: 7,
+        name: 'squirtle',
+        image:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/7.svg',
+        types: ['water'],
+      },
     ],
   },
   filter: {
@@ -88,6 +94,7 @@ interface MockStoreProps {
   children: React.ReactNode;
 }
 
+// Create a mock store
 const mockSlice = (pokedexState: PokedexStateProps) => {
   return createSlice({
     name: 'pokedex',
@@ -99,7 +106,6 @@ const mockSlice = (pokedexState: PokedexStateProps) => {
     },
   });
 };
-
 const mockStore = (pokedexState: PokedexStateProps) => {
   return configureStore({
     reducer: {
@@ -107,13 +113,11 @@ const mockStore = (pokedexState: PokedexStateProps) => {
     },
   });
 };
-
-// A super-simple mock of a redux store
 const Mockstore: React.FC<MockStoreProps> = ({ pokedexState, children }) => (
   <Provider store={mockStore(pokedexState)}>{children}</Provider>
 );
 
-export default {
+const meta: Meta<typeof Pokedex> = {
   component: Pokedex,
   title: 'features/Pokedex',
   decorators: [
@@ -125,7 +129,9 @@ export default {
   excludeStories: /.*MockedState$/,
 };
 
-export const Default = {
+export default meta;
+
+export const Loding = {
   decorators: [
     (story: () => React.ReactNode) => (
       <Mockstore pokedexState={initialState}>{story()}</Mockstore>
@@ -133,14 +139,16 @@ export const Default = {
   ],
 };
 
-// const Template: ComponentStory<typeof Pokedex> = (args: PokedexProps) => (
-//   <Pokedex {...args} />
-// );
-//
-// export const Primary = Template.bind({});
-// Primary.args = {
-//   selectedRegion: 'kanto',
-//   selectedType: 'All Types',
-//   selectedSort: 'id',
-//   searchInput: '',
-// };
+export const Primary = {
+  decorators: [
+    (story: () => React.ReactNode) => (
+      <Mockstore pokedexState={MockedState.pokedex}>{story()}</Mockstore>
+    ),
+  ],
+  args: {
+    selectedRegion: 'kanto',
+    selectedType: 'All Types',
+    selectedSort: 'id',
+    searchInput: '',
+  },
+};
