@@ -10,25 +10,29 @@ const meta: Meta<typeof PokemonTypes> = {
 export default meta;
 type Story = StoryObj<typeof PokemonTypes>;
 
-export const charmander: Story = {
+export const fireOnly: Story = {
+  name: 'Fire only',
   args: {
     types: ['fire'],
   },
 };
 
-export const bulbasaur: Story = {
+export const grassAndPoinson: Story = {
+  name: 'Grass and Poison',
   args: {
     types: ['grass', 'poison'],
   },
 };
 
-export const charizard: Story = {
+export const fireAndFlying: Story = {
+  name: 'Fire and Flying',
   args: {
     types: ['fire', 'flying'],
   },
 };
 
-export const threetypes: Story = {
+export const threeTypes: Story = {
+  name: 'Fire, Flying and Grass',
   args: {
     types: ['fire', 'flying', 'grass'],
   },
