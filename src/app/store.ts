@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { filterSlice } from 'features/Filters/filterSlice';
+import { infoDialogSlice } from 'features/InfoDialog/infoDialogSlice';
 import { pokeApi } from './services/pokeApi';
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     // component slices
     pokedex: pokedexSlice.reducer,
     filter: filterSlice.reducer,
+    infoDialog: infoDialogSlice.reducer,
 
     // api slices
     [pokeApi.reducerPath]: pokeApi.reducer,

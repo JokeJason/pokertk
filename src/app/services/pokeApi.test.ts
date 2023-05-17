@@ -1,6 +1,8 @@
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { pokeApi } from 'app/services/pokeApi';
 import { filterSlice } from 'features/Filters/filterSlice';
+import { getIdFromUrl } from 'app/services/pokeApi';
+
 import { configureStore } from '@reduxjs/toolkit';
 
 import { AppStore } from 'app/store';
@@ -85,6 +87,20 @@ describe('pokeApi', () => {
           evolutionChainData?.chain.evolves_to[0].evolves_to[0].species.url,
         ).toBe('https://pokeapi.co/api/v2/pokemon-species/6/');
       });
+    });
+  });
+
+  describe('test helper functions', () => {
+    test('getIdFromUrl works correctly for PokemonSpecies', () => {
+      const url = 'https://pokeapi.co/api/v2/pokemon-species/6/';
+      const id = getIdFromUrl(url);
+      expect(id).toBe(6);
+    });
+
+    test('getIdFromUrl works correctly for evolution-chain', () => {
+      const url = 'https://pokeapi.co/api/v2/evolution-chain/2/';
+      const id = getIdFromUrl(url);
+      expect(id).toBe(2);
     });
   });
 });

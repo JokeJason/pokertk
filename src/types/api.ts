@@ -68,7 +68,7 @@ export type PokemonSpeciesResponseData = {
   };
 };
 
-type EvolutionChain = {
+export type EvolutionChain = {
   evolves_to: EvolutionChain[];
   species: {
     name: string;

@@ -36,14 +36,14 @@ export const Duduo: Story = {
     evolutionChain: [
       {
         types: ['normal', 'flying'],
-        image:
+        image_url:
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/84.svg',
         name: 'Doduo',
       },
       {
         name: 'Dodrio',
         types: ['normal', 'flying'],
-        image:
+        image_url:
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/85.svg',
       },
     ],
