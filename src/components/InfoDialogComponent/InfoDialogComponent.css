@@ -3,7 +3,7 @@ html {
   --cardborder: #fff;
   --pokenumber: hsl(228, 28%, 20%);
   --info: #fff;
-  --bggradient: url('assets/bg.png');
+  --bggradient: url('assets/images/bg.png');
   --bgcolor: none;
 }
 
@@ -147,7 +147,7 @@ html[data-theme='dark'] {
 }
 
 .dialog__bg {
-  background-image: url('assets/bg.png');
+  background-image: url('assets/images/bg.png');
   background-repeat: repeat;
 }
 
