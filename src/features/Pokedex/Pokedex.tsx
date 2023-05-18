@@ -4,7 +4,7 @@ import Loading from 'components/Loading';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { fetchPokemonsInTheRegion } from './pokedexSlice';
-import { fetchSelectedPokemonInfo } from '../InfoDialog/infoDialogSlice';
+import { fetchSelectedPokemonInfo } from 'features/InfoDialog/infoDialogSlice';
 
 export const filterPokemonCardsByType = (
   pokemonList: PokemonCardProps[],
