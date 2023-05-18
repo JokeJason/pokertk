@@ -3,11 +3,6 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import InfoDialogComponent from 'components/InfoDialogComponent';
 import { setCloseDialog } from './infoDialogSlice';
 
-export interface InfoDialogProps {
-  open: boolean;
-  pokemonId: string | number;
-}
-
 const InfoDialog = () => {
   const dispatch = useAppDispatch();
 
