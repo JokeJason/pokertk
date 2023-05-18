@@ -115,47 +115,64 @@ export const constructPokemonInfoFromResponses = (
 export const fetchSelectedPokemonInfo = createAsyncThunk(
   'infoDialog/fetchSelectedPokemonInfo',
   async (pokemonId: number, thunkAPI) => {
-    const { data: selectedPokemon } = await pokeApi.useGetPokemonQuery(
-      pokemonId,
-    );
-    if (selectedPokemon && selectedPokemon.species) {
-      const { data: selectedPokemonSpecies } =
-        await pokeApi.useGetPokemonSpeciesFromUrlQuery(
-          selectedPokemon.species.url,
+    const dispatch = thunkAPI.dispatch;
+
+    try {
+      const selectedPokemon = await dispatch(
+        pokeApi.endpoints.getPokemon.initiate(pokemonId),
+      );
+
+      if (selectedPokemon.data) {
+        const selectedPokemonSpecies = await dispatch(
+          pokeApi.endpoints.getPokemonSpeciesFromUrl.initiate(
+            selectedPokemon.data.species.url,
+          ),
         );
-      if (selectedPokemonSpecies && selectedPokemonSpecies.evolution_chain) {
-        const { data: selectedPokemonEvolutionChain } =
-          await pokeApi.useGetEvolutionChainFromUrlQuery(
-            selectedPokemonSpecies.evolution_chain.url,
-          );
-        if (selectedPokemonEvolutionChain) {
-          const evolutionChainNames = constructEvolutionChainFromResponse(
-            selectedPokemonEvolutionChain,
-          );
-          // for each name in evolutionChain, fetch the pokemon
-          const evolutionChain: EvolutionSpeciesProps[] = [];
-          evolutionChainNames.map(async name => {
-            const { data: evolutionChainPokemon } =
-              await pokeApi.useGetPokemonQuery(name);
-            if (evolutionChainPokemon) {
-              evolutionChain.push({
-                types: evolutionChainPokemon.types.map(type => type.type.name),
-                name: evolutionChainPokemon.name,
-                image_url:
-                  evolutionChainPokemon.sprites.other.dream_world.front_default,
-              });
-            }
-          });
 
-          const selectedPokemonInfo = constructPokemonInfoFromResponses(
-            selectedPokemon,
-            selectedPokemonSpecies,
-            evolutionChain,
+        if (selectedPokemonSpecies.data) {
+          const selectedPokemonEvolutionChain = await dispatch(
+            pokeApi.endpoints.getEvolutionChainFromUrl.initiate(
+              selectedPokemonSpecies.data.evolution_chain.url,
+            ),
           );
 
-          return selectedPokemonInfo;
+          if (selectedPokemonEvolutionChain.data) {
+            const evolutionChainName = constructEvolutionChainFromResponse(
+              selectedPokemonEvolutionChain.data,
+            );
+
+            // for each name in evolutionChain, fetch the pokemon
+            const evolutionChain: EvolutionSpeciesProps[] = [];
+            await Promise.all(
+              evolutionChainName.map(async name => {
+                const evolutionChainPokemon = await dispatch(
+                  pokeApi.endpoints.getPokemon.initiate(name),
+                );
+                if (evolutionChainPokemon.data) {
+                  evolutionChain.push({
+                    types: evolutionChainPokemon.data.types.map(
+                      type => type.type.name,
+                    ),
+                    name: evolutionChainPokemon.data.name,
+                    image_url:
+                      evolutionChainPokemon.data.sprites.other.dream_world
+                        .front_default,
+                  });
+                }
+              }),
+            );
+
+            const selectedPokemonInfo = constructPokemonInfoFromResponses(
+              selectedPokemon.data,
+              selectedPokemonSpecies.data,
+              evolutionChain,
+            );
+            return selectedPokemonInfo;
+          }
         }
       }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
 
     return null;
