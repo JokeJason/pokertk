@@ -18,6 +18,7 @@ export interface Stat {
 
 export interface InfoDialogComponentProps {
   openDialog: boolean;
+  closeDialog: () => void;
   id: number;
   name: string;
   types: string[];
@@ -34,6 +35,7 @@ export interface InfoDialogComponentProps {
 
 const InfoDialog = ({
   openDialog,
+  closeDialog,
   id,
   name,
   types,
@@ -54,6 +56,7 @@ const InfoDialog = ({
       <Dialog
         aria-labelledby="customized-dialog-title"
         open={openDialog}
+        onClose={closeDialog}
         fullWidth
         maxWidth="md"
         className="dialog__bg noselect"

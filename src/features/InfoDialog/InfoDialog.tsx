@@ -1,6 +1,7 @@
-import { useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 import InfoDialogComponent from 'components/InfoDialogComponent';
+import { setCloseDialog } from './infoDialogSlice';
 
 export interface InfoDialogProps {
   open: boolean;
@@ -8,6 +9,8 @@ export interface InfoDialogProps {
 }
 
 const InfoDialog = () => {
+  const dispatch = useAppDispatch();
+
   const isOpen = useAppSelector(state => state.infoDialog.isOpen);
   const selectedInfoDialogDetails = useAppSelector(
     state => state.infoDialog.InfoDialogDetails,
@@ -17,6 +20,7 @@ const InfoDialog = () => {
     <>
       <InfoDialogComponent
         openDialog={isOpen}
+        closeDialog={() => dispatch(setCloseDialog(null))}
         id={selectedInfoDialogDetails.id}
         name={selectedInfoDialogDetails.name}
         types={selectedInfoDialogDetails.types}

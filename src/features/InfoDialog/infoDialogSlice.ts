@@ -186,6 +186,9 @@ export const infoDialogSlice: Slice<InfoDialogStateProps> = createSlice({
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload;
     },
+    setCloseDialog: (state, action: PayloadAction<null>) => {
+      state.isOpen = false;
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchSelectedPokemonInfo.fulfilled, (state, action) => {
@@ -197,6 +200,6 @@ export const infoDialogSlice: Slice<InfoDialogStateProps> = createSlice({
   },
 });
 
-export const { setIsOpen } = infoDialogSlice.actions;
+export const { setIsOpen, setCloseDialog } = infoDialogSlice.actions;
 
 export default infoDialogSlice.reducer;
