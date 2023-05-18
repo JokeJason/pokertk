@@ -11,7 +11,7 @@ import EvolutionSpecies, {
   EvolutionSpeciesProps,
 } from 'components/EvolutionSpecies';
 
-interface Stat {
+export interface Stat {
   stat__name: string;
   stat__value: number;
 }

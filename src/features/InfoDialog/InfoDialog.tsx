@@ -19,32 +19,26 @@ const InfoDialog = ({ pokemonId }: InfoDialogProps) => {
   const dispatch = useAppDispatch();
 
   const isOpen = useAppSelector(state => state.infoDialog.isOpen);
-  const skipGetPokemonSpeciesQuery = useAppSelector(
-    state => state.infoDialog.skipGetPokemonSpeciesQuery,
-  );
-  const skipGetEvolutionChainQuery = useAppSelector(
-    state => state.infoDialog.skipGetEvolutionChainQuery,
-  );
-  const selectedPokemonId = useAppSelector(
-    state => state.infoDialog.selectedPokemonId,
+  const selectedInfoDialogDetails = useAppSelector(
+    state => state.infoDialog.InfoDialogDetails,
   );
 
   return (
     <>
       <InfoDialogComponent
         openDialog={isOpen}
-        id={selectedPokemonId}
-        name={}
-        types={}
-        genera={}
-        image={}
-        height={}
-        weight={}
-        genderRatio={}
-        description={}
-        abilities={}
-        stats={}
-        evolutionChain={}
+        id={selectedInfoDialogDetails.id}
+        name={selectedInfoDialogDetails.name}
+        types={selectedInfoDialogDetails.types}
+        genera={selectedInfoDialogDetails.genera}
+        image={selectedInfoDialogDetails.image}
+        height={selectedInfoDialogDetails.height}
+        weight={selectedInfoDialogDetails.weight}
+        genderRatio={selectedInfoDialogDetails.genderRatio}
+        description={selectedInfoDialogDetails.description}
+        abilities={selectedInfoDialogDetails.abilities}
+        stats={selectedInfoDialogDetails.stats}
+        evolutionChain={selectedInfoDialogDetails.evolutionChain}
       />
     </>
   );

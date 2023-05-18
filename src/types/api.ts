@@ -61,11 +61,25 @@ export interface PokemonResponseData {
   };
 }
 
+export type generaItem = {
+  genus: string;
+  language: nameUrlPair;
+};
+
+export type FlavorTextEntry = {
+  flavor_text: string;
+  language: nameUrlPair;
+  version: nameUrlPair;
+};
+
 export type PokemonSpeciesResponseData = {
   // many fields are ignored
+  genera: generaItem[];
   evolution_chain: {
     url: string;
   };
+  gender_rate: number;
+  flavor_text_entries: FlavorTextEntry[];
 };
 
 export type EvolutionChain = {

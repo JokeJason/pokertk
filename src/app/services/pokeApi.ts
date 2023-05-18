@@ -119,40 +119,25 @@ export const pokeApi = createApi({
         };
       },
     }),
-    getPokemon: builder.query<PokemonResponseData, number>({
-      query: Id => ({ url: `pokemon/${Id}` }),
+    getPokemon: builder.query<PokemonResponseData, string | number>({
+      query: IdOrName => ({ url: `pokemon/${IdOrName}` }),
     }),
     getPokemonSpecies: builder.query<PokemonSpeciesResponseData, number>({
       query: Id => ({ url: `pokemon-species/${Id}` }),
     }),
+    getPokemonSpeciesFromUrl: builder.query<PokemonSpeciesResponseData, string>(
+      {
+        query: url => ({ url: `pokemon-species/${getIdFromUrl(url)}` }),
+      },
+    ),
     getEvolutionChain: builder.query<EvolutionChainResponseData, number>({
       query: Id => ({ url: `evolution-chain/${Id}` }),
     }),
-    getPokemonInfo: builder.query<string, number>({
-      async queryFn(pokemonId, queryApi) {
-        const pokemon: PokemonResponseData = await queryApi
-          .dispatch(pokeApi.endpoints.getPokemon.initiate(pokemonId))
-          .unwrap();
-
-        const pokemonSpecies: PokemonSpeciesResponseData = await queryApi
-          .dispatch(
-            pokeApi.endpoints.getPokemonSpecies.initiate(
-              getIdFromUrl(pokemon.species.url),
-            ),
-          )
-          .unwrap();
-
-        const evolutionChain: EvolutionChainResponseData = await queryApi
-          .dispatch(
-            pokeApi.endpoints.getEvolutionChain.initiate(
-              getIdFromUrl(pokemonSpecies.evolution_chain.url),
-            ),
-          )
-          .unwrap();
-
-        return { data: 'test' };
+    getEvolutionChainFromUrl: builder.query<EvolutionChainResponseData, string>(
+      {
+        query: url => ({ url: `evolution-chain/${getIdFromUrl(url)}` }),
       },
-    }),
+    ),
   }),
 });
 
@@ -160,5 +145,7 @@ export const {
   useGetTypeListQuery,
   useGetPokemonQuery,
   useGetPokemonSpeciesQuery,
+  useGetPokemonSpeciesFromUrlQuery,
   useGetEvolutionChainQuery,
+  useGetEvolutionChainFromUrlQuery,
 } = pokeApi;
