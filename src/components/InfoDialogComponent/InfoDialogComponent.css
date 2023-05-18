@@ -16,6 +16,16 @@ html[data-theme='dark'] {
   --bgcolor: #16171f;
 }
 
+@font-face {
+  font-family: 'Teko';
+  src: url('assets/fonts/Teko-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'VT323';
+    src: url('assets/fonts/VT323-Regular.ttf');
+}
+
 .info__container {
   width: 100%;
   display: flex;
