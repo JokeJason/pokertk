@@ -99,7 +99,7 @@ export const constructPokemonInfoFromResponses = (
     types: fetchedPokemon.types.map(type => type.type.name),
     height: fetchedPokemon.height,
     weight: fetchedPokemon.weight,
-    genderRatio: fetchedPokemonSpecies.gender_rate - 1,
+    genderRatio: fetchedPokemonSpecies.gender_rate,
     description: findFirstEnglishFlavorText(
       fetchedPokemonSpecies.flavor_text_entries,
     ),
