@@ -76,7 +76,7 @@ const Pokedex = ({
 
   useEffect(() => {
     dispatch(fetchPokemonsInTheRegion(selectedRegion));
-  }, [selectedRegion]);
+  }, [dispatch, selectedRegion]);
 
   return (
     <>

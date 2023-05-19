@@ -2,6 +2,7 @@ import {
   fetchBaseQuery,
   FetchArgs,
   createApi,
+  BaseQueryApi,
 } from '@reduxjs/toolkit/query/react';
 import {
   RegionListResponseData,
@@ -9,6 +10,7 @@ import {
   PokemonResponseData,
   EvolutionChainResponseData,
   PokemonSpeciesResponseData,
+  nameUrlPair,
 } from 'types/api';
 
 export interface pokeApiFullListFetchArgs extends FetchArgs {
@@ -19,12 +21,7 @@ interface PokeAPIPaginatedResponse {
   count: number;
   next: string | null;
   previous: string | null;
-  results: any[];
-}
-
-interface PokeAPIFullListResponse {
-  count: number;
-  results: any[];
+  results: nameUrlPair[];
 }
 
 export const getIdFromUrl = (url: string) => {
@@ -33,7 +30,7 @@ export const getIdFromUrl = (url: string) => {
 };
 
 async function fetchAllPages(url: string | null) {
-  const allResults: any[] = [];
+  const allResults: nameUrlPair[] = [];
 
   while (url) {
     const response = await fetch(url);
@@ -50,7 +47,7 @@ export const paginationBaseQuery = (baseUrl: string) =>
 
 export const pokeApiAllPagesCustomBaseQuery = async (
   args: pokeApiFullListFetchArgs,
-  api: any,
+  api: BaseQueryApi,
   extra: any,
   baseUrl: string,
 ) => {
@@ -62,19 +59,17 @@ export const pokeApiAllPagesCustomBaseQuery = async (
       data.results = data.results.concat(allResults);
     }
 
-    const fullListReponse: PokeAPIFullListResponse = {
+    result.data = {
       count: data.count,
       results: data.results,
     };
-
-    result.data = fullListReponse;
   }
   return result;
 };
 
 export const pokeApiBaseQuery = async (
   args: pokeApiFullListFetchArgs,
-  api: any,
+  api: BaseQueryApi,
   extra: any,
 ) => {
   const baseUrl = 'https://pokeapi.co/api/v2/';
