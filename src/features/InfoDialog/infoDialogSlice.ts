@@ -186,7 +186,7 @@ export const infoDialogSlice: Slice<InfoDialogStateProps> = createSlice({
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload;
     },
-    setCloseDialog: (state, action: PayloadAction<null>) => {
+    setCloseDialog: state => {
       state.isOpen = false;
     },
   },
