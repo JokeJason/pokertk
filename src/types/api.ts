@@ -37,7 +37,6 @@ export interface PokemonResponseData {
   base_experience: number;
   forms: nameUrlPair[];
   height: number;
-  held_items: any[];
   id: number;
   is_default: boolean;
   location_area_encounters: string;
