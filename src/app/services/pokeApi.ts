@@ -9,10 +9,7 @@ import {
   PokemonResponseData,
   EvolutionChainResponseData,
   PokemonSpeciesResponseData,
-  EvolutionChain,
 } from 'types/api';
-import { InfoDialogComponentProps } from 'components/InfoDialogComponent';
-import { EvolutionSpeciesProps } from 'components/EvolutionSpecies';
 
 export interface pokeApiFullListFetchArgs extends FetchArgs {
   fetchAllPages?: boolean;
@@ -47,23 +44,6 @@ async function fetchAllPages(url: string | null) {
 
   return allResults;
 }
-
-export const convertEvolutionChainResponseDataToEvolutionSpeciesProps = (
-  evo: EvolutionChainResponseData,
-): EvolutionSpeciesProps[] => {
-  const result: EvolutionSpeciesProps[] = [];
-  // const addEvolutionSpeciesProps = (evo: EvolutionChain, level: number) => {
-  //   result.push({
-  //     name: evo.species.name,
-  //   });
-  //   evo.evolves_to.forEach(evo => {
-  //     addEvolutionSpeciesProps(evo, level + 1);
-  //   });
-  // };
-  //
-  // addEvolutionSpeciesProps(evo.chain, 0);
-  return result;
-};
 
 export const paginationBaseQuery = (baseUrl: string) =>
   fetchBaseQuery({ baseUrl });
