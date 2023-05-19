@@ -1,0 +1,12 @@
+.poke__logos {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.poke__logo {
+  margin-top: 10px;
+  width: 15vw;
+  -webkit-filter: drop-shadow(5px 0px 0px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(5px 0px 0px rgba(0, 0, 0, 0.6));
+}

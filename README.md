@@ -49,3 +49,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## TODO
+
+* [ ] Fix css of Filter component
+* [ ] Fix Poke logo size via css
+* [ ] Add day/night toggle in header
+* [ ] Add github icon in header
+* [ ] Use material.ui to display pokemon cards
+* [ ] Fix round corner of InfoDialog component

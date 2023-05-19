@@ -1,6 +1,6 @@
 html {
   --toggle: hsl(230deg 17% 85%);
-  --bggradient: url('assets/bg.png');
+  --bggradient: url('assets/images/bg.png');
   --bgcolor: none;
   --colorPrimary: #000;
   --filterHeading: #000;
@@ -38,7 +38,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('assets/bg.png');
+  background-image: url('assets/images/bg.png');
   background-size: initial;
   background-repeat: repeat;
 }

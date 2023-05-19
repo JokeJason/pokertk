@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+  Slice,
+} from '@reduxjs/toolkit';
 import { FilterState } from './types/slice';
 import { RegionPokemonRange } from './types/slice';
 import { pokeApi } from 'app/services/pokeApi';
@@ -14,6 +19,33 @@ const initialState: FilterState = {
   selectedSort: '',
   searchInput: '',
 };
+
+export const initializeFilterSlice = createAsyncThunk(
+  'filter/initializeFilterSlice',
+  async (_args, thunkAPI) => {
+    const dispatch = thunkAPI.dispatch;
+
+    const regionOptions = [
+      { region: 'kanto', startId: 1, endId: 151 },
+      { region: 'johto', startId: 152, endId: 251 },
+      { region: 'hoenn', startId: 252, endId: 386 },
+      { region: 'sinnoh', startId: 387, endId: 493 },
+      { region: 'unova', startId: 494, endId: 649 },
+      { region: 'kalos', startId: 650, endId: 721 },
+      { region: 'alola', startId: 722, endId: 809 },
+      { region: 'galar', startId: 810, endId: 898 },
+    ];
+
+    dispatch(pokeApi.endpoints.getTypeList.initiate());
+
+    const sortOptions = [
+      { name: 'ID', value: 'id' },
+      { name: 'Name', value: 'name' },
+    ];
+
+    return { regionOptions, sortOptions };
+  },
+);
 
 export const filterSlice: Slice<FilterState> = createSlice({
   name: 'filter',
@@ -45,6 +77,15 @@ export const filterSlice: Slice<FilterState> = createSlice({
     },
   },
   extraReducers: builder => {
+    builder.addCase(initializeFilterSlice.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.regionOptions = action.payload.regionOptions;
+        state.sortOptions = action.payload.sortOptions;
+
+        state.selectedRegion = action.payload.regionOptions[0].region;
+        state.selectedSort = action.payload.sortOptions[0].value;
+      }
+    });
     builder.addMatcher(
       pokeApi.endpoints.getTypeList.matchFulfilled,
       (state, action) => {

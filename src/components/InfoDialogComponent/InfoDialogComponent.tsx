@@ -7,15 +7,18 @@ import { findPokeTypeAsset } from 'components/PokemonTypes';
 import { colorTypeGradients } from 'components/utils';
 import GenderRate from 'components/GenderRate';
 import Delayed from 'components/Delayed';
-import EvolutionSpecies from 'components/EvolutionSpecies';
+import EvolutionSpecies, {
+  EvolutionSpeciesProps,
+} from 'components/EvolutionSpecies';
 
-interface Stat {
+export interface Stat {
   stat__name: string;
   stat__value: number;
 }
 
 export interface InfoDialogComponentProps {
   openDialog: boolean;
+  closeDialog: () => void;
   id: number;
   name: string;
   types: string[];
@@ -27,11 +30,12 @@ export interface InfoDialogComponentProps {
   description: string;
   abilities: string[];
   stats: Stat[];
-  evolutionChain: { types: string[]; image: string; name: string }[];
+  evolutionChain: EvolutionSpeciesProps[];
 }
 
 const InfoDialog = ({
   openDialog,
+  closeDialog,
   id,
   name,
   types,
@@ -52,6 +56,7 @@ const InfoDialog = ({
       <Dialog
         aria-labelledby="customized-dialog-title"
         open={openDialog}
+        onClose={closeDialog}
         fullWidth
         maxWidth="md"
         className="dialog__bg noselect"
@@ -171,7 +176,7 @@ const InfoDialog = ({
                       >
                         <EvolutionSpecies
                           types={evo.types}
-                          image_url={evo.image}
+                          image_url={evo.image_url}
                           name={evo.name}
                         />
                         {evolutionChain.indexOf(evo) + 1 &&

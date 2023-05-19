@@ -4,6 +4,7 @@ import Loading from 'components/Loading';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { fetchPokemonsInTheRegion } from './pokedexSlice';
+import { fetchSelectedPokemonInfo } from 'features/InfoDialog/infoDialogSlice';
 
 export const filterPokemonCardsByType = (
   pokemonList: PokemonCardProps[],
@@ -75,7 +76,7 @@ const Pokedex = ({
 
   useEffect(() => {
     dispatch(fetchPokemonsInTheRegion(selectedRegion));
-  }, [selectedRegion]);
+  }, [dispatch, selectedRegion]);
 
   return (
     <>
@@ -90,6 +91,9 @@ const Pokedex = ({
               name={pokemonCard.name}
               image={pokemonCard.image}
               types={pokemonCard.types}
+              onClickAction={() =>
+                dispatch(fetchSelectedPokemonInfo(pokemonCard.id))
+              }
             />
           ))}
         </div>

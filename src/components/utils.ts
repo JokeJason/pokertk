@@ -1,4 +1,4 @@
-const getColor = (type: string) => {
+const getColor = (type: string): string => {
   let returnColor: string;
   switch (type) {
     case 'grass':
@@ -63,13 +63,13 @@ const getColor = (type: string) => {
   return returnColor;
 };
 
-export const colorTypeGradients = (types: string[]) => {
-  let color2;
-  const color1 = getColor(types[0]);
+export const colorTypeGradients = (types: string[]): string[] => {
+  const color1: string = getColor(types[0]);
+  let color2: string = color1;
 
   if (types.length === 2) {
     color2 = getColor(types[1]);
-  } else if (length === 1) {
+  } else if (types.length === 1) {
     color2 = color1;
   }
 

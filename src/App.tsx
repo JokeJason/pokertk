@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import Header from 'components/Header';
+import Header from 'components/Header/Header';
 import Pokedex from 'features/Pokedex';
 import Filters from 'features/Filters';
+import InfoDialog from 'features/InfoDialog';
 import { useAppSelector } from 'app/hooks';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         selectedSort={selectedSort}
         searchInput={selectedSearchInput}
       />
+      <InfoDialog />
     </div>
   );
 }

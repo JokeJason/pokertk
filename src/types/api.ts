@@ -37,7 +37,6 @@ export interface PokemonResponseData {
   base_experience: number;
   forms: nameUrlPair[];
   height: number;
-  held_items: any[];
   id: number;
   is_default: boolean;
   location_area_encounters: string;
@@ -61,14 +60,28 @@ export interface PokemonResponseData {
   };
 }
 
+export type generaItem = {
+  genus: string;
+  language: nameUrlPair;
+};
+
+export type FlavorTextEntry = {
+  flavor_text: string;
+  language: nameUrlPair;
+  version: nameUrlPair;
+};
+
 export type PokemonSpeciesResponseData = {
   // many fields are ignored
+  genera: generaItem[];
   evolution_chain: {
     url: string;
   };
+  gender_rate: number;
+  flavor_text_entries: FlavorTextEntry[];
 };
 
-type EvolutionChain = {
+export type EvolutionChain = {
   evolves_to: EvolutionChain[];
   species: {
     name: string;

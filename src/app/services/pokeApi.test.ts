@@ -1,6 +1,8 @@
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { pokeApi } from 'app/services/pokeApi';
 import { filterSlice } from 'features/Filters/filterSlice';
+import { getIdFromUrl } from 'app/services/pokeApi';
+
 import { configureStore } from '@reduxjs/toolkit';
 
 import { AppStore } from 'app/store';
@@ -57,6 +59,24 @@ describe('pokeApi', () => {
       });
     });
 
+    describe('test getPokemonSpecies query', () => {
+      test('visit https://pokeapi.co/api/v2/pokemon-species/6/', async () => {
+        await store.dispatch(
+          pokeApi.endpoints.getPokemonSpeciesFromUrl.initiate(
+            'https://pokeapi.co/api/v2/pokemon-species/6/',
+          ),
+        );
+
+        const pokemonSpecies =
+          pokeApi.endpoints.getPokemonSpeciesFromUrl.select(
+            'https://pokeapi.co/api/v2/pokemon-species/6/',
+          )(store.getState()).data as PokemonSpeciesResponseData;
+        expect(pokemonSpecies?.evolution_chain.url).toBe(
+          'https://pokeapi.co/api/v2/evolution-chain/2/',
+        );
+      });
+    });
+
     describe('test getTypeList query', () => {
       test('visit https://pokeapi.co/api/v2/type should return correct data in list', async () => {
         await store.dispatch(pokeApi.endpoints.getTypeList.initiate());
@@ -85,6 +105,44 @@ describe('pokeApi', () => {
           evolutionChainData?.chain.evolves_to[0].evolves_to[0].species.url,
         ).toBe('https://pokeapi.co/api/v2/pokemon-species/6/');
       });
+    });
+
+    describe('test getEvolutionChainFromUrl query', () => {
+      test('visit https://pokeapi.co/api/v2/evolution-chain/2/', async () => {
+        await store.dispatch(
+          pokeApi.endpoints.getEvolutionChainFromUrl.initiate(
+            'https://pokeapi.co/api/v2/evolution-chain/2/',
+          ),
+        );
+
+        const evolutionChainData =
+          pokeApi.endpoints.getEvolutionChainFromUrl.select(
+            'https://pokeapi.co/api/v2/evolution-chain/2/',
+          )(store.getState()).data as EvolutionChainResponseData;
+        expect(evolutionChainData?.chain.species.url).toBe(
+          'https://pokeapi.co/api/v2/pokemon-species/4/',
+        );
+        expect(evolutionChainData?.chain.evolves_to[0].species.url).toBe(
+          'https://pokeapi.co/api/v2/pokemon-species/5/',
+        );
+        expect(
+          evolutionChainData?.chain.evolves_to[0].evolves_to[0].species.url,
+        ).toBe('https://pokeapi.co/api/v2/pokemon-species/6/');
+      });
+    });
+  });
+
+  describe('test helper functions', () => {
+    test('getIdFromUrl works correctly for PokemonSpecies', () => {
+      const url = 'https://pokeapi.co/api/v2/pokemon-species/6/';
+      const id = getIdFromUrl(url);
+      expect(id).toBe(6);
+    });
+
+    test('getIdFromUrl works correctly for evolution-chain', () => {
+      const url = 'https://pokeapi.co/api/v2/evolution-chain/2/';
+      const id = getIdFromUrl(url);
+      expect(id).toBe(2);
     });
   });
 });

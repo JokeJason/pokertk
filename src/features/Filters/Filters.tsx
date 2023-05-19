@@ -6,10 +6,8 @@ import {
   setSelectedRegion,
   setSelectedType,
   setSelectedSort,
-  setRegionOptions,
-  setTypeOptions,
-  setSortOptions,
   setSearchInput,
+  initializeFilterSlice,
 } from './filterSlice';
 import { useGetTypeListQuery } from 'app/services/pokeApi';
 import { RegionPokemonRange } from './types/slice';
@@ -31,61 +29,22 @@ export const createRegionPokemonListOptionElements = (
   });
 };
 
-export const useGetRegionOptions = () => {
-  const data: RegionPokemonRange[] = [
-    { region: 'kanto', startId: 1, endId: 151 },
-    { region: 'johto', startId: 152, endId: 251 },
-    { region: 'hoenn', startId: 252, endId: 386 },
-    { region: 'sinnoh', startId: 387, endId: 493 },
-    { region: 'unova', startId: 494, endId: 649 },
-    { region: 'kalos', startId: 650, endId: 721 },
-    { region: 'alola', startId: 722, endId: 809 },
-    { region: 'galar', startId: 810, endId: 898 },
-  ];
-  return { data: data };
-};
-
-const useGetSortOptions = () => {
-  const data = [
-    { name: 'ID', value: 'id' },
-    { name: 'Name', value: 'name' },
-  ];
-
-  return { data: data };
-};
-
 const Filters = () => {
   const dispatch = useAppDispatch();
+
+  const typeOptions = useAppSelector(state => state.filter.typeOptions);
+  const sortOptions = useAppSelector(state => state.filter.sortOptions);
+  const regionOptions = useAppSelector(state => state.filter.regionOptions);
   const selectedRegion = useAppSelector(state => state.filter.selectedRegion);
   const selectedType = useAppSelector(state => state.filter.selectedType);
   const selectedSort = useAppSelector(state => state.filter.selectedSort);
   const searchInput = useAppSelector(state => state.filter.searchInput);
 
-  const regionPokemonList = useAppSelector(state => state.filter.regionOptions);
-
-  const { data: fetchedRegionOptions } = useGetRegionOptions();
-  const { data: fetchedTypeOptions, isLoading: isFetchingTypeOptions } =
-    useGetTypeListQuery();
-  const { data: fetchedSortOptions } = useGetSortOptions();
+  const { isLoading: isFetchingTypeOptions } = useGetTypeListQuery();
 
   useEffect(() => {
-    dispatch(setRegionOptions(fetchedRegionOptions));
-    dispatch(setSortOptions(fetchedSortOptions));
-
-    dispatch(setSelectedRegion(fetchedRegionOptions[0].region));
-
-    dispatch(setSelectedSort(fetchedSortOptions[0].value));
-  }, []);
-
-  useEffect(() => {
-    if (!isFetchingTypeOptions && fetchedTypeOptions) {
-      dispatch(setTypeOptions(fetchedTypeOptions.results));
-      dispatch(setSelectedType(fetchedTypeOptions.results[0].name));
-    }
-  }, [isFetchingTypeOptions]);
-
-  const optionElements =
-    createRegionPokemonListOptionElements(regionPokemonList);
+    dispatch(initializeFilterSlice());
+  }, [dispatch]);
 
   return (
     <>
@@ -101,7 +60,7 @@ const Filters = () => {
               }}
               value={selectedRegion}
             >
-              {optionElements}
+              {createRegionPokemonListOptionElements(regionOptions)}
             </select>
           </div>
         </div>
@@ -116,9 +75,9 @@ const Filters = () => {
               {isFetchingTypeOptions ? (
                 <option>Loading...</option>
               ) : (
-                fetchedTypeOptions?.results.map(type => (
-                  <option key={type.name} value={type.name}>
-                    {type.name}
+                typeOptions.map(type => (
+                  <option key={type} value={type}>
+                    {type}
                   </option>
                 ))
               )}
@@ -134,7 +93,7 @@ const Filters = () => {
               onChange={e => dispatch(setSelectedSort(e.target.value))}
               value={selectedSort}
             >
-              {fetchedSortOptions.map(option => (
+              {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>
                   {option.name}
                 </option>

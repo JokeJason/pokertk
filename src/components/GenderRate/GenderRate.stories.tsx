@@ -1,22 +1,23 @@
-import GenderRate, { GenderRateProps } from './GenderRate';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-export default {
+import GenderRate from './GenderRate';
+
+const meta: Meta<typeof GenderRate> = {
   title: 'Component/GenderRate',
   component: GenderRate,
-} as ComponentMeta<typeof GenderRate>;
-
-const Template: ComponentStory<typeof GenderRate> = (args: GenderRateProps) => (
-  <GenderRate {...args} />
-);
-
-export const Primary = Template.bind({});
-
-Primary.args = {
-  genderRatio: 0,
 };
 
-export const Option1 = Template.bind({});
-Option1.args = {
-  genderRatio: 1,
+export default meta;
+type Story = StoryObj<typeof GenderRate>;
+
+export const Option1: Story = {
+  args: {
+    genderRatio: 1,
+  },
+};
+
+export const Option2: Story = {
+  args: {
+    genderRatio: 2,
+  },
 };
