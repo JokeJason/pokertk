@@ -13,7 +13,7 @@ import {
   PokemonSpeciesResponseData,
 } from 'types/api';
 
-type InfoDiaglogDetails = {
+export type InfoDialogDetails = {
   id: number;
   name: string;
   genera: string;
@@ -28,7 +28,7 @@ type InfoDiaglogDetails = {
   evolutionChain: EvolutionSpeciesProps[];
 };
 
-const initialInfoDialogDetails: InfoDiaglogDetails = {
+const initialInfoDialogDetails: InfoDialogDetails = {
   id: 0,
   name: '',
   genera: '',
@@ -45,7 +45,7 @@ const initialInfoDialogDetails: InfoDiaglogDetails = {
 
 export type InfoDialogStateProps = {
   isOpen: boolean;
-  InfoDialogDetails: InfoDiaglogDetails;
+  InfoDialogDetails: InfoDialogDetails;
 };
 
 export const initialState: InfoDialogStateProps = {
@@ -90,7 +90,7 @@ export const constructPokemonInfoFromResponses = (
   fetchedPokemon: PokemonResponseData,
   fetchedPokemonSpecies: PokemonSpeciesResponseData,
   evolutionChain: EvolutionSpeciesProps[],
-): InfoDiaglogDetails => {
+): InfoDialogDetails => {
   return {
     id: fetchedPokemon.id,
     name: fetchedPokemon.name,
