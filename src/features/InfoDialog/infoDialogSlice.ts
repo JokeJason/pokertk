@@ -114,12 +114,12 @@ export const constructPokemonInfoFromResponses = (
 
 export const fetchSelectedPokemonInfo = createAsyncThunk(
   'infoDialog/fetchSelectedPokemonInfo',
-  async (pokemonId: number, thunkAPI) => {
+  async (pokemonIdOrName: number | string, thunkAPI) => {
     const dispatch = thunkAPI.dispatch;
 
     try {
       const selectedPokemon = await dispatch(
-        pokeApi.endpoints.getPokemon.initiate(pokemonId),
+        pokeApi.endpoints.getPokemon.initiate(pokemonIdOrName),
       );
 
       if (selectedPokemon.data) {
