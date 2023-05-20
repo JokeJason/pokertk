@@ -1,55 +1,12 @@
 import { Provider } from 'react-redux';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import InfoDialogComponent from './InfoDialogComponent';
-import { InfoDialogStateProps } from 'features/InfoDialog/infoDialogSlice';
-
-const MockedState = {
-  // Copied from Redux DevTools from browser
-  infoDialog: {
-    isOpen: false,
-    InfoDialogDetails: {
-      id: 0,
-      name: '',
-      genera: '',
-      image: '',
-      types: [],
-      height: 0,
-      weight: 0,
-      genderRatio: 0,
-      description: '',
-      abilities: [],
-      stats: [],
-      evolutionChain: [],
-    },
-  },
-};
-
-interface MockStoreProps {
-  InfoDialogState: InfoDialogStateProps;
-  children: React.ReactNode;
-}
-
-const mockSlice = (infoDialogState: {
-  InfoDialogState: InfoDialogStateProps;
-}) => {
-  return createSlice({
-    name: 'infoDialog',
-    initialState: infoDialogState,
-    reducers: {},
-  });
-};
-
-const mockStore = (infoDialogState: {
-  InfoDialogState: InfoDialogStateProps;
-}) => {
-  return configureStore({
-    reducer: {
-      infoDialog: mockSlice(infoDialogState).reducer,
-    },
-  });
-};
+import {
+  MockedState,
+  MockStoreProps,
+  mockStore,
+} from 'features/InfoDialog/infoDialogSlice.storybook';
 
 const Mockstore: React.FC<MockStoreProps> = ({ InfoDialogState, children }) => (
   <Provider store={mockStore({ InfoDialogState })}>{children}</Provider>
