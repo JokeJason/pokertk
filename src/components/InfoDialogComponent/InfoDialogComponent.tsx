@@ -7,31 +7,18 @@ import { findPokeTypeAsset } from 'components/PokemonTypes';
 import { colorTypeGradients } from 'components/utils';
 import GenderRate from 'components/GenderRate';
 import Delayed from 'components/Delayed';
-import EvolutionSpecies, {
-  EvolutionSpeciesProps,
-} from 'components/EvolutionSpecies';
+import EvolutionSpecies from 'components/EvolutionSpecies';
+import { InfoDialogDetails } from 'features/InfoDialog/infoDialogSlice';
 
 export interface Stat {
   stat__name: string;
   stat__value: number;
 }
 
-export interface InfoDialogComponentProps {
+export type InfoDialogComponentProps = InfoDialogDetails & {
   openDialog: boolean;
   closeDialog: () => void;
-  id: number;
-  name: string;
-  types: string[];
-  genera: string;
-  image: string;
-  height: number;
-  weight: number;
-  genderRatio: number;
-  description: string;
-  abilities: string[];
-  stats: Stat[];
-  evolutionChain: EvolutionSpeciesProps[];
-}
+};
 
 const InfoDialog = ({
   openDialog,

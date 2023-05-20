@@ -1,16 +1,38 @@
+import { Provider } from 'react-redux';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import InfoDialogComponent from './InfoDialogComponent';
+import {
+  MockedState,
+  MockStoreProps,
+  mockStore,
+} from 'features/InfoDialog/infoDialogSlice.storybook';
+
+const Mockstore: React.FC<MockStoreProps> = ({ InfoDialogState, children }) => (
+  <Provider store={mockStore({ InfoDialogState })}>{children}</Provider>
+);
 
 const meta: Meta<typeof InfoDialogComponent> = {
   title: 'Component/InfoDialogComponent',
   component: InfoDialogComponent,
+  decorators: [
+    (story: () => React.ReactNode) => (
+      <div style={{ padding: '3rem' }}>{story()}</div>
+    ),
+  ],
+  tags: ['autodocs'],
+  excludeStories: /.*MockedState$/,
 };
 
 export default meta;
 type Story = StoryObj<typeof InfoDialogComponent>;
 
 export const Duduo: Story = {
+  decorators: [
+    (story: () => React.ReactNode) => (
+      <Mockstore InfoDialogState={MockedState.infoDialog}>{story()}</Mockstore>
+    ),
+  ],
   args: {
     openDialog: true,
     id: 84,

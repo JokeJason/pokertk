@@ -62,31 +62,6 @@ const MockedState = {
       },
     ],
   },
-  filter: {
-    regionOptions: [],
-    typeOptions: [],
-    sortOptions: [],
-    selectedRegion: '',
-    selectedType: '',
-    selectedSort: '',
-    searchInput: '',
-  },
-  pokeApi: {
-    queries: {},
-    mutations: {},
-    provided: {},
-    subscriptions: {},
-    config: {
-      online: true,
-      focused: true,
-      middlewareRegistered: false,
-      refetchOnFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMountOrArgChange: false,
-      keepUnusedDataFor: 60,
-      reducerPath: 'pokeApi',
-    },
-  },
 };
 
 interface MockStoreProps {
@@ -99,11 +74,7 @@ const mockSlice = (pokedexState: PokedexStateProps) => {
   return createSlice({
     name: 'pokedex',
     initialState: pokedexState,
-    reducers: {
-      setIsLoadingPokemons: (state, action) => {
-        state.isLoadingPokemons = action.payload;
-      },
-    },
+    reducers: {},
   });
 };
 const mockStore = (pokedexState: PokedexStateProps) => {

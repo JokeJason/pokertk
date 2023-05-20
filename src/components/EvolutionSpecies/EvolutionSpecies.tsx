@@ -3,18 +3,22 @@ import { motion } from 'framer-motion';
 import './EvolutionSpecies.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { colorTypeGradients } from 'components/utils';
+import { useAppDispatch } from '../../app/hooks';
+import { fetchSelectedPokemonInfo } from '../../features/InfoDialog/infoDialogSlice';
 
-export interface EvolutionSpeciesProps {
+export type EvolutionSpeciesProps = {
   types: string[];
   name: string;
   image_url: string;
-}
+};
 
 const EvolutionSpecies = ({
   types,
   name,
   image_url,
 }: EvolutionSpeciesProps) => {
+  const dispatch = useAppDispatch();
+
   const finalColor = colorTypeGradients(types);
 
   return (
@@ -47,6 +51,7 @@ const EvolutionSpecies = ({
                 delayMethod={'debounce'}
                 effect={'blur'}
                 className={'evo_img'}
+                onClick={() => dispatch(fetchSelectedPokemonInfo(name))}
               />
             </div>
           </div>
