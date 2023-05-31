@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# PokeRtk = Pokedex + Redux-Toolkit
 
 A simple PokemonCard catalogue frontend app, build with React, Redux-Toolkit, Material-UI. It uses backend powered by [PokeAPI](https://pokeapi.co/). 
 
