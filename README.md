@@ -22,7 +22,7 @@ Feature of the pokedex application:
 * Show pokemon card detail
 ![show detail](README/5_click_info_icon.gif)
 
-Deployed on [Netlify](https://main--glittery-belekoy-f5e832.netlify.app/)
+Deployed on [Netlify](https://pokedex-rtk.netlify.app/)
 
 ## Available Scripts
 
