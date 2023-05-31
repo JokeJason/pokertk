@@ -1,54 +1,37 @@
 # Getting Started with Create React App
 
-A simple PokemonCard catalogue app, build with React, Redux-Toolkit, Material-UI and PokeAPI. 
+A simple PokemonCard catalogue frontend app, build with React, Redux-Toolkit, Material-UI. It uses backend powered by [PokeAPI](https://pokeapi.co/). 
 
 It's a learning project following [pokedex](https://github.com/s1varam/pokedex). In this project, I practised following skills:
 * Use React to create View for FE
 * Use redux, react-redux, redux-toolkit (RTK) for state management
 * Use storybook to design component
+* Use [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for fetching
+
+Feature of the pokedex application:
+
+* Display list of pokemon cards
+* Fetching pokemon cards by region
+![fetching by region](README/1_fetching_by_region.gif)
+* Filter pokemon cards by type
+![filter by type](README/2_filter_by_type.gif)
+* Sort pokemon cards by name or ID
+![sort by name](README/3_sort_by_id_or_name.gif)
+* Filter pokemon cards by search naming
+![filter by search](README/4_filter_by_search.gif)
+* Show pokemon card detail
+![show detail](README/5_click_info_icon.gif)
+
+Deployed on [Netlify](https://main--glittery-belekoy-f5e832.netlify.app/)
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* `nvm use`: use node version according to `.nvmrc`
+* `yarn start`: run the development server
+* `yarn storybook`: start storybook server to check component rendering
+* `yarn build`: build the app for production
 
 ## TODO
 
@@ -58,3 +41,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 * [ ] Add github icon in header
 * [ ] Use material.ui to display pokemon cards
 * [ ] Fix round corner of InfoDialog component
+* [ ] Add error handling for data fetching across app
+* [x] Deploy through netlify
