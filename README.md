@@ -24,6 +24,8 @@ Feature of the pokedex application:
 
 Deployed on [Netlify](https://pokedex-rtk.netlify.app/)
 
+Storybook builds on [Chromatic](https://www.chromatic.com/builds?appId=645cedbb11414edc1f2eb16c)
+
 ## Available Scripts
 
 In the project directory, you can run:
