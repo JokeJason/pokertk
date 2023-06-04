@@ -9,8 +9,6 @@ import { RegionPokemonRange } from './types/slice';
 import { pokeApi } from 'app/services/pokeApi';
 import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
-pokeApi.endpoints.getTypeList.initiate(); // initialize type list fetching
-
 const initialState: FilterState = {
   regionOptions: [],
   typeOptions: [],
