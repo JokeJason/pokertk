@@ -2,7 +2,7 @@ import {
   filterPokemonCardsByType,
   sortPokemonCardsByIdOrName,
   searchPokemonCardsByName,
-} from 'features/Pokedex/pokedexSlice';
+} from 'features/Pokedex/Pokedex';
 import { PokemonCardProps } from 'components/PokemonCard';
 import pokemon3_venusaur_card from 'features/Pokedex/__test__/pokemon3_venusaur_Card.json';
 import pokemon4_charmander_card from 'features/Pokedex/__test__/pokemon4_charmandar_Card.json';
