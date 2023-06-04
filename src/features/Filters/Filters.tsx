@@ -8,7 +8,7 @@ import {
   setSearchInput,
   initializeFilterSlice,
 } from './filterSlice';
-import { useGetTypeListQuery } from 'app/services/pokeApi';
+import { useGetTypeListQuery } from 'app/services/pokeRestApi';
 import { RegionPokemonRange } from './types/slice';
 import './Filters.css';
 

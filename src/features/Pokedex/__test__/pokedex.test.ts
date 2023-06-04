@@ -10,7 +10,7 @@ import { AppStore } from 'app/store';
 import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { filterSlice } from 'features/Filters/filterSlice';
-import { pokeApi } from 'app/services/pokeApi';
+import { pokeRestApi } from 'app/services/pokeRestApi';
 
 let store: AppStore;
 
@@ -20,10 +20,10 @@ describe('pokedex Component', () => {
       reducer: {
         pokedex: pokedexSlice.reducer,
         filter: filterSlice.reducer,
-        [pokeApi.reducerPath]: pokeApi.reducer,
+        [pokeRestApi.reducerPath]: pokeRestApi.reducer,
       },
       middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(pokeApi.middleware),
+        getDefaultMiddleware().concat(pokeRestApi.middleware),
     });
   });
 

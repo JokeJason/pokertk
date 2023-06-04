@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
 import { filterSlice } from 'features/Filters/filterSlice';
 import { infoDialogSlice } from 'features/InfoDialog/infoDialogSlice';
-import { pokeApi } from './services/pokeApi';
+import { pokeRestApi } from './services/pokeRestApi';
 
 export const store = configureStore({
   reducer: {
@@ -12,10 +12,10 @@ export const store = configureStore({
     infoDialog: infoDialogSlice.reducer,
 
     // api slices
-    [pokeApi.reducerPath]: pokeApi.reducer,
+    [pokeRestApi.reducerPath]: pokeRestApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(pokeApi.middleware),
+    getDefaultMiddleware().concat(pokeRestApi.middleware),
   devTools: true,
 });
 

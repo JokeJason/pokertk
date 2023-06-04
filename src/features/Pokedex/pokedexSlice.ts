@@ -5,7 +5,7 @@ import { PokedexStateProps } from 'features/Pokedex/types/slice';
 
 import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from 'types/api';
-import { pokeApi } from 'app/services/pokeApi';
+import { pokeRestApi } from 'app/services/pokeRestApi';
 import { RootState } from 'app/store';
 
 export const fetchPokemonsInTheRegion = createAsyncThunk<
@@ -25,7 +25,7 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
   );
 
   const pokemonList = pokemonIds.map(id =>
-    dispatch(pokeApi.endpoints.getPokemon.initiate(id))
+    dispatch(pokeRestApi.endpoints.getPokemon.initiate(id))
       .unwrap()
       .then(data => data),
   );
