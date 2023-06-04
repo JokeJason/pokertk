@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PokemonCard, { PokemonCardProps } from 'components/PokemonCard';
+import PokemonCard from 'components/PokemonCard';
 import Loading from 'components/Loading';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
