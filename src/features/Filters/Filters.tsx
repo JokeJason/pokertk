@@ -53,9 +53,7 @@ const Filters = () => {
             <div>REGION</div>
             <select
               name="regionSelect"
-              onChange={e => {
-                dispatch(setSelectedRegion(e.target.value));
-              }}
+              onChange={e => dispatch(setSelectedRegion(e.target.value))}
               value={selectedRegion}
             >
               {createRegionPokemonListOptionElements(regionOptions)}
