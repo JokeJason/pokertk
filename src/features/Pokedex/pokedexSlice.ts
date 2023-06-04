@@ -7,6 +7,7 @@ import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from 'types/api';
 import { pokeRestApi } from 'app/services/pokeRestApi';
 import { RootState } from 'app/store';
+import { PokemonCardProps } from 'components/PokemonCard';
 
 export const fetchPokemonsInTheRegion = createAsyncThunk<
   PokemonResponseData[],
@@ -66,3 +67,57 @@ export const pokedexSlice: Slice<PokedexStateProps> = createSlice({
 export const { setIsLoadingPokemons } = pokedexSlice.actions;
 
 export default pokedexSlice.reducer;
+
+/// selectors
+export const filterPokemonCardsByType = (
+  pokemonList: PokemonCardProps[],
+  selectedType: string,
+) => {
+  return pokemonList.filter(
+    pokemon =>
+      selectedType === 'All Types' ||
+      pokemon.types.some(type => type === selectedType),
+  );
+};
+
+export const sortPokemonCardsByIdOrName = (
+  pokemonList: PokemonCardProps[],
+  selectedSort: string,
+) => {
+  return pokemonList.sort((a, b) => {
+    if (selectedSort === 'id') {
+      return a.id - b.id;
+    } else if (selectedSort === 'name') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return 0;
+    }
+  });
+};
+
+export const searchPokemonCardsByName = (
+  pokemonList: PokemonCardProps[],
+  searchInput: string,
+) => {
+  return pokemonList.filter(pokemon =>
+    pokemon.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
+};
+
+export const filteredPokemonListByType = (state: RootState) =>
+  filterPokemonCardsByType(
+    state.pokedex.pokemonCardList,
+    state.filter.selectedType,
+  );
+
+export const sortedFilteredPokemonCardList = (state: RootState) =>
+  sortPokemonCardsByIdOrName(
+    filteredPokemonListByType(state),
+    state.filter.selectedSort,
+  );
+
+export const searchedSortedFilteredPokemonCardList = (state: RootState) =>
+  searchPokemonCardsByName(
+    sortedFilteredPokemonCardList(state),
+    state.filter.searchInput,
+  );
