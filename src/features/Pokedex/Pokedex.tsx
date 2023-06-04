@@ -11,17 +11,9 @@ import { fetchSelectedPokemonInfo } from 'features/InfoDialog/infoDialogSlice';
 
 export interface PokedexProps {
   selectedRegion: string;
-  selectedType: string;
-  selectedSort: string;
-  searchInput: string;
 }
 
-const Pokedex = ({
-  selectedRegion,
-  selectedType,
-  selectedSort,
-  searchInput,
-}: PokedexProps) => {
+const Pokedex = ({ selectedRegion }: PokedexProps) => {
   const dispatch = useAppDispatch();
 
   const isLoadingPokemons = useAppSelector(

@@ -4,12 +4,12 @@ import {
   PayloadAction,
   Slice,
 } from '@reduxjs/toolkit';
-import { FilterState } from './types/slice';
+import { FilterStateProps } from './types/slice';
 import { RegionPokemonRange } from './types/slice';
 import { pokeRestApi } from 'app/services/pokeRestApi';
 import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
-const initialState: FilterState = {
+export const initialState: FilterStateProps = {
   regionOptions: [],
   typeOptions: [],
   sortOptions: [],
@@ -46,7 +46,7 @@ export const initializeFilterSlice = createAsyncThunk(
   },
 );
 
-export const filterSlice: Slice<FilterState> = createSlice({
+export const filterSlice: Slice<FilterStateProps> = createSlice({
   name: 'filter',
   initialState,
   reducers: {

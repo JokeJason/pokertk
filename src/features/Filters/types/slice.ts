@@ -1,4 +1,4 @@
-export type FilterState = {
+export type FilterStateProps = {
   regionOptions: RegionPokemonRange[];
   typeOptions: string[];
   sortOptions: { name: string; value: string }[];
