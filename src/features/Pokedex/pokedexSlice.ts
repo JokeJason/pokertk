@@ -1,10 +1,11 @@
+import type { PayloadAction, Slice } from '@reduxjs/toolkit';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
 import { PokedexStateProps } from 'features/Pokedex/types/slice';
 
 import { getStartAndEndIdsForRegion } from './utils';
 import { PokemonResponseData } from 'types/api';
+import { pokeApi } from 'app/services/pokeApi';
 import { RootState } from 'app/store';
 
 export const fetchPokemonsInTheRegion = createAsyncThunk<
@@ -22,21 +23,14 @@ export const fetchPokemonsInTheRegion = createAsyncThunk<
     { length: endId - startId + 1 },
     (_, i) => i + startId,
   );
-  // use pokemonIds to fetch pokemon data using fetch, which won't save the data in the cache
-  const pokemonList = await Promise.all(
-    pokemonIds.map(
-      id =>
-        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(res =>
-          res.json(),
-        ) as Promise<PokemonResponseData>,
-    ),
+
+  const pokemonList = pokemonIds.map(id =>
+    dispatch(pokeApi.endpoints.getPokemon.initiate(id))
+      .unwrap()
+      .then(data => data),
   );
 
-  const pokemonListData = pokemonList.map(
-    (pokemon: PokemonResponseData) => pokemon,
-  );
-
-  return pokemonListData;
+  return await Promise.all(pokemonList);
 });
 
 export const initialState: PokedexStateProps = {
