@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
 import {
   setSelectedRegion,
@@ -56,7 +55,6 @@ const Filters = () => {
               name="regionSelect"
               onChange={e => {
                 dispatch(setSelectedRegion(e.target.value));
-                dispatch(fetchPokemonsInTheRegion(e.target.value));
               }}
               value={selectedRegion}
             >

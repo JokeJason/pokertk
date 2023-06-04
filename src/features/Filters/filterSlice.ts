@@ -7,6 +7,7 @@ import {
 import { FilterState } from './types/slice';
 import { RegionPokemonRange } from './types/slice';
 import { pokeApi } from 'app/services/pokeApi';
+import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
 pokeApi.endpoints.getTypeList.initiate(); // initialize type list fetching
 
@@ -53,6 +54,7 @@ export const filterSlice: Slice<FilterState> = createSlice({
   reducers: {
     setSelectedRegion: (state, action: PayloadAction<string>) => {
       state.selectedRegion = action.payload;
+      fetchPokemonsInTheRegion(state.selectedRegion);
     },
     setSelectedType: (state, action: PayloadAction<string>) => {
       state.selectedType = action.payload;
