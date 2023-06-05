@@ -12,8 +12,8 @@ export const getIdFromUrl = (url: string) => {
   return parseInt(urlParts[urlParts.length - 2]);
 };
 
-export const pokeApi = createApi({
-  reducerPath: 'pokeApi',
+export const pokeRestApi = createApi({
+  reducerPath: 'pokeRestApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
   endpoints: builder => ({
     getTypeList: builder.query<TypeListResponseData, void>({
@@ -54,4 +54,4 @@ export const {
   useGetPokemonSpeciesFromUrlQuery,
   useGetEvolutionChainQuery,
   useGetEvolutionChainFromUrlQuery,
-} = pokeApi;
+} = pokeRestApi;

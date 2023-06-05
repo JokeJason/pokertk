@@ -4,13 +4,12 @@ import {
   PayloadAction,
   Slice,
 } from '@reduxjs/toolkit';
-import { FilterState } from './types/slice';
+import { FilterStateProps } from './types/slice';
 import { RegionPokemonRange } from './types/slice';
-import { pokeApi } from 'app/services/pokeApi';
+import { pokeRestApi } from 'app/services/pokeRestApi';
+import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
-pokeApi.endpoints.getTypeList.initiate(); // initialize type list fetching
-
-const initialState: FilterState = {
+export const initialState: FilterStateProps = {
   regionOptions: [],
   typeOptions: [],
   sortOptions: [],
@@ -36,7 +35,7 @@ export const initializeFilterSlice = createAsyncThunk(
       { region: 'galar', startId: 810, endId: 898 },
     ];
 
-    dispatch(pokeApi.endpoints.getTypeList.initiate());
+    dispatch(pokeRestApi.endpoints.getTypeList.initiate());
 
     const sortOptions = [
       { name: 'ID', value: 'id' },
@@ -47,12 +46,13 @@ export const initializeFilterSlice = createAsyncThunk(
   },
 );
 
-export const filterSlice: Slice<FilterState> = createSlice({
+export const filterSlice: Slice<FilterStateProps> = createSlice({
   name: 'filter',
   initialState,
   reducers: {
     setSelectedRegion: (state, action: PayloadAction<string>) => {
       state.selectedRegion = action.payload;
+      fetchPokemonsInTheRegion(state.selectedRegion);
     },
     setSelectedType: (state, action: PayloadAction<string>) => {
       state.selectedType = action.payload;
@@ -87,7 +87,7 @@ export const filterSlice: Slice<FilterState> = createSlice({
       }
     });
     builder.addMatcher(
-      pokeApi.endpoints.getTypeList.matchFulfilled,
+      pokeRestApi.endpoints.getTypeList.matchFulfilled,
       (state, action) => {
         if (action.payload && action.payload.results.length > 0) {
           const regionListResults = action.payload.results;

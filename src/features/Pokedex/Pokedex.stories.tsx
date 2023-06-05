@@ -3,8 +3,10 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import type { Meta } from '@storybook/react';
 
 import Pokedex from './Pokedex';
-import { initialState } from './pokedexSlice';
+import { initialState as initialPokedexState } from './pokedexSlice';
+import { initialState as initialFilterState } from '../Filters/filterSlice';
 import { PokedexStateProps } from './types/slice';
+import { FilterStateProps } from 'features/Filters/types/slice';
 
 const MockedState = {
   // Copied from Redux DevTools from browser
@@ -62,30 +64,55 @@ const MockedState = {
       },
     ],
   },
+  filter: {
+    regionOptions: [],
+    typeOptions: [],
+    sortOptions: [],
+    selectedRegion: 'kanto',
+    selectedType: 'All Types',
+    selectedSort: 'id',
+    searchInput: '',
+  },
 };
 
 interface MockStoreProps {
   pokedexState: PokedexStateProps;
+  filterState: FilterStateProps;
   children: React.ReactNode;
 }
 
 // Create a mock store
-const mockSlice = (pokedexState: PokedexStateProps) => {
+const mockPokedexSlice = (pokedexState: PokedexStateProps) => {
   return createSlice({
     name: 'pokedex',
     initialState: pokedexState,
     reducers: {},
   });
 };
-const mockStore = (pokedexState: PokedexStateProps) => {
+const mockFilterSlice = (filterState: FilterStateProps) => {
+  return createSlice({
+    name: 'filter',
+    initialState: filterState,
+    reducers: {},
+  });
+};
+const mockStore = (
+  pokedexState: PokedexStateProps,
+  filterState: FilterStateProps,
+) => {
   return configureStore({
     reducer: {
-      pokedex: mockSlice(pokedexState).reducer,
+      filter: mockFilterSlice(filterState).reducer,
+      pokedex: mockPokedexSlice(pokedexState).reducer,
     },
   });
 };
-const Mockstore: React.FC<MockStoreProps> = ({ pokedexState, children }) => (
-  <Provider store={mockStore(pokedexState)}>{children}</Provider>
+const Mockstore: React.FC<MockStoreProps> = ({
+  pokedexState,
+  filterState,
+  children,
+}) => (
+  <Provider store={mockStore(pokedexState, filterState)}>{children}</Provider>
 );
 
 const meta: Meta<typeof Pokedex> = {
@@ -105,21 +132,53 @@ export default meta;
 export const Loding = {
   decorators: [
     (story: () => React.ReactNode) => (
-      <Mockstore pokedexState={initialState}>{story()}</Mockstore>
+      <Mockstore
+        pokedexState={initialPokedexState}
+        filterState={initialFilterState}
+      >
+        {story()}
+      </Mockstore>
     ),
   ],
 };
 
-export const Primary = {
+export const All = {
   decorators: [
     (story: () => React.ReactNode) => (
-      <Mockstore pokedexState={MockedState.pokedex}>{story()}</Mockstore>
+      <Mockstore
+        pokedexState={MockedState.pokedex}
+        filterState={MockedState.filter}
+      >
+        {story()}
+      </Mockstore>
     ),
   ],
   args: {
     selectedRegion: 'kanto',
-    selectedType: 'All Types',
-    selectedSort: 'id',
-    searchInput: '',
+  },
+};
+
+const filterStateOnlyFire = {
+  regionOptions: [],
+  typeOptions: [],
+  sortOptions: [],
+  selectedRegion: 'kanto',
+  selectedType: 'fire',
+  selectedSort: 'id',
+  searchInput: '',
+};
+export const typeFireSelected = {
+  decorators: [
+    (story: () => React.ReactNode) => (
+      <Mockstore
+        pokedexState={MockedState.pokedex}
+        filterState={filterStateOnlyFire}
+      >
+        {story()}
+      </Mockstore>
+    ),
+  ],
+  args: {
+    selectedRegion: 'kanto',
   },
 };

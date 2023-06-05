@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import './EvolutionSpecies.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { colorTypeGradients } from 'components/utils';
-import { useAppDispatch } from '../../app/hooks';
-import { fetchSelectedPokemonInfo } from '../../features/InfoDialog/infoDialogSlice';
+import { useAppDispatch } from 'app/hooks';
+import { fetchSelectedPokemonInfo } from 'features/InfoDialog/infoDialogSlice';
 
 export type EvolutionSpeciesProps = {
   types: string[];

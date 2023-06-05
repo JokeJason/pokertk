@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { Slice, PayloadAction } from '@reduxjs/toolkit';
 
-import { pokeApi } from 'app/services/pokeApi';
+import { pokeRestApi } from 'app/services/pokeRestApi';
 import { EvolutionSpeciesProps } from 'components/EvolutionSpecies';
 import { Stat } from 'components/InfoDialogComponent';
 import {
@@ -119,19 +119,19 @@ export const fetchSelectedPokemonInfo = createAsyncThunk(
 
     try {
       const selectedPokemon = await dispatch(
-        pokeApi.endpoints.getPokemon.initiate(pokemonIdOrName),
+        pokeRestApi.endpoints.getPokemon.initiate(pokemonIdOrName),
       );
 
       if (selectedPokemon.data) {
         const selectedPokemonSpecies = await dispatch(
-          pokeApi.endpoints.getPokemonSpeciesFromUrl.initiate(
+          pokeRestApi.endpoints.getPokemonSpeciesFromUrl.initiate(
             selectedPokemon.data.species.url,
           ),
         );
 
         if (selectedPokemonSpecies.data) {
           const selectedPokemonEvolutionChain = await dispatch(
-            pokeApi.endpoints.getEvolutionChainFromUrl.initiate(
+            pokeRestApi.endpoints.getEvolutionChainFromUrl.initiate(
               selectedPokemonSpecies.data.evolution_chain.url,
             ),
           );
@@ -146,7 +146,7 @@ export const fetchSelectedPokemonInfo = createAsyncThunk(
             await Promise.all(
               evolutionChainName.map(async name => {
                 const evolutionChainPokemon = await dispatch(
-                  pokeApi.endpoints.getPokemon.initiate(name),
+                  pokeRestApi.endpoints.getPokemon.initiate(name),
                 );
                 if (evolutionChainPokemon.data) {
                   evolutionChain.push({

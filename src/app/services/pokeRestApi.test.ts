@@ -1,7 +1,7 @@
 import { pokedexSlice } from 'features/Pokedex/pokedexSlice';
-import { pokeApi } from 'app/services/pokeApi';
+import { pokeRestApi } from 'app/services/pokeRestApi';
 import { filterSlice } from 'features/Filters/filterSlice';
-import { getIdFromUrl } from 'app/services/pokeApi';
+import { getIdFromUrl } from 'app/services/pokeRestApi';
 
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -15,25 +15,25 @@ import {
 
 let store: AppStore;
 
-describe('pokeApi', () => {
+describe('pokeRestApi', () => {
   beforeEach(() => {
     store = configureStore({
       reducer: {
         pokedex: pokedexSlice.reducer,
         filter: filterSlice.reducer,
-        [pokeApi.reducerPath]: pokeApi.reducer,
+        [pokeRestApi.reducerPath]: pokeRestApi.reducer,
       },
       middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(pokeApi.middleware),
+        getDefaultMiddleware().concat(pokeRestApi.middleware),
     });
   });
 
   describe('JEST test against mock API', () => {
     describe('test getPokemon query', () => {
       test('visit https://pokeapi.co/api/v2/pokemon/85 returns Dodrio', async () => {
-        await store.dispatch(pokeApi.endpoints.getPokemon.initiate(85));
+        await store.dispatch(pokeRestApi.endpoints.getPokemon.initiate(85));
 
-        const pokemon = pokeApi.endpoints.getPokemon.select(85)(
+        const pokemon = pokeRestApi.endpoints.getPokemon.select(85)(
           store.getState(),
         ).data as PokemonResponseData;
         expect(pokemon?.name).toBe('dodrio');
@@ -48,11 +48,13 @@ describe('pokeApi', () => {
 
     describe('test getPokemonSpecies query', () => {
       test('visit https://pokeapi.co/api/v2/pokemon-species/6/', async () => {
-        await store.dispatch(pokeApi.endpoints.getPokemonSpecies.initiate(6));
+        await store.dispatch(
+          pokeRestApi.endpoints.getPokemonSpecies.initiate(6),
+        );
 
-        const pokemonSpecies = pokeApi.endpoints.getPokemonSpecies.select(6)(
-          store.getState(),
-        ).data as PokemonSpeciesResponseData;
+        const pokemonSpecies = pokeRestApi.endpoints.getPokemonSpecies.select(
+          6,
+        )(store.getState()).data as PokemonSpeciesResponseData;
         expect(pokemonSpecies?.evolution_chain.url).toBe(
           'https://pokeapi.co/api/v2/evolution-chain/2/',
         );
@@ -62,13 +64,13 @@ describe('pokeApi', () => {
     describe('test getPokemonSpecies query', () => {
       test('visit https://pokeapi.co/api/v2/pokemon-species/6/', async () => {
         await store.dispatch(
-          pokeApi.endpoints.getPokemonSpeciesFromUrl.initiate(
+          pokeRestApi.endpoints.getPokemonSpeciesFromUrl.initiate(
             'https://pokeapi.co/api/v2/pokemon-species/6/',
           ),
         );
 
         const pokemonSpecies =
-          pokeApi.endpoints.getPokemonSpeciesFromUrl.select(
+          pokeRestApi.endpoints.getPokemonSpeciesFromUrl.select(
             'https://pokeapi.co/api/v2/pokemon-species/6/',
           )(store.getState()).data as PokemonSpeciesResponseData;
         expect(pokemonSpecies?.evolution_chain.url).toBe(
@@ -79,9 +81,9 @@ describe('pokeApi', () => {
 
     describe('test getTypeList query', () => {
       test('visit https://pokeapi.co/api/v2/type should return correct data in list', async () => {
-        await store.dispatch(pokeApi.endpoints.getTypeList.initiate());
+        await store.dispatch(pokeRestApi.endpoints.getTypeList.initiate());
 
-        const typeListData = pokeApi.endpoints.getTypeList.select()(
+        const typeListData = pokeRestApi.endpoints.getTypeList.select()(
           store.getState(),
         ).data as TypeListResponseData;
         expect(typeListData?.results).toHaveLength(typeListData.count + 1);
@@ -90,11 +92,13 @@ describe('pokeApi', () => {
 
     describe('test getEvolutionChain query', () => {
       test('visit https://pokeapi.co/api/v2/evolution-chain/2/', async () => {
-        await store.dispatch(pokeApi.endpoints.getEvolutionChain.initiate(2));
+        await store.dispatch(
+          pokeRestApi.endpoints.getEvolutionChain.initiate(2),
+        );
 
-        const evolutionChainData = pokeApi.endpoints.getEvolutionChain.select(
-          2,
-        )(store.getState()).data as EvolutionChainResponseData;
+        const evolutionChainData =
+          pokeRestApi.endpoints.getEvolutionChain.select(2)(store.getState())
+            .data as EvolutionChainResponseData;
         expect(evolutionChainData?.chain.species.url).toBe(
           'https://pokeapi.co/api/v2/pokemon-species/4/',
         );
@@ -110,13 +114,13 @@ describe('pokeApi', () => {
     describe('test getEvolutionChainFromUrl query', () => {
       test('visit https://pokeapi.co/api/v2/evolution-chain/2/', async () => {
         await store.dispatch(
-          pokeApi.endpoints.getEvolutionChainFromUrl.initiate(
+          pokeRestApi.endpoints.getEvolutionChainFromUrl.initiate(
             'https://pokeapi.co/api/v2/evolution-chain/2/',
           ),
         );
 
         const evolutionChainData =
-          pokeApi.endpoints.getEvolutionChainFromUrl.select(
+          pokeRestApi.endpoints.getEvolutionChainFromUrl.select(
             'https://pokeapi.co/api/v2/evolution-chain/2/',
           )(store.getState()).data as EvolutionChainResponseData;
         expect(evolutionChainData?.chain.species.url).toBe(

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchPokemonsInTheRegion } from 'features/Pokedex/pokedexSlice';
 
 import {
   setSelectedRegion,
@@ -9,7 +8,7 @@ import {
   setSearchInput,
   initializeFilterSlice,
 } from './filterSlice';
-import { useGetTypeListQuery } from 'app/services/pokeApi';
+import { useGetTypeListQuery } from 'app/services/pokeRestApi';
 import { RegionPokemonRange } from './types/slice';
 import './Filters.css';
 
@@ -54,10 +53,7 @@ const Filters = () => {
             <div>REGION</div>
             <select
               name="regionSelect"
-              onChange={e => {
-                dispatch(setSelectedRegion(e.target.value));
-                dispatch(fetchPokemonsInTheRegion(e.target.value));
-              }}
+              onChange={e => dispatch(setSelectedRegion(e.target.value))}
               value={selectedRegion}
             >
               {createRegionPokemonListOptionElements(regionOptions)}
