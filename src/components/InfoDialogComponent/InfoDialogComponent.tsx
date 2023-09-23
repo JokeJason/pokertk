@@ -39,7 +39,7 @@ const InfoDialog = ({
   const finalColor = colorTypeGradients(types);
 
   return (
-    <div>
+    <>
       <Dialog
         aria-labelledby="customized-dialog-title"
         open={openDialog}
@@ -184,7 +184,7 @@ const InfoDialog = ({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 
