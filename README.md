@@ -37,11 +37,11 @@ In the project directory, you can run:
 
 ## TODO
 
-* [ ] Fix css of Filter component
-* [ ] Fix Poke logo size via css
+* [x] Fix css of Filter component
+* [x] Fix Poke logo size via css
 * [ ] Add day/night toggle in header
-* [ ] Add github icon in header
+* [x] Add github icon in header
 * [ ] Use material.ui to display pokemon cards
-* [ ] Fix round corner of InfoDialog component
+* [x] Fix round corner of InfoDialog component
 * [ ] Add error handling for data fetching across app
 * [x] Deploy through netlify
