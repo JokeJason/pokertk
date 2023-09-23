@@ -41,7 +41,7 @@ In the project directory, you can run:
 * [x] Fix Poke logo size via css
 * [ ] Add day/night toggle in header
 * [x] Add github icon in header
-* [ ] Use material.ui to display pokemon cards
+* [ ] Use material.ui to display pokemon cards in transition
 * [x] Fix round corner of InfoDialog component
 * [ ] Add error handling for data fetching across app
 * [x] Deploy through netlify
