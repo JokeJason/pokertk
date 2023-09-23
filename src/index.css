@@ -38,9 +38,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('assets/images/bg.png');
   background-size: initial;
   background-repeat: repeat;
+  background-image: var(--bggradient);
+  background-color: var(--bgcolor);
 }
 
 code {

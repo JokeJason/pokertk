@@ -49,7 +49,7 @@ const Filters = () => {
     <>
       <div className="filter__container noselect">
         <div className="filter__items">
-          <div>REGION</div>
+          <div>Region</div>
           <select
             name={'regionSelect'}
             onChange={e => dispatch(setSelectedRegion(e.target.value))}
@@ -59,7 +59,7 @@ const Filters = () => {
           </select>
         </div>
         <div className="filter__items">
-          <div>TYPE</div>
+          <div>Type</div>
           <select
             name={'typeSelect'}
             onChange={e => dispatch(setSelectedType(e.target.value))}
@@ -77,7 +77,7 @@ const Filters = () => {
           </select>
         </div>
         <div className="filter__items">
-          <div>SORT BY</div>
+          <div>Sort By</div>
           <select
             name={'sortSelect'}
             disabled={isFetchingTypeOptions}
@@ -92,7 +92,7 @@ const Filters = () => {
           </select>
         </div>
         <div className="filter__items">
-          <div>SEARCH</div>
+          <div>Search</div>
           <input
             type={'text'}
             onChange={e => dispatch(setSearchInput(e.target.value))}
