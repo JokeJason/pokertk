@@ -1,12 +1,58 @@
+/* Header specific styles */
+
+.poke__logo {
+  margin-top: 10px;
+  width: 15vw;
+  -webkit-filter: drop-shadow(5px 0px 0px rgba(0,0,0,0.6));
+  filter: drop-shadow(5px 0px 0px rgba(0,0,0,0.6));
+}
+
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  margin-top: 5vh;
+}
+
+.pokeball__box {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
 .poke__logos {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
 }
 
-.poke__logo {
-  margin-top: 10px;
-  width: 15vw;
-  -webkit-filter: drop-shadow(5px 0px 0px rgba(0, 0, 0, 0.6));
-  filter: drop-shadow(5px 0px 0px rgba(0, 0, 0, 0.6));
+.github__icon, .app__footer {
+  color: var(--colorPrimary);
+}
+
+.github__icon:hover {
+  cursor: pointer;
+}
+
+.switch, .github__icon {
+  width: 5vw;
+  margin: 0 6vw;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media screen and (max-width: 767px) {
+  .poke__logo {
+    width: 35vw;
+  }
 }
