@@ -49,63 +49,55 @@ const Filters = () => {
     <>
       <div className="filter__container noselect">
         <div className="filter__items">
-          <div>
-            <div>REGION</div>
-            <select
-              name="regionSelect"
-              onChange={e => dispatch(setSelectedRegion(e.target.value))}
-              value={selectedRegion}
-            >
-              {createRegionPokemonListOptionElements(regionOptions)}
-            </select>
-          </div>
+          <div>REGION</div>
+          <select
+            name={'regionSelect'}
+            onChange={e => dispatch(setSelectedRegion(e.target.value))}
+            value={selectedRegion}
+          >
+            {createRegionPokemonListOptionElements(regionOptions)}
+          </select>
         </div>
         <div className="filter__items">
-          <div>
-            <div>TYPE</div>
-            <select
-              name="regionSelect"
-              onChange={e => dispatch(setSelectedType(e.target.value))}
-              value={selectedType}
-            >
-              {isFetchingTypeOptions ? (
-                <option>Loading...</option>
-              ) : (
-                typeOptions.map(type => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-        </div>
-        <div className="filter__items">
-          <div>
-            <div>SORT BY</div>
-            <select
-              name="sortSelect"
-              disabled={isFetchingTypeOptions}
-              onChange={e => dispatch(setSelectedSort(e.target.value))}
-              value={selectedSort}
-            >
-              {sortOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.name}
+          <div>TYPE</div>
+          <select
+            name={'typeSelect'}
+            onChange={e => dispatch(setSelectedType(e.target.value))}
+            value={selectedType}
+          >
+            {isFetchingTypeOptions ? (
+              <option>Loading...</option>
+            ) : (
+              typeOptions.map(type => (
+                <option key={type} value={type}>
+                  {type}
                 </option>
-              ))}
-            </select>
-          </div>
+              ))
+            )}
+          </select>
         </div>
         <div className="filter__items">
-          <div>
-            <div>SEARCH</div>
-            <input
-              type="text"
-              onChange={e => dispatch(setSearchInput(e.target.value))}
-              value={searchInput}
-            />
-          </div>
+          <div>SORT BY</div>
+          <select
+            name={'sortSelect'}
+            disabled={isFetchingTypeOptions}
+            onChange={e => dispatch(setSelectedSort(e.target.value))}
+            value={selectedSort}
+          >
+            {sortOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="filter__items">
+          <div>SEARCH</div>
+          <input
+            type={'text'}
+            onChange={e => dispatch(setSearchInput(e.target.value))}
+            value={searchInput}
+          />
         </div>
       </div>
     </>
