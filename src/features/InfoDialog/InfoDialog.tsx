@@ -12,24 +12,22 @@ const InfoDialog = () => {
   );
 
   return (
-    <>
-      <InfoDialogComponent
-        openDialog={isOpen}
-        closeDialog={() => dispatch(setCloseDialog(null))}
-        id={selectedInfoDialogDetails.id}
-        name={selectedInfoDialogDetails.name}
-        types={selectedInfoDialogDetails.types}
-        genera={selectedInfoDialogDetails.genera}
-        image={selectedInfoDialogDetails.image}
-        height={selectedInfoDialogDetails.height}
-        weight={selectedInfoDialogDetails.weight}
-        genderRatio={selectedInfoDialogDetails.genderRatio}
-        description={selectedInfoDialogDetails.description}
-        abilities={selectedInfoDialogDetails.abilities}
-        stats={selectedInfoDialogDetails.stats}
-        evolutionChain={selectedInfoDialogDetails.evolutionChain}
-      />
-    </>
+    <InfoDialogComponent
+      openDialog={isOpen}
+      closeDialog={() => dispatch(setCloseDialog(null))}
+      id={selectedInfoDialogDetails.id}
+      name={selectedInfoDialogDetails.name}
+      types={selectedInfoDialogDetails.types}
+      genera={selectedInfoDialogDetails.genera}
+      image={selectedInfoDialogDetails.image}
+      height={selectedInfoDialogDetails.height}
+      weight={selectedInfoDialogDetails.weight}
+      genderRatio={selectedInfoDialogDetails.genderRatio}
+      description={selectedInfoDialogDetails.description}
+      abilities={selectedInfoDialogDetails.abilities}
+      stats={selectedInfoDialogDetails.stats}
+      evolutionChain={selectedInfoDialogDetails.evolutionChain}
+    />
   );
 };
 
