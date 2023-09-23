@@ -142,30 +142,46 @@ export const fetchSelectedPokemonInfo = createAsyncThunk(
             );
 
             // for each name in evolutionChain, fetch the pokemon
-            const evolutionChain: EvolutionSpeciesProps[] = [];
+            const tempEvolutionChain: {
+              name: string;
+              data: EvolutionSpeciesProps | null;
+            }[] = [];
             await Promise.all(
               evolutionChainName.map(async name => {
                 const evolutionChainPokemon = await dispatch(
                   pokeRestApi.endpoints.getPokemon.initiate(name),
                 );
                 if (evolutionChainPokemon.data) {
-                  evolutionChain.push({
-                    types: evolutionChainPokemon.data.types.map(
-                      type => type.type.name,
-                    ),
+                  tempEvolutionChain.push({
                     name: evolutionChainPokemon.data.name,
-                    image_url:
-                      evolutionChainPokemon.data.sprites.other.dream_world
-                        .front_default,
+                    data: {
+                      types: evolutionChainPokemon.data.types.map(
+                        type => type.type.name,
+                      ),
+                      name: evolutionChainPokemon.data.name,
+                      image_url:
+                        evolutionChainPokemon.data.sprites.other.dream_world
+                          .front_default,
+                    },
                   });
+                } else {
+                  tempEvolutionChain.push({ name, data: null });
                 }
               }),
             );
+            const sortedEvolutionChain = evolutionChainName
+              .map(name => {
+                const found = tempEvolutionChain.find(
+                  pokemon => pokemon.name === name,
+                );
+                return found ? found.data : null;
+              })
+              .filter(Boolean) as EvolutionSpeciesProps[];
 
             const selectedPokemonInfo = constructPokemonInfoFromResponses(
               selectedPokemon.data,
               selectedPokemonSpecies.data,
-              evolutionChain,
+              sortedEvolutionChain,
             );
             return selectedPokemonInfo;
           }
